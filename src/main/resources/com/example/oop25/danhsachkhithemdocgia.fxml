@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="201.0" layoutY="25.0" text="DANH SÁCH ĐỘC GIẢ">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Line endX="318.33331298828125" endY="-3.814697265625E-6" layoutX="235.0" layoutY="64.0" startX="-185.66665649414062" startY="-3.814697265625E-6" />
+      <TableView layoutX="49.0" layoutY="119.0" prefHeight="129.0" prefWidth="530.0">
+        <columns>
+          <TableColumn prefWidth="42.666656494140625" text="STT" />
+          <TableColumn prefWidth="90.6666259765625" text="Mã thẻ độc giả" />
+            <TableColumn prefWidth="92.66668701171875" text="Tên độc giả" />
+            <TableColumn prefWidth="75.0" text="Thông tin" />
+            <TableColumn prefWidth="84.66668701171875" text="Ngày gia hạn" />
+            <TableColumn prefWidth="88.0" text="Ngày hết hạn" />
+            <TableColumn prefWidth="53.33331298828125" text="Ghi chú" />
+        </columns>
+      </TableView>
+      <Button layoutX="502.0" layoutY="336.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="In" />
+      <Button layoutX="422.0" layoutY="336.0" mnemonicParsing="false" text="Quay lại" />
+   </children>
+</Pane>
