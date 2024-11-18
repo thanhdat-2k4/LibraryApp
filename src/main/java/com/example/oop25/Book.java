@@ -71,6 +71,16 @@ public class Book {
         this.num = num;
     }
 
+    // Phương thức cập nhật thông tin sách
+    public void updateBookInfo(String newId, String newNxb, String newName, int newYear, String newAuthor, int newNum) {
+        this.id = newId;
+        this.nxb = newNxb;
+        this.name = newName;
+        this.year = newYear;
+        this.author = newAuthor;
+        this.num = newNum;
+    }
+
     // Phương thức in thông tin sách
     public void printBookInfo() {
         System.out.println("ID: " + id);
@@ -79,11 +89,5 @@ public class Book {
         System.out.println("Năm xuất bản: " + year);
         System.out.println("Tác giả: " + author);
         System.out.println("Số lượng: " + num);
-    }
-
-    public static void main(String[] args) {
-        // Tạo đối tượng Book và in thông tin
-        Book book = new Book("B001", "NXB Giáo Dục", "Lập Trình Java", 2024, "Nguyễn Văn A", 100);
-        book.printBookInfo();
     }
 }
