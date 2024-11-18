@@ -61,6 +61,7 @@ public class Librarian {
             }
         }
     }
+<<<<<<< Updated upstream
 
     public static void main(String[] args) {
         // Tạo lớp quản lý
@@ -99,3 +100,6 @@ public class Librarian {
     }
 }
 
+=======
+}
+>>>>>>> Stashed changes
