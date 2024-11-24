@@ -6,19 +6,17 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.trangchuquanlidocgia">
    <children>
       <Label layoutX="233.0" layoutY="38.0" text="Quản lí độc giả">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button alignment="TOP_LEFT" layoutX="135.0" layoutY="101.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="305.0" text="THÊM ĐỘC GIẢ " />
-      <Button alignment="TOP_LEFT" layoutX="135.0" layoutY="147.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="305.0" text="SỬA THÔNG TIN ĐỘC GIẢ" />
-      <Button alignment="TOP_LEFT" layoutX="135.0" layoutY="194.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="305.0" text="TÌM KIẾM ĐỘC GIẢ" />
-      <Button alignment="TOP_LEFT" layoutX="135.0" layoutY="241.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="305.0" text="ẨN THÔNG TIN ĐỘC GIẢ" />
-      <Button layoutX="482.0" layoutY="339.0" mnemonicParsing="false" text="ĐÓNG" />
+      <Button fx:id="themdocgia" alignment="TOP_LEFT" layoutX="135.0" layoutY="148.0" mnemonicParsing="false" onMouseClicked="#click_themdocgia" prefHeight="25.0" prefWidth="305.0" text="THÊM ĐỘC GIẢ " />
+      <Button fx:id="suathongtindocgia" alignment="TOP_LEFT" layoutX="135.0" layoutY="209.0" mnemonicParsing="false" onMouseClicked="#click_sua" prefHeight="25.0" prefWidth="305.0" text="SỬA THÔNG TIN ĐỘC GIẢ" />
+      <Button fx:id="seatch_docgia" alignment="TOP_LEFT" layoutX="135.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#click_search" prefHeight="25.0" prefWidth="305.0" text="TÌM KIẾM ĐỘC GIẢ" />
+      <Button layoutX="482.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#click_dong" text="ĐÓNG" />
       <Line endX="305.0" endY="-7.62939453125E-6" layoutX="241.0" layoutY="75.0" startX="-183.66665649414062" startY="-7.62939453125E-6" />
    </children>
 </Pane>

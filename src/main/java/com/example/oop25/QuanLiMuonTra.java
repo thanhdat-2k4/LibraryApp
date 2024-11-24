@@ -14,7 +14,7 @@ public class QuanLiMuonTra {
     @FXML
     void click_muon(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DonMuonSach.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 580);
+        Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
@@ -25,7 +25,7 @@ public class QuanLiMuonTra {
     @FXML
     void click_quaylai(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("trangchuquanlidocgia.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 580);
+        Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
@@ -36,7 +36,7 @@ public class QuanLiMuonTra {
     @FXML
     void click_tra(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("phieutra.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 580);
+        Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();

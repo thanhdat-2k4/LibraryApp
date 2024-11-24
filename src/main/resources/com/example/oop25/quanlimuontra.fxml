@@ -4,13 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.QuanLiMuonTra">
    <children>
       <Label alignment="CENTER" layoutX="214.0" layoutY="53.0" prefHeight="43.0" prefWidth="182.0" text="Quản lí mượn trả sách" wrapText="true" />
-      <Button layoutX="61.0" layoutY="139.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="106.0" text="Mượn sách " />
-      <Button layoutX="233.0" layoutY="139.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="106.0" text="Trả sách" />
-      <Button layoutX="408.0" layoutY="136.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="106.0" text="Danh sách mượn" />
-      <Button layoutX="461.0" layoutY="331.0" mnemonicParsing="false" text="Quay lại" />
+      <Button layoutX="61.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#click_muon" prefHeight="59.0" prefWidth="106.0" text="Mượn sách " />
+      <Button layoutX="233.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#click_tra" prefHeight="59.0" prefWidth="106.0" text="Trả sách" />
+      <Button layoutX="408.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#danh_sach" prefHeight="59.0" prefWidth="106.0" text="Danh sách mượn" />
+      <Button layoutX="461.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#click_quaylai" text="Quay lại" />
    </children>
 </Pane>

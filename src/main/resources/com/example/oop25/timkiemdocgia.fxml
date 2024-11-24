@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-radius: 10px;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-radius: 10px;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.timkiemdocgia">
    <children>
       <Rectangle arcHeight="30.0" arcWidth="40.0" fill="#f5f8fb" height="200.0" layoutX="158.0" layoutY="55.0" stroke="BLACK" strokeLineCap="BUTT" strokeType="INSIDE" width="299.0" />
       <TextField layoutX="201.0" layoutY="106.0" prefHeight="25.0" prefWidth="200.0" promptText="Nhập mã thẻ độc giả" />
