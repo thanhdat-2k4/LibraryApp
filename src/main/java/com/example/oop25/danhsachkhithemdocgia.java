@@ -48,7 +48,7 @@ public class danhsachkhithemdocgia implements Initializable {
     void click_quaylai(MouseEvent event) throws IOException {
         // về trang chủ qua lí ng dùng.
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("trangchuquanlidocgia.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 580);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
         Stage stage = new Stage();
         stage.setTitle("Trang chủ quản lí độc giả!");
         stage.setScene(scene);

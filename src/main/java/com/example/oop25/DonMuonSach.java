@@ -16,223 +16,228 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 
-
 public class DonMuonSach {
 
+    @FXML
+    private TableView<Sach> bang_thong_tin_sach;
 
     @FXML
-    private TableColumn<Sach,Boolean> chon;
+    private TableColumn<Sach, Boolean> chon;
 
     @FXML
-    private TextField Ten;
+    private TableColumn<Sach, String> ten_sach, ten_tac_gia, NXB, ISBN;
 
     @FXML
-    private TextField madocgia;
+    private TableColumn<Sach, Integer> so_luong_hien_con, so_luong_muon;
 
     @FXML
-    private DatePicker ngay_muon;
+    private TextField madocgia, ten_docgia;
 
     @FXML
-    private DatePicker ngay_tra;
-
-
-    @FXML
-    private TableView<Sach> bang_thong_tin_sach;  // Sử dụng kiểu `Sach` cho TableView
+    private DatePicker ngay_muon, ngay_tra;
 
     @FXML
-    private TableColumn<Sach, String> ten_sach;         // Cột Tên Sách
-    @FXML
-    private TableColumn<Sach, String> ten_tac_gia;      // Cột Tên Tác Giả
-    @FXML
-    private TableColumn<Sach, String> NXB;              // Cột Nhà Xuất Bản
-    @FXML
-    private TableColumn<Sach, Integer> ISBN;            // Cột ISBN
-    @FXML
-    private TableColumn<Sach, Integer> so_luong_hien_con;  // Cột Số Lượng Hiện Còn
-    @FXML
-    private TableColumn<Sach, Integer> so_luong_muon;      // Cột Số Lượng Mượn
+    public void initialize() {
+        // Cấu hình cột "chon" là CheckBox
+        chon.setCellValueFactory(cellData -> cellData.getValue().chonProperty());
+        chon.setCellFactory(column -> new TableCell<Sach, Boolean>() {
+            private final CheckBox checkBox = new CheckBox();
 
-    @FXML
-    public void loadDataFromDatabase() {
-        ObservableList<Sach> danhSachSach = FXCollections.observableArrayList();
-
-        // Kết nối cơ sở dữ liệu MySQL
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234")) {
-            System.out.println("Kết nối cơ sở dữ liệu thành công!");
-
-            // Truy vấn dữ liệu từ bảng `thông tin sách`
-            String sql = "SELECT * FROM `thông tin sách`";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                ResultSet rs = stmt.executeQuery();
-                while (rs.next()) {
-                    // Lấy dữ liệu từ cơ sở dữ liệu và tạo đối tượng Sach
-                    int isbn = rs.getInt("ISBN");
-                    String tenSach = rs.getString("ten_sach");
-                    String tenTacGia = rs.getString("ten_tac_gia");
-                    String nxb = rs.getString("NXB");
-                    int soLuongHienCon = rs.getInt("so_luong_hien_con");
-                    int soLuongMuon = rs.getInt("so_luong_muon");
-
-                    Sach sach = new Sach(isbn, tenSach, tenTacGia, nxb, soLuongHienCon, soLuongMuon);
-                    danhSachSach.add(sach); // Thêm sách vào danh sách
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            {
+                // Xử lý sự kiện tick vào checkbox
+                checkBox.setOnAction(event -> {
+                    Sach sach = getTableView().getItems().get(getIndex());
+                    sach.setChon(checkBox.isSelected());
+                });
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        // Liên kết dữ liệu với TableView
-        bang_thong_tin_sach.setItems(danhSachSach);
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
 
-        // Đặt các cột trong TableView
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    checkBox.setSelected(item != null && item);
+                    setGraphic(checkBox);
+                }
+            }
+        });
+
+        // Đặt ngày mặc định cho ngày mượn
+        ngay_muon.setValue(LocalDate.now()); // Đặt giá trị mặc định là ngày hôm nay
+
+        // Cấu hình các cột còn lại
         ten_sach.setCellValueFactory(new PropertyValueFactory<>("tenSach"));
         ten_tac_gia.setCellValueFactory(new PropertyValueFactory<>("tenTacGia"));
         NXB.setCellValueFactory(new PropertyValueFactory<>("nxb"));
         ISBN.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         so_luong_hien_con.setCellValueFactory(new PropertyValueFactory<>("soLuongHienCon"));
         so_luong_muon.setCellValueFactory(new PropertyValueFactory<>("soLuongMuon"));
+
+        // Tải dữ liệu từ cơ sở dữ liệu
+        loadDataFromDatabase();
     }
 
 
     @FXML
-    public void initialize() {
-        // Thiết lập ngày hiện tại cho DatePicker ngay_muon
+    public void loadDataFromDatabase() {
+        ObservableList<Sach> danhSachSach = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM `thông tin sách`";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                danhSachSach.add(new Sach(
+                        rs.getString("ISBN"),
+                        rs.getString("ten_sach"),
+                        rs.getString("ten_tac_gia"),
+                        rs.getString("NXB"),
+                        rs.getInt("so_luong_hien_con"),
+                        rs.getInt("so_luong_muon")
+                ));
+            }
+        } catch (SQLException e) {
+            showError("Lỗi khi tải dữ liệu từ cơ sở dữ liệu: " + e.getMessage());
+        }
+
+        bang_thong_tin_sach.setItems(danhSachSach);
+    }
+
+    @FXML
+    public void click_them(MouseEvent event) {
+        // Reset các trường nhập thông tin
+        madocgia.clear();
+        ten_docgia.clear();
         ngay_muon.setValue(LocalDate.now());
-        loadDataFromDatabase(); // Gọi hàm để tải dữ liệu khi ứng dụng khởi động
-        chon.setCellValueFactory(new PropertyValueFactory<>("chon"));  // "chon" là thuộc tính trong lớp Sach
-        chon.setCellFactory(CheckBoxTableCell.forTableColumn(chon));  // Sử dụng CheckBoxTableCell
+        ngay_tra.setValue(null);
 
-    }
+        // Reset trạng thái chọn của các sách
+        for (Sach sach : bang_thong_tin_sach.getItems()) {
+            sach.setChon(false);
+        }
+        bang_thong_tin_sach.refresh(); // Cập nhật lại bảng
 
-
-
-    @FXML
-    void click_quaylai(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("trangchuquanlidocgia.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = null;
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+        showInfo("Đã reset thông tin. Bạn có thể nhập đơn mượn mới.");
     }
 
     @FXML
-    void click_them(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("themdocgia.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = null;
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+    public void click_quaylai(MouseEvent event) {
+        try {
+            // Quay lại màn hình chính
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLiMuonTra.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showError("Không thể quay lại màn hình chính: " + e.getMessage());
+        }
     }
 
     @FXML
-    void click_luu(MouseEvent event) {
-        String ten = Ten.getText().trim();
+    public void click_luu(MouseEvent event) {
+        String ten = ten_docgia.getText().trim();
         String maDocGia = madocgia.getText().trim();
         LocalDate ngayMuon = ngay_muon.getValue();
         LocalDate ngayTra = ngay_tra.getValue();
 
-        // Kiểm tra ngày trả
-        if (ngayTra.isBefore(ngayMuon)) {
-            showError("Ngày trả phải sau hoặc bằng ngày mượn.");
-            return;
-        }
+        if (!validateInputs(ten, maDocGia, ngayMuon, ngayTra)) return;
 
-        // Kết nối cơ sở dữ liệu
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234")) {
-            System.out.println("Kết nối cơ sở dữ liệu thành công!");
+            if (!checkDocGia(conn, ten, maDocGia)) return;
 
-            // Kiểm tra Mã độc giả và tên độc giả trong cơ sở dữ liệu
-            String sqlCheckDocGia = "SELECT ten_docgia FROM `danh sách độc giả` WHERE madocgia = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(sqlCheckDocGia)) {
-                stmt.setString(1, maDocGia);
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    String tenDocGiaTrongDB = rs.getString("ten_docgia");
-                    if (!tenDocGiaTrongDB.equalsIgnoreCase(ten)) {
-                        showError("Tên độc giả không khớp với mã độc giả.");
-                        return;
-                    }
-                } else {
-                    showError("Mã độc giả không tồn tại.");
-                    return;
-                }
-            }
+            ObservableList<Sach> danhSachSach = bang_thong_tin_sach.getItems();
+            boolean hasSelectedBooks = false;
 
-            // Duyệt qua các sách được chọn từ TableView
-            ObservableList<Sach> danhSachSachDaChon = (ObservableList<Sach>) bang_thong_tin_sach.getItems(); // ObservableList<Sach>
-            for (Sach sach : danhSachSachDaChon) {
-                // Nếu sách được chọn (CheckBox được tick)
-                if (sach.getChon().isSelected()) {
-                    // Kiểm tra số lượng sách hiện có
+            for (Sach sach : danhSachSach) {
+                if (sach.isChon()) {
+                    hasSelectedBooks = true;
+
                     if (sach.getSoLuongHienCon() <= 0) {
-                        showError("Sách '" + sach.getTenSach() + "' hiện không có sẵn.");
-                        return;
+                        showError("Sách '" + sach.getTenSach() + "' hiện không còn.");
+                        continue;
                     }
-
-                    // In thông tin sách đã chọn
-                    System.out.println(sach.toString());
-
-                    // Cập nhật thông tin vào bảng `luot_muon`
-                    String sqlInsert = "INSERT INTO luot_muon (ISBN, madocgia, ngay_muon, ngay_tra) VALUES (?, ?, ?, ?)";
-                    try (PreparedStatement insertStmt = conn.prepareStatement(sqlInsert)) {
-                        insertStmt.setString(1, String.valueOf(sach.getIsbn())); // ISBN của sách
-                        insertStmt.setString(2, maDocGia); // Mã độc giả
-                        insertStmt.setString(3, ngayMuon.toString()); // Ngày mượn
-                        insertStmt.setString(4, ngayTra.toString()); // Ngày trả
-                        insertStmt.executeUpdate(); // Thực thi câu lệnh
-                        System.out.println("Đã thêm sách ISBN: " + sach.getIsbn());
-
-                        // Cập nhật số lượng sách trong bảng `thong tin sach`
-                        String sqlUpdateSach = "UPDATE `thong tin sach` SET so_luong_hien_con = ?, so_luong_muon = ? WHERE ISBN = ?";
-                        try (PreparedStatement updateStmt = conn.prepareStatement(sqlUpdateSach)) {
-                            updateStmt.setInt(1, sach.getSoLuongHienCon() - 1); // Giảm số lượng hiện có
-                            updateStmt.setInt(2, sach.getSoLuongMuon() + 1); // Tăng số lượng mượn
-                            updateStmt.setString(3, String.valueOf(sach.getIsbn())); // ISBN của sách
-                            updateStmt.executeUpdate();
-                            System.out.println("Đã cập nhật số lượng sách ISBN: " + sach.getIsbn());
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            showError("Lỗi khi cập nhật số lượng sách.");
-                            return;
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        showError("Lỗi khi thêm sách vào cơ sở dữ liệu.");
-                        return;
-                    }
+                    processSach(conn, sach, maDocGia, ngayMuon, ngayTra);
                 }
             }
 
-            // Hiển thị thông báo thành công
-            showInfo("Thêm thành công!\nNgày mượn: " + ngayMuon + "\nNgày trả: " + ngayTra);
+            if (!hasSelectedBooks) {
+                showError("Vui lòng chọn ít nhất một sách để mượn.");
+                return;
+            }
+
+            showInfo("Lưu thông tin mượn sách thành công!");
+            loadDataFromDatabase(); // Tải lại dữ liệu sau khi cập nhật
         } catch (SQLException e) {
-            e.printStackTrace();
-            showError("Lỗi kết nối cơ sở dữ liệu: " + e.getMessage());
+            showError("Lỗi cơ sở dữ liệu: " + e.getMessage());
         }
     }
 
 
 
+    private boolean validateInputs(String ten, String maDocGia, LocalDate ngayMuon, LocalDate ngayTra) {
+        if (ten.isEmpty() || maDocGia.isEmpty() || ngayMuon == null || ngayTra == null) {
+            showError("Vui lòng nhập đầy đủ thông tin, bao gồm cả ngày trả.");
+            return false;
+        }
+        if (ngayTra.isBefore(ngayMuon)) {
+            showError("Ngày trả phải sau hoặc bằng ngày mượn.");
+            return false;
+        }
+        return true;
+    }
 
-    // Hiển thị thông báo thành công
-    public void showInfo(String s) {
+    private boolean checkDocGia(Connection conn, String ten, String maDocGia) throws SQLException {
+        String sql = "SELECT ten_docgia FROM `danh sách độc giả` WHERE madocgia = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, maDocGia);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                if (!rs.getString("ten_docgia").equalsIgnoreCase(ten)) {
+                    showError("Tên độc giả không khớp với mã độc giả.");
+                    return false;
+                }
+            } else {
+                showError("Mã độc giả không tồn tại.");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void processSach(Connection conn, Sach sach, String maDocGia, LocalDate ngayMuon, LocalDate ngayTra) throws SQLException {
+        String maPhieu = maDocGia + "_" + sach.getIsbn();
+        String sqlInsert = "INSERT INTO `lượt mượn` (ma_phieu, ISBN, madocgia, ngay_muon, ngay_tra) VALUES (?, ?, ?, ?, ?)";
+        String sqlUpdate = "UPDATE `thông tin sách` SET so_luong_hien_con = so_luong_hien_con - 1, so_luong_muon = so_luong_muon + 1 WHERE ISBN = ?";
+
+        try (PreparedStatement stmtInsert = conn.prepareStatement(sqlInsert);
+             PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+            stmtInsert.setString(1, maPhieu);
+            stmtInsert.setString(2, sach.getIsbn());
+            stmtInsert.setString(3, maDocGia);
+            stmtInsert.setDate(4, Date.valueOf(ngayMuon));
+            stmtInsert.setDate(5, Date.valueOf(ngayTra));
+            stmtInsert.executeUpdate();
+
+            stmtUpdate.setString(1, sach.getIsbn());
+            stmtUpdate.executeUpdate();
+        }
+    }
+
+    private void showInfo(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Thông báo");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
+        alert.setContentText(message);
         alert.showAndWait();
     }
 
-    // Hiển thị thông báo lỗi
-    public void showError(String s) {
+    private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Lỗi");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
+        alert.setContentText(message);
         alert.showAndWait();
     }
 }
+

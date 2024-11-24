@@ -30,7 +30,7 @@ public class trangchuquanlidocgia {
     void click_dong(MouseEvent event) throws IOException {
         //đi đến trang chủ
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Trangchu.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 580);
+        Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Trang chủ  !");
@@ -43,7 +43,7 @@ public class trangchuquanlidocgia {
     void click_search(MouseEvent event) throws IOException {
         //đi đến tìm kiếm  độc giả
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("giaodientimkiemdocgia.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 580);
+        Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("tìm kiếm  độc giả  !");
@@ -56,7 +56,7 @@ public class trangchuquanlidocgia {
     void click_sua(MouseEvent event) throws IOException {
        //đi đến sưar  độc giả
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("giaodientimkiemdocgia.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 580);
+        Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Trang sửa thông tin !");
@@ -69,7 +69,7 @@ public class trangchuquanlidocgia {
     void click_themdocgia(MouseEvent event) throws IOException {
         //đi đến thêm  độc giả
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("themdocgia.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 580);
+        Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("phiếu thêm độc giả  !");

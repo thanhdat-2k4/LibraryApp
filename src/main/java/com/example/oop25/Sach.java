@@ -2,7 +2,6 @@ package com.example.oop25;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.scene.control.Cell;
 
 public class Sach {
     private String isbn;  // Mã ISBN
@@ -11,20 +10,20 @@ public class Sach {
     private String nxb;
     private int soLuongHienCon;
     private int soLuongMuon;
-    private BooleanProperty chon;  // Sử dụng BooleanProperty thay vì CheckBox
+    private BooleanProperty chon;  // Sử dụng BooleanProperty cho CheckBox
 
     // Constructor
-    public Sach(int isbn, String tenSach, String tenTacGia, String nxb, int soLuongHienCon, int soLuongMuon) {
-        this.isbn = String.valueOf(isbn);
+    public Sach(String isbn, String tenSach, String tenTacGia, String nxb, int soLuongHienCon, int soLuongMuon) {
+        this.isbn = isbn;
         this.tenSach = tenSach;
         this.tenTacGia = tenTacGia;
         this.nxb = nxb;
         this.soLuongHienCon = soLuongHienCon;
         this.soLuongMuon = soLuongMuon;
-        this.chon = new SimpleBooleanProperty(false);  // Giá trị mặc định là false (unchecked)
+        this.chon = new SimpleBooleanProperty(false);  // Mặc định là false
     }
 
-    // Getters and Setters
+    // Getters và Setters cho các thuộc tính cơ bản
     public String getIsbn() {
         return isbn;
     }
@@ -73,7 +72,7 @@ public class Sach {
         this.soLuongMuon = soLuongMuon;
     }
 
-    // Getter cho chon (BooleanProperty)
+    // BooleanProperty getter và setter
     public BooleanProperty chonProperty() {
         return chon;
     }
@@ -86,7 +85,6 @@ public class Sach {
         this.chon.set(chon);
     }
 
-    // Method to display object info (for debugging)
     @Override
     public String toString() {
         return "Sach{" +
@@ -96,11 +94,6 @@ public class Sach {
                 ", nxb='" + nxb + '\'' +
                 ", soLuongHienCon=" + soLuongHienCon +
                 ", soLuongMuon=" + soLuongMuon +
-                ", chon=" + chon.get() +
                 '}';
-    }
-
-    public Cell<Object> getChon() {
-        return null;
     }
 }
