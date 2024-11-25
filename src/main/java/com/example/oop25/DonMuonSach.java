@@ -207,24 +207,34 @@ public class DonMuonSach {
         return true;
     }
 
+
     private void processSach(Connection conn, Sach sach, String maDocGia, LocalDate ngayMuon, LocalDate ngayTra) throws SQLException {
         String maPhieu = maDocGia + "_" + sach.getIsbn();
-        String sqlInsert = "INSERT INTO `lượt mượn` (ma_phieu, ISBN, madocgia, ngay_muon, ngay_tra) VALUES (?, ?, ?, ?, ?)";
+
+        // Thêm cột tinh_trang với giá trị "đang mượn"
+        String sqlInsert = "INSERT INTO `lượt mượn` (ma_phieu, ISBN, madocgia, ngay_muon, ngay_tra, tinh_trang) VALUES (?, ?, ?, ?, ?, ?)";
         String sqlUpdate = "UPDATE `thông tin sách` SET so_luong_hien_con = so_luong_hien_con - 1, so_luong_muon = so_luong_muon + 1 WHERE ISBN = ?";
 
         try (PreparedStatement stmtInsert = conn.prepareStatement(sqlInsert);
              PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+
+            // Gán các giá trị cho câu lệnh INSERT
             stmtInsert.setString(1, maPhieu);
             stmtInsert.setString(2, sach.getIsbn());
             stmtInsert.setString(3, maDocGia);
             stmtInsert.setDate(4, Date.valueOf(ngayMuon));
             stmtInsert.setDate(5, Date.valueOf(ngayTra));
+            stmtInsert.setString(6, "đang mượn"); // Thêm giá trị cho cột tinh_trang
+
+            // Thực thi câu lệnh INSERT
             stmtInsert.executeUpdate();
 
+            // Gán giá trị và thực thi câu lệnh UPDATE
             stmtUpdate.setString(1, sach.getIsbn());
             stmtUpdate.executeUpdate();
         }
     }
+
 
     private void showInfo(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

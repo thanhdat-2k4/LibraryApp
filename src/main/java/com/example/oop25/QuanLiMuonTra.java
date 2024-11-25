@@ -35,7 +35,7 @@ public class QuanLiMuonTra {
 
     @FXML
     void click_tra(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("phieutra.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("TraSach.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -45,8 +45,14 @@ public class QuanLiMuonTra {
     }
 
     @FXML
-    void danh_sach(MouseEvent event) {
-
+    void danh_sach(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("danhsachmuonsach.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+        // xóa khung
+        ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 
 }

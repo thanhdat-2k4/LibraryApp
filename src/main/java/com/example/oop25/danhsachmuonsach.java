@@ -93,8 +93,8 @@ public class danhsachmuonsach implements Initializable {
                     Sach.ten_sach,
                     Sach.ten_tac_gia,
                     Sach.NXB,
-                    (SELECT COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN) AS so_luong_muon,
-                    (SELECT 5 - COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN) AS so_luong_hien_con
+                    (SELECT COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn') AS so_luong_muon,
+                    (SELECT 5 - COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn') AS so_luong_hien_con
                 FROM
                     `danh sách độc giả` docgia
                 JOIN
@@ -102,7 +102,7 @@ public class danhsachmuonsach implements Initializable {
                 JOIN
                     `thông tin sách` Sach ON luotmuon.ISBN = Sach.ISBN
                 WHERE
-                    docgia.madocgia = ?;
+                    docgia.madocgia = ? AND luotmuon.tinh_trang = 'đang mượn';
                 """;
             } else if (selectedSearchType.equals("Tìm kiếm theo tên")) {
                 // Tìm kiếm theo tên độc giả
@@ -112,8 +112,8 @@ public class danhsachmuonsach implements Initializable {
                     Sach.ten_sach,
                     Sach.ten_tac_gia,
                     Sach.NXB,
-                    (SELECT COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN) AS so_luong_muon,
-                    (SELECT 5 - COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN) AS so_luong_hien_con
+                    (SELECT COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn') AS so_luong_muon,
+                    (SELECT 5 - COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn') AS so_luong_hien_con
                 FROM
                     `danh sách độc giả` docgia
                 JOIN
@@ -121,7 +121,7 @@ public class danhsachmuonsach implements Initializable {
                 JOIN
                     `thông tin sách` Sach ON luotmuon.ISBN = Sach.ISBN
                 WHERE
-                    docgia.ten_docgia = ?;
+                    docgia.ten_docgia = ? AND luotmuon.tinh_trang = 'đang mượn';
                 """;
             } else {
                 showAlert("Lỗi", "Lựa chọn không hợp lệ!", "Vui lòng chọn lại phương pháp tìm kiếm.");
@@ -168,6 +168,7 @@ public class danhsachmuonsach implements Initializable {
             }
         }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -6,17 +6,26 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.trangchuquanlidocgia">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.trangchuquanlidocgia">
    <children>
-      <Label layoutX="233.0" layoutY="38.0" text="Quản lí độc giả">
+      <Label layoutX="433.0" layoutY="56.0" text="Quản lí độc giả">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="themdocgia" alignment="TOP_LEFT" layoutX="135.0" layoutY="148.0" mnemonicParsing="false" onMouseClicked="#click_themdocgia" prefHeight="25.0" prefWidth="305.0" text="THÊM ĐỘC GIẢ " />
-      <Button fx:id="suathongtindocgia" alignment="TOP_LEFT" layoutX="135.0" layoutY="209.0" mnemonicParsing="false" onMouseClicked="#click_sua" prefHeight="25.0" prefWidth="305.0" text="SỬA THÔNG TIN ĐỘC GIẢ" />
-      <Button fx:id="seatch_docgia" alignment="TOP_LEFT" layoutX="135.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#click_search" prefHeight="25.0" prefWidth="305.0" text="TÌM KIẾM ĐỘC GIẢ" />
-      <Button layoutX="482.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#click_dong" text="ĐÓNG" />
-      <Line endX="305.0" endY="-7.62939453125E-6" layoutX="241.0" layoutY="75.0" startX="-183.66665649414062" startY="-7.62939453125E-6" />
+      <Button fx:id="themdocgia" alignment="CENTER" layoutX="333.0" layoutY="192.0" mnemonicParsing="false" onMouseClicked="#click_themdocgia" prefHeight="51.0" prefWidth="305.0" text="THÊM ĐỘC GIẢ ">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Button fx:id="suathongtindocgia" alignment="CENTER" layoutX="333.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#click_sua" prefHeight="51.0" prefWidth="305.0" text="SỬA THÔNG TIN ĐỘC GIẢ">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Button fx:id="seatch_docgia" alignment="CENTER" layoutX="333.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#click_search" prefHeight="51.0" prefWidth="305.0" text="TÌM KIẾM ĐỘC GIẢ">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Button layoutX="719.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#click_dong" prefHeight="44.0" prefWidth="90.0" text="ĐÓNG" />
+      <Line endX="473.66668701171875" endY="-7.62939453125E-6" layoutX="439.0" layoutY="99.0" startX="-341.6666564941406" startY="-7.62939453125E-6" />
    </children>
 </Pane>

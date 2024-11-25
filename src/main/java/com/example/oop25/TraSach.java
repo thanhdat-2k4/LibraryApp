@@ -123,10 +123,58 @@ public class TraSach {
         bang_tra_sach.setItems(sachList);
     }
 
+//    @FXML
+//    void click_trasach(MouseEvent event) {
+//        String maPhieu = ma_phieu.getText().trim();
+//
+//
+//        if (maPhieu.isEmpty()) {
+//            showError("Vui lòng nhập mã phiếu.");
+//            return;
+//        }
+//
+//        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234")) {
+//            // Kiểm tra mã phiếu
+//            String sqlCheckPhieu = "SELECT ISBN FROM `lượt mượn` WHERE ma_phieu = ? AND tinh_trang = 'đang mượn'";
+//            try (PreparedStatement stmtCheck = conn.prepareStatement(sqlCheckPhieu)) {
+//                stmtCheck.setString(1, maPhieu);
+//                ResultSet rs = stmtCheck.executeQuery();
+//
+//                if (rs.next()) {
+//                    String isbn = rs.getString("ISBN");
+//
+//                    // Cập nhật trạng thái phiếu mượn
+//                    String sqlUpdateTinhTrang = "UPDATE `lượt mượn` SET tinh_trang = 'đã trả' WHERE ma_phieu = ?";
+//                    try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdateTinhTrang)) {
+//                        stmtUpdate.setString(1, maPhieu);
+//                        stmtUpdate.executeUpdate();
+//
+//                        // Cập nhật thông tin sách
+//                        String sqlUpdateSach = """
+//                        UPDATE `thông tin sách`
+//                        SET so_luong_hien_con = so_luong_hien_con + 1,
+//                            so_luong_muon = so_luong_muon - 1
+//                        WHERE ISBN = ?;
+//                    """;
+//                        try (PreparedStatement stmtUpdateSach = conn.prepareStatement(sqlUpdateSach)) {
+//                            stmtUpdateSach.setString(1, isbn);
+//                            stmtUpdateSach.executeUpdate();
+//                        }
+//
+//                        showInfo("Trả sách thành công. Trạng thái đã được cập nhật.");
+//                    }
+//                } else {
+//                    showError("Không tìm thấy phiếu mượn hoặc phiếu đã trả.");
+//                }
+//            }
+//        } catch (SQLException e) {
+//            showError("Lỗi cơ sở dữ liệu: " + e.getMessage());
+//        }
+//    }
+
     @FXML
     void click_trasach(MouseEvent event) {
         String maPhieu = ma_phieu.getText().trim();
-
 
         if (maPhieu.isEmpty()) {
             showError("Vui lòng nhập mã phiếu.");
@@ -134,7 +182,7 @@ public class TraSach {
         }
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234")) {
-            // Kiểm tra mã phiếu
+            // Kiểm tra mã phiếu và trạng thái hiện tại
             String sqlCheckPhieu = "SELECT ISBN FROM `lượt mượn` WHERE ma_phieu = ? AND tinh_trang = 'đang mượn'";
             try (PreparedStatement stmtCheck = conn.prepareStatement(sqlCheckPhieu)) {
                 stmtCheck.setString(1, maPhieu);
@@ -151,26 +199,27 @@ public class TraSach {
 
                         // Cập nhật thông tin sách
                         String sqlUpdateSach = """
-                        UPDATE `thông tin sách`
-                        SET so_luong_hien_con = so_luong_hien_con + 1,
-                            so_luong_muon = so_luong_muon - 1
-                        WHERE ISBN = ?;
+                    UPDATE `thông tin sách`
+                    SET so_luong_hien_con = so_luong_hien_con + 1,
+                        so_luong_muon = so_luong_muon - 1
+                    WHERE ISBN = ?;
                     """;
                         try (PreparedStatement stmtUpdateSach = conn.prepareStatement(sqlUpdateSach)) {
                             stmtUpdateSach.setString(1, isbn);
                             stmtUpdateSach.executeUpdate();
                         }
 
-                        showInfo("Trả sách thành công. Trạng thái đã được cập nhật.");
+                        showInfo("Trả sách thành công! Trạng thái đã được cập nhật thành 'đã trả'.");
                     }
                 } else {
-                    showError("Không tìm thấy phiếu mượn hoặc phiếu đã trả.");
+                    showError("Không tìm thấy phiếu mượn với trạng thái 'đang mượn'. Vui lòng kiểm tra lại.");
                 }
             }
         } catch (SQLException e) {
             showError("Lỗi cơ sở dữ liệu: " + e.getMessage());
         }
     }
+
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
