@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.DanhSachNhanVien">
+   <children>
+      <Label layoutX="312.0" text="DANH SÁCH NHÂN VIÊN">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableView" layoutY="60.0" prefHeight="480.0" prefWidth="1000.0">
+        <columns>
+          <TableColumn fx:id="columnMaNV" prefWidth="110.0" text="Mã nhân viên" />
+          <TableColumn fx:id="columnHoTen" prefWidth="179.0" text="Họ và tên" />
+            <TableColumn fx:id="columnNgaySinh" prefWidth="120.0" text="Ngày sinh" />
+            <TableColumn fx:id="columnDiaChi" prefWidth="330.0" text="Địa chỉ" />
+            <TableColumn fx:id="columnSDT" prefWidth="130.0" text="SĐT" />
+            <TableColumn fx:id="columnCCCD" prefWidth="130.0" text="CCCD" />
+        </columns>
+      </TableView>
+      <Button layoutX="894.0" layoutY="548.0" mnemonicParsing="false" onAction="#click_quaylai" text="Quay lại">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+   </children>
+</AnchorPane>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.ThongKe">
+   <children>
+      <Label layoutX="413.0" layoutY="8.0" prefHeight="50.0" prefWidth="326.0" text="THỐNG KÊ">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Button layoutX="316.0" layoutY="115.0" mnemonicParsing="false" onAction="#click_sachmuon" text="THỐNG KÊ SÁCH MƯỢN">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Button layoutX="307.0" layoutY="257.0" mnemonicParsing="false" onAction="#click_sachconlai" text="THỐNG KÊ SÁCH CÒN LẠI">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Button layoutX="302.0" layoutY="403.0" mnemonicParsing="false" onAction="#click_nguoimuon" text="THỐNG KÊ NGƯỜI MƯỢN">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Button layoutX="893.0" layoutY="549.0" mnemonicParsing="false" onAction="#click_quaylai" text="Quay lại">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+   </children>
+</AnchorPane>

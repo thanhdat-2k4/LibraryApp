@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.ThongTinCaNhan">
+   <children>
+      <Label layoutX="335.0" layoutY="14.0" text="THÔNG TIN CÁ NHÂN">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="200.0" layoutY="97.0" prefHeight="45.0" prefWidth="192.0" text="Mã nhân viên:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="200.0" layoutY="174.0" text="Họ và tên:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="200.0" layoutY="248.0" text="Ngày sinh:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="200.0" layoutY="321.0" text="Địa chỉ:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="200.0" layoutY="393.0" text="Số điện thoại:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="200.0" layoutY="473.0" text="Căn cước công dân:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="892.0" layoutY="549.0" mnemonicParsing="false" onAction="#click_quaylai" text="Quay lại">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <TextField fx:id="textFieldMaNV" layoutX="564.0" layoutY="88.0" prefHeight="54.0" prefWidth="302.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="textFieldHoTen" layoutX="564.0" layoutY="165.0" prefHeight="54.0" prefWidth="302.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="textFieldNgaySinh" layoutX="564.0" layoutY="239.0" prefHeight="54.0" prefWidth="302.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="textFieldDiaChi" layoutX="564.0" layoutY="316.0" prefHeight="54.0" prefWidth="302.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="textFieldSDT" layoutX="564.0" layoutY="389.0" prefHeight="54.0" prefWidth="302.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="textFieldCCCD" layoutX="564.0" layoutY="464.0" prefHeight="54.0" prefWidth="302.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

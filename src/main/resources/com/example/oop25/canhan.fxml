@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.CaNhan">
+   <children>
+      <Label layoutX="250.0" layoutY="14.0" text="CÁ NHÂN - QUẢN LÍ THÔNG TIN">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Button layoutX="314.0" layoutY="191.0" mnemonicParsing="false" onAction="#click_danhsachnhanvien" text="DANH SÁCH NHÂN VIÊN">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Button layoutX="376.0" layoutY="330.0" mnemonicParsing="false" onAction="#click_doimatkhau" text="ĐỔI MẬT KHẨU">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Button layoutX="892.0" layoutY="550.0" mnemonicParsing="false" onAction="#click_quaylai" text="Quay lại">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+   </children>
+</AnchorPane>
