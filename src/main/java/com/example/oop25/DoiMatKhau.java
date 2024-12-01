@@ -1,8 +1,5 @@
 package com.example.oop25;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,40 +7,111 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
+import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DoiMatKhau {
-
-    @FXML
-    private PasswordField confirmpass;
-
     @FXML
     private PasswordField currentpass;
-
     @FXML
     private PasswordField newpass;
-
     @FXML
-    private Label messageLabel; // Thông báo trạng thái
-
+    private PasswordField confirmpass;
     @FXML
-    void click_hientai(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("doimnatkhau.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("Đổi mật khẩu");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            messageLabel.setText("Lỗi: Không thể tải giao diện đổi mật khẩu.");
+    private Label messageLabel;
+
+    public class DatabaseHelper {
+        private static final String URL = "jdbc:mysql://localhost:3306/PasswordDB";
+        private static final String USER = "root";
+        private static final String PASSWORD = "123456789";
+
+        public static Connection getConnection() throws SQLException {
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        }
+
+        public static String getCurrentPassword() throws SQLException {
+            String query = "SELECT new_password FROM passwords ORDER BY updated_at DESC LIMIT 1";
+            try (Connection connection = getConnection();
+                 PreparedStatement statement = connection.prepareStatement(query);
+                 ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("new_password");
+                }
+            }
+            return null;
+        }
+
+        public static void updatePassword(String oldPassword, String newPassword) throws SQLException {
+            String query = "INSERT INTO passwords (old_password, new_password) VALUES (?, ?)";
+            try (Connection connection = getConnection();
+                 PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, oldPassword);
+                statement.setString(2, newPassword);
+                statement.executeUpdate();
+            }
         }
     }
 
     @FXML
-    public void click_quaylai(ActionEvent actionEvent) {
+    private void click_xacnhan() {
+        try {
+            String currentPasswordInput = currentpass.getText();
+            String newPasswordInput = newpass.getText();
+            String confirmPasswordInput = confirmpass.getText();
+
+            if (currentPasswordInput.isEmpty() || newPasswordInput.isEmpty() || confirmPasswordInput.isEmpty()) {
+                messageLabel.setText("Vui lòng nhập đầy đủ vào các ô!");
+                return;
+            }
+
+            if (currentPasswordInput.length() < 8) {
+                messageLabel.setText("Mật khẩu hiện tại phải có ít nhất 8 ký tự!");
+                return;
+            }
+
+            if (newPasswordInput.length() < 8) {
+                messageLabel.setText("Mật khẩu mới phải có ít nhất 8 ký tự!");
+                return;
+            }
+
+            if (confirmPasswordInput.length() < 8) {
+                messageLabel.setText("Mật khẩu xác nhận phải có ít nhất 8 ký tự!");
+                return;
+            }
+
+            // Lấy mật khẩu hiện tại từ database
+            String currentPasswordInDB = DatabaseHelper.getCurrentPassword();
+
+            // Kiểm tra mật khẩu hiện tại
+            if (!currentPasswordInput.equals(currentPasswordInDB)) {
+                messageLabel.setText("Mật khẩu hiện tại sai, vui lòng nhập lại!");
+                return;
+            }
+
+            // Kiểm tra mật khẩu xác nhận
+            if (!newPasswordInput.equals(confirmPasswordInput)) {
+                messageLabel.setText("Mật khẩu xác nhận sai, vui lòng nhập lại!");
+                return;
+            }
+
+            // Cập nhật mật khẩu trong database
+            DatabaseHelper.updatePassword(currentPasswordInput, newPasswordInput);
+            messageLabel.setStyle("-fx-text-fill: green;");
+            messageLabel.setText("Đổi mật khẩu thành công!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            messageLabel.setText("Đã xảy ra lỗi, vui lòng thử lại!");
+        }
+    }
+
+    @FXML
+    private void click_quaylai(ActionEvent actionEvent) { // Nhận tham số ActionEvent
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("canhan.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
@@ -52,55 +120,7 @@ public class DoiMatKhau {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            messageLabel.setText("Lỗi: Không thể tải giao diện cá nhân.");
+            e.printStackTrace();
         }
-    }
-
-    @FXML
-    public void click_xacnhan(ActionEvent actionEvent) {
-        String currentPassInput = currentpass.getText().trim();
-        String newPassInput = newpass.getText().trim();
-        String confirmPassInput = confirmpass.getText().trim();
-
-        if (currentPassInput.isEmpty() || newPassInput.isEmpty() || confirmPassInput.isEmpty()) {
-            messageLabel.setText("Vui lòng nhập đầy đủ vào các ô.");
-            hideMessageAfterDelay();
-            return;
-        }
-
-        if (currentPassInput.length() != 8 || newPassInput.length() != 8 || confirmPassInput.length() != 8) {
-            messageLabel.setText("Mật khẩu phải chứa đúng 8 ký tự.");
-            hideMessageAfterDelay();
-            return;
-        }
-
-        if (!currentPassInput.equals(PasswordStorage.getCurrentPassword())) {
-            messageLabel.setText("Mật khẩu hiện tại không đúng.");
-            hideMessageAfterDelay();
-            return;
-        }
-
-        if (!newPassInput.equals(confirmPassInput)) {
-            messageLabel.setText("Mật khẩu xác nhận không khớp.");
-            hideMessageAfterDelay();
-            return;
-        }
-
-        PasswordStorage.setCurrentPassword(newPassInput);
-        messageLabel.setText("Đổi mật khẩu thành công! Mật khẩu mới đã được cập nhật.");
-        hideMessageAfterDelay();
-        currentpass.clear();
-        newpass.clear();
-        confirmpass.clear();
-    }
-
-    // Hàm ẩn messageLabel sau 10 giây
-    private void hideMessageAfterDelay() {
-        // Sử dụng Timeline để ẩn messageLabel sau 10 giây
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(3), e -> messageLabel.setText(""))
-        );
-        timeline.setCycleCount(1); // Chạy một lần
-        timeline.play(); // Chạy timeline
     }
 }

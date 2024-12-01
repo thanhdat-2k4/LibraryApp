@@ -25,7 +25,6 @@ public class ThongTinCaNhan {
     @FXML
     private TextField textFieldCCCD;
 
-    // Phương thức để thiết lập thông tin nhân viên
     public void setThongTin(NhanVien nhanVien) {
         textFieldMaNV.setText(nhanVien.getMaNV());
         textFieldHoTen.setText(nhanVien.getHoTen());
@@ -46,7 +45,6 @@ public class ThongTinCaNhan {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Bạn có thể hiển thị thông báo lỗi cho người dùng ở đây
         }
     }
 }
