@@ -3,13 +3,26 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.QuanLiMuonTra">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.QuanLiMuonTra">
    <children>
-      <Label alignment="CENTER" layoutX="214.0" layoutY="53.0" prefHeight="43.0" prefWidth="182.0" text="Quản lí mượn trả sách" wrapText="true" />
-      <Button layoutX="61.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#click_muon" prefHeight="59.0" prefWidth="106.0" text="Mượn sách " />
-      <Button layoutX="233.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#click_tra" prefHeight="59.0" prefWidth="106.0" text="Trả sách" />
-      <Button layoutX="408.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#danh_sach" prefHeight="59.0" prefWidth="106.0" text="Danh sách mượn" />
-      <Button layoutX="461.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#click_quaylai" text="Quay lại" />
+      <Label alignment="CENTER" layoutX="349.0" layoutY="57.0" prefHeight="70.0" prefWidth="301.0" text="Quản lí mượn trả sách" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Button layoutX="68.0" layoutY="204.0" mnemonicParsing="false" onMouseClicked="#onBorrowBookButtonClick" prefHeight="70.0" prefWidth="226.0" text="Mượn sách ">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <Button layoutX="368.0" layoutY="204.0" mnemonicParsing="false" onMouseClicked="#onReturnBookButtonClick" prefHeight="70.0" prefWidth="226.0" text="Trả sách">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <Button layoutX="674.0" layoutY="204.0" mnemonicParsing="false" onMouseClicked="#loadBorrowReturnList" prefHeight="70.0" prefWidth="226.0" text="Danh sách mượn/Trả">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <Button layoutX="674.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="55.0" prefWidth="91.0" text="Quay lại" />
    </children>
 </Pane>

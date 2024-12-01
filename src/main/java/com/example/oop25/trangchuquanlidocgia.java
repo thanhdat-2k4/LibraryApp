@@ -13,20 +13,6 @@ import java.io.IOException;
 public class trangchuquanlidocgia {
 
     @FXML
-    private Button an_thong_tin;
-
-    @FXML
-    private Button seatch_docgia;
-
-    @FXML
-    private Button suathongtindocgia;
-
-    @FXML
-    private Button themdocgia;
-
-
-
-    @FXML
     void click_dong(MouseEvent event) throws IOException {
         //đi đến trang chủ
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Trangchu.fxml"));
@@ -78,4 +64,15 @@ public class trangchuquanlidocgia {
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 
+    @FXML
+    void click_deleteReaderInfo(MouseEvent event) throws IOException {
+        //đi đến thêm  độc giả
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("andocgia.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+        // xóa khung
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+    }
 }

@@ -12,7 +12,7 @@ import java.io.IOException;
 public class QuanLiMuonTra {
 
     @FXML
-    void click_muon(MouseEvent event) throws IOException {
+    void onBorrowBookButtonClick(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DonMuonSach.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -23,7 +23,7 @@ public class QuanLiMuonTra {
     }
 
     @FXML
-    void click_quaylai(MouseEvent event) throws IOException {
+    void goBack (MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("trangchuquanlidocgia.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -34,7 +34,7 @@ public class QuanLiMuonTra {
     }
 
     @FXML
-    void click_tra(MouseEvent event) throws IOException {
+    void onReturnBookButtonClick(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("TraSach.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -45,7 +45,7 @@ public class QuanLiMuonTra {
     }
 
     @FXML
-    void danh_sach(MouseEvent event) throws IOException {
+    void loadBorrowReturnList(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("danhsachmuonsach.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();

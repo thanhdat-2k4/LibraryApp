@@ -232,7 +232,7 @@ public class giaodientimkiemdocgia implements Initializable {
 
         // Nếu tất cả hợp lệ, mở trang kế tiếp
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("trangchuquanlidocgia.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 580);
+        Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setTitle("trang chủ quản lí độc giả!");
         stage.setScene(scene);

@@ -10,28 +10,28 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.danhsachmuonsach">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.DanhSachMuonSach">
    <children>
       <Label layoutX="369.0" layoutY="45.0" text="Danh sách mượn sách">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <ToggleButton layoutX="203.0" layoutY="176.0" mnemonicParsing="false" text="Mượn sách" underline="true" />
-      <ToggleButton disable="true" layoutX="285.0" layoutY="176.0" mnemonicParsing="false" onMouseClicked="#click_tra" prefHeight="25.0" prefWidth="75.0" text="Trả sách" />
-      <TextField fx:id="search" layoutX="522.0" layoutY="250.0" onKeyPressed="#nhap_search" prefHeight="25.0" prefWidth="243.0" promptText="Tìm kiếm" />
+      <ToggleButton layoutX="201.0" layoutY="174.0" mnemonicParsing="false" text="Mượn sách" underline="true" />
+      <ToggleButton layoutX="283.0" layoutY="174.0" mnemonicParsing="false" onMouseClicked="#click_tra" prefHeight="25.0" prefWidth="75.0" text="Trả sách" />
+      <TextField fx:id="search" layoutX="520.0" layoutY="248.0" onKeyPressed="#nhap_search" prefHeight="25.0" prefWidth="243.0" promptText="Tìm kiếm" />
       <TableView fx:id="danh_sach_muon" layoutX="113.0" layoutY="338.0" prefHeight="136.0" prefWidth="775.0">
         <columns>
           <TableColumn fx:id="ISBN" prefWidth="81.33334350585938" text="ISBN" />
-            <TableColumn fx:id="ten_sach" prefWidth="142.0000762939453" text="Tên sách" />
-            <TableColumn fx:id="ten_tac_gia" prefWidth="179.33334350585938" text="Tên tác giả" />
-            <TableColumn fx:id="NXB" minWidth="6.6666259765625" prefWidth="128.00006103515625" text="NXB" />
-            <TableColumn fx:id="so_luong_hien_con" prefWidth="112.66668701171875" text="Số lượng hiện còn" />
-            <TableColumn fx:id="so_luong_muon" prefWidth="131.33331298828125" text="Số lượng mượn" />
+            <TableColumn fx:id="ten_sach" prefWidth="135.33338928222656" text="Tên sách" />
+            <TableColumn fx:id="ten_tac_gia" prefWidth="182.66665649414062" text="Tên tác giả" />
+            <TableColumn fx:id="NXB" minWidth="6.6666259765625" prefWidth="133.33331298828125" text="NXB" />
+            <TableColumn fx:id="so_luong_hien_con" prefWidth="128.666748046875" text="Số lượng hiện còn" />
+            <TableColumn fx:id="so_luong_muon" prefWidth="116.6666259765625" text="Số lượng mượn" />
         </columns>
       </TableView>
-      <Button layoutX="815.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#click_in" prefHeight="25.0" prefWidth="46.0" text="In" />
+      <Button layoutX="765.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#click_in" prefHeight="25.0" prefWidth="123.0" text="Danh sách mượn" />
       <Button layoutX="710.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#click_thoat" text="Thoát" />
-      <ComboBox fx:id="loai_search" layoutX="202.0" layoutY="250.0" prefHeight="25.0" prefWidth="143.0" promptText="Chọn loại tìm kiếm" />
+      <ComboBox fx:id="loai_search" layoutX="200.0" layoutY="248.0" prefHeight="25.0" prefWidth="143.0" promptText="Chọn loại tìm kiếm" />
    </children>
 </Pane>

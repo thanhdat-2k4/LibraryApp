@@ -67,6 +67,4 @@ public class DocGia {
     public void setGhi_chu(String ghi_chu) {
         this.ghi_chu.set(ghi_chu);
     }
-
-
 }

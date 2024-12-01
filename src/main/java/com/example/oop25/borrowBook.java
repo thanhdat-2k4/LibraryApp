@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 
-public class DonMuonSach {
+public class borrowBook {
 
     @FXML
     private TableView<Sach> bang_thong_tin_sach;

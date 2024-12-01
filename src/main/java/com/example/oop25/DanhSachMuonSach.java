@@ -18,7 +18,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class danhsachmuonsach implements Initializable {
+public class DanhSachMuonSach implements Initializable {
 
     @FXML
     private ComboBox<String> loai_search;
@@ -49,14 +49,61 @@ public class danhsachmuonsach implements Initializable {
 
     @FXML
     void click_in(MouseEvent event) {
-        showAlert("Thông báo", "In danh sách", "Tính năng này chưa được triển khai.");
+        // Câu truy vấn SQL để lấy các sách có tình trạng "đang mượn"
+        String sql = """
+        SELECT
+            t.ISBN,
+            t.ten_sach,
+            t.ten_tac_gia,
+            t.NXB,
+            t.so_luong_hien_con,
+            t.so_luong_muon
+        FROM
+            `thông tin sách` t
+        JOIN
+            `lượt mượn` lm ON t.ISBN = lm.ISBN
+        WHERE
+            lm.tinh_trang = 'đang mượn'
+        GROUP BY
+            t.ISBN, t.ten_sach, t.ten_tac_gia, t.NXB, t.so_luong_hien_con, t.so_luong_muon;
+    """;
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            ObservableList<Sach> results = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                String isbn = resultSet.getString("ISBN");
+                String tenSach = resultSet.getString("ten_sach");
+                String tenTacGia = resultSet.getString("ten_tac_gia");
+                String nxb = resultSet.getString("NXB");
+                int soLuongHienCon = resultSet.getInt("so_luong_hien_con");
+                int soLuongMuon = resultSet.getInt("so_luong_muon");
+
+                results.add(new Sach(isbn, tenSach, tenTacGia, nxb, soLuongHienCon, soLuongMuon));
+            }
+
+            if (!results.isEmpty()) {
+                danh_sach_muon.setItems(results);
+                showAlert("Thông báo", "Danh sách mượn!", "Dữ liệu đã được tải lên bảng.");
+            } else {
+                danh_sach_muon.setItems(FXCollections.observableArrayList());
+                showAlert("Thông báo", "Không có dữ liệu!", "Không tìm thấy sách nào đang mượn.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Lỗi", "Không thể tải dữ liệu!", e.getMessage());
+        }
     }
 
 
 
     @FXML
     void click_thoat(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("trangchuquanlidocgia.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("QuanLiMuonTra.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = (Stage) ((Control) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -71,6 +118,7 @@ public class danhsachmuonsach implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
 
     @FXML
     void nhap_search(KeyEvent event) {
@@ -88,41 +136,41 @@ public class danhsachmuonsach implements Initializable {
             if (selectedSearchType.equals("Tìm kiếm theo mã độc giả ")) {
                 // Tìm kiếm theo mã độc giả
                 sql = """
-                SELECT
-                    Sach.ISBN,
-                    Sach.ten_sach,
-                    Sach.ten_tac_gia,
-                    Sach.NXB,
-                    (SELECT COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn') AS so_luong_muon,
-                    (SELECT 5 - COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn') AS so_luong_hien_con
-                FROM
-                    `danh sách độc giả` docgia
-                JOIN
-                    `lượt mượn` luotmuon ON docgia.madocgia = luotmuon.madocgia
-                JOIN
-                    `thông tin sách` Sach ON luotmuon.ISBN = Sach.ISBN
-                WHERE
-                    docgia.madocgia = ? AND luotmuon.tinh_trang = 'đang mượn';
-                """;
-            } else if (selectedSearchType.equals("Tìm kiếm theo tên")) {
+            SELECT
+                Sach.ISBN,
+                Sach.ten_sach,
+                Sach.ten_tac_gia,
+                Sach.NXB,
+                (SELECT COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn') AS so_luong_muon,
+                (Sach.so_luong_hien_con - (SELECT COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn')) AS so_luong_hien_con
+            FROM
+                `danh sách độc giả` docgia
+            JOIN
+                `lượt mượn` luotmuon ON docgia.madocgia = luotmuon.madocgia
+            JOIN
+                `thông tin sách` Sach ON luotmuon.ISBN = Sach.ISBN
+            WHERE
+                docgia.madocgia = ? AND luotmuon.tinh_trang = 'đang mượn';
+            """;
+            } else if (selectedSearchType.equals("Tìm kiếm theo tên độc giả")) {
                 // Tìm kiếm theo tên độc giả
                 sql = """
-                SELECT
-                    Sach.ISBN,
-                    Sach.ten_sach,
-                    Sach.ten_tac_gia,
-                    Sach.NXB,
-                    (SELECT COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn') AS so_luong_muon,
-                    (SELECT 5 - COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn') AS so_luong_hien_con
-                FROM
-                    `danh sách độc giả` docgia
-                JOIN
-                    `lượt mượn` luotmuon ON docgia.madocgia = luotmuon.madocgia
-                JOIN
-                    `thông tin sách` Sach ON luotmuon.ISBN = Sach.ISBN
-                WHERE
-                    docgia.ten_docgia = ? AND luotmuon.tinh_trang = 'đang mượn';
-                """;
+            SELECT
+                Sach.ISBN,
+                Sach.ten_sach,
+                Sach.ten_tac_gia,
+                Sach.NXB,
+                (SELECT COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn') AS so_luong_muon,
+                (Sach.so_luong_hien_con - (SELECT COUNT(*) FROM `lượt mượn` WHERE ISBN = Sach.ISBN AND tinh_trang = 'đang mượn')) AS so_luong_hien_con
+            FROM
+                `danh sách độc giả` docgia
+            JOIN
+                `lượt mượn` luotmuon ON docgia.madocgia = luotmuon.madocgia
+            JOIN
+                `thông tin sách` Sach ON luotmuon.ISBN = Sach.ISBN
+            WHERE
+                docgia.ten_docgia = ? AND luotmuon.tinh_trang = 'đang mượn';
+            """;
             } else {
                 showAlert("Lỗi", "Lựa chọn không hợp lệ!", "Vui lòng chọn lại phương pháp tìm kiếm.");
                 return;
@@ -153,12 +201,12 @@ public class danhsachmuonsach implements Initializable {
                     results.add(new Sach(isbn, tenSach, tenTacGia, nxb, soLuongHienCon, soLuongMuon));
                 }
 
-                // Cập nhật TableView
+                // Kiểm tra và cập nhật bảng nếu có kết quả
                 if (!results.isEmpty()) {
-                    danh_sach_muon.setItems(results);
+                    danh_sach_muon.setItems(results); // Cập nhật dữ liệu vào TableView
                     showAlert("Thông báo", "Tìm kiếm thành công!", "Đã tìm thấy các sách liên quan.");
                 } else {
-                    danh_sach_muon.setItems(FXCollections.observableArrayList()); // Xóa kết quả trước
+                    danh_sach_muon.setItems(FXCollections.observableArrayList()); // Xóa kết quả cũ nếu không tìm thấy gì
                     showAlert("Thông báo", "Không tìm thấy kết quả!", "Vui lòng kiểm tra lại từ khóa.");
                 }
 
@@ -175,7 +223,7 @@ public class danhsachmuonsach implements Initializable {
         // Cấu hình ComboBox
         ObservableList<String> phuongphap = FXCollections.observableArrayList(
                 "Tìm kiếm theo mã độc giả ",
-                "Tìm kiếm theo tên"
+                "Tìm kiếm theo tên độc giả"
         );
         loai_search.setItems(phuongphap);
 

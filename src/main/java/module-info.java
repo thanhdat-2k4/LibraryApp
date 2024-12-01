@@ -9,7 +9,12 @@ module com.example.oop25 {
     requires java.sql;
     requires mysql.connector.java;
     requires jdk.javadoc;
+    requires org.json;
+    requires com.google.zxing;
+    requires com.google.zxing.javase;
 
     opens com.example.oop25 to javafx.fxml;
     exports com.example.oop25;
+
+
 }
