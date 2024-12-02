@@ -12,6 +12,7 @@ module com.example.oop25 {
     requires org.json;
     requires com.google.zxing;
     requires com.google.zxing.javase;
+    requires javafx.swing;
 
     opens com.example.oop25 to javafx.fxml;
     exports com.example.oop25;

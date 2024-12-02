@@ -8,7 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
+        import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.sql.*;
@@ -121,6 +121,28 @@ public class Themsach {
         }
     }
 
+    private boolean isBookExist(String isbn, String tenSach) {
+        String sql = "SELECT COUNT(*) FROM `thông tin sách` WHERE ISBN = ? OR ten_sach = ?";
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            // Gán giá trị cho câu lệnh SQL
+            preparedStatement.setString(1, isbn);
+            preparedStatement.setString(2, tenSach);
+
+            // Thực thi câu lệnh và kiểm tra kết quả
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0; // Trả về true nếu đã tồn tại
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể kiểm tra sách trong cơ sở dữ liệu!\nChi tiết: " + e.getMessage());
+        }
+        return false;
+    }
+
+
 
     @FXML
     void click_xacnhanthem(MouseEvent event) {
@@ -141,6 +163,12 @@ public class Themsach {
             // Chuyển đổi số lượng sang kiểu int
             int soLuong = Integer.parseInt(soLuongStr);
 
+            // Kiểm tra xem sách đã tồn tại hay chưa
+            if (isBookExist(isbn, tenSach)) {
+                showAlert(Alert.AlertType.WARNING, "Thất bại", "Sách đã tồn tại trong cơ sở dữ liệu!");
+                return;
+            }
+
             // Gọi phương thức thêm sách
             addBookToDatabase(isbn, tenSach, tenTacGia, nxb, soLuong);
 
@@ -154,6 +182,7 @@ public class Themsach {
             showAlert(Alert.AlertType.ERROR, "Lỗi", "Có lỗi xảy ra khi thêm sách: " + e.getMessage());
         }
     }
+
 
     private void clearFields() {
         tfISBN.clear();
