@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Quanlysach">
+    <children>
+        <Label layoutX="244.0" layoutY="72.0" text="Quản lý sách">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Button fx:id="btnThemsach" alignment="BASELINE_LEFT" layoutX="70.0" layoutY="135.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="448.0" text="Thêm sách vào thư viện" onMouseClicked="#click_Themsach" />
+        <Button fx:id="btnXoasach" alignment="BASELINE_LEFT" layoutX="70.0" layoutY="218.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="448.0" text="Xóa sách khỏi thư viện" onMouseClicked="#click_Xoasach" />
+        <Button fx:id="btnSuasach" alignment="BASELINE_LEFT" layoutX="70.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="448.0" text="Sửa thông tin sách" onMouseClicked="#click_Suasach" />
+        <Button fx:id="btnDanhsach" alignment="BASELINE_LEFT" layoutX="70.0" layoutY="260.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="448.0" text="Danh sách sách thư viện" onMouseClicked="#click_Danhsach" />
+        <Button fx:id="btnTimkiemsach" alignment="BASELINE_LEFT" layoutX="70.0" layoutY="296.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="448.0" text="Tìm kiếm sách" onMouseClicked="#click_Timkiemsach" />
+        <Button fx:id="btnReturn" layoutX="506.0" layoutY="352.0" mnemonicParsing="false" text="Quay lại" onMouseClicked="#click_returnTrangchu" />
+    </children>
+</Pane>
