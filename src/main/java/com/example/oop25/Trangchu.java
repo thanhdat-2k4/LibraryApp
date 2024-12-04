@@ -12,14 +12,14 @@ import java.io.IOException;
 public class Trangchu {
 
     @FXML
-    void click_Quanlysach(MouseEvent event) throws IOException {
+    void btnManageBooks(MouseEvent event) throws IOException {
         // Chuyển sang giao diện Quanlysach.fxml
         changeScene(event, "Quanlysach.fxml", "Quản lý sách");
 
     }
 
     @FXML
-    void click_returnLogin(MouseEvent event) throws IOException {
+    void goBack(MouseEvent event) throws IOException {
         // Chuyển về giao diện Login.fxml
         changeScene(event, "Login.fxml", "Đăng nhập");
 
@@ -48,7 +48,7 @@ public class Trangchu {
 
     //quan li doc gia
     @FXML
-    void click_ReaderManagement(MouseEvent event) throws IOException {
+    void ReaderManagement(MouseEvent event) throws IOException {
         changeScene(event, "trangchuquanlidocgia.fxml", "Quản lý độc giả");
     }
 
@@ -57,4 +57,16 @@ public class Trangchu {
     void handleBorrowBookClick(MouseEvent event) throws IOException {
         changeScene(event, "quanlimuontra.fxml", "Quản lý mượn trả sách");
     }
+
+    @FXML
+    void btnManageProfile(MouseEvent event) throws IOException {
+        changeScene(event, "CaNhan.fxml", "Cá nhân");
+    }
+
+    @FXML
+    void btnStatistics(MouseEvent event) throws IOException {
+        changeScene(event, "thongke.fxml", " Thống kê");
+
+    }
+
 }

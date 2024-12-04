@@ -1,5 +1,5 @@
+// cá nhan
 package com.example.oop25;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -7,8 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
-
-public class CaNhan {
+public class Profile {
 
     private void changeScene(ActionEvent event, String fxmlFile, String title, double width, double height) throws IOException {
         try {

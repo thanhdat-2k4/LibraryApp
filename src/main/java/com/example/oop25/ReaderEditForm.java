@@ -1,5 +1,5 @@
+// phieu sua thong tin doc gia
 package com.example.oop25;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class phieusuadocgia {
+public class ReaderEditForm {
 
     @FXML
     private TextField SDT;

@@ -1,111 +1,10 @@
-//package com.example.oop25;
-//
-//import com.mysql.cj.conf.IntegerProperty;
-//import javafx.beans.property.BooleanProperty;
-//import javafx.beans.property.SimpleBooleanProperty;
-//import javafx.beans.property.StringProperty;
-//
-//public class Sach {
-//    private String isbn;  // Mã ISBN
-//    private String tenSach;
-//    private String tenTacGia;
-//    private String nxb;
-//    private int soLuongHienCon;
-//    private int soLuongMuon;
-//    private BooleanProperty chon;  // Sử dụng BooleanProperty cho CheckBox
-//
-//
-//    // Constructor
-//    public Sach(String isbn, String tenSach, String tenTacGia, String nxb, int soLuongHienCon, int soLuongMuon) {
-//        this.isbn = isbn;
-//        this.tenSach = tenSach;
-//        this.tenTacGia = tenTacGia;
-//        this.nxb = nxb;
-//        this.soLuongHienCon = soLuongHienCon;
-//        this.soLuongMuon = soLuongMuon;
-//        this.chon = new SimpleBooleanProperty(false);  // Mặc định là false
-//    }
-//
-//    // Getters và Setters cho các thuộc tính cơ bản
-//    public String getIsbn() {
-//        return isbn;
-//    }
-//
-//    public void setIsbn(String isbn) {
-//        this.isbn = isbn;
-//    }
-//
-//    public String getTenSach() {
-//        return tenSach;
-//    }
-//
-//    public void setTenSach(String tenSach) {
-//        this.tenSach = tenSach;
-//    }
-//
-//    public String getTenTacGia() {
-//        return tenTacGia;
-//    }
-//
-//    public void setTenTacGia(String tenTacGia) {
-//        this.tenTacGia = tenTacGia;
-//    }
-//
-//    public String getNxb() {
-//        return nxb;
-//    }
-//
-//    public void setNxb(String nxb) {
-//        this.nxb = nxb;
-//    }
-//
-//    public int getSoLuongHienCon() {
-//        return soLuongHienCon;
-//    }
-//
-//    public void setSoLuongHienCon(int soLuongHienCon) {
-//        this.soLuongHienCon = soLuongHienCon;
-//    }
-//
-//    public int getSoLuongMuon() {
-//        return soLuongMuon;
-//    }
-//
-//    public void setSoLuongMuon(int soLuongMuon) {
-//        this.soLuongMuon = soLuongMuon;
-//    }
-//
-//    // BooleanProperty getter và setter
-//    public BooleanProperty chonProperty() {
-//        return chon;
-//    }
-//
-//    public boolean isChon() {
-//        return chon.get();
-//    }
-//
-//    public void setChon(boolean chon) {
-//        this.chon.set(chon);
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Sach{" +
-//                "isbn='" + isbn + '\'' +
-//                ", tenSach='" + tenSach + '\'' +
-//                ", tenTacGia='" + tenTacGia + '\'' +
-//                ", nxb='" + nxb + '\'' +
-//                ", soLuongHienCon=" + soLuongHienCon +
-//                ", soLuongMuon=" + soLuongMuon +
-//                '}';
-//    }
-//}
+
 package com.example.oop25;
 
 import javafx.beans.property.*;
 
 public class Sach {
-    private final StringProperty isbn; // ISBN được chuyển thành chuỗi
+    private final StringProperty isbn;
     private final StringProperty tenSach;
     private final StringProperty tenTacGia;
     private final StringProperty nxb;
@@ -211,3 +110,116 @@ public class Sach {
         this.chon.set(chon);
     }
 }
+
+//package com.example.oop25;
+//
+//import javafx.beans.property.*;
+//
+//public class Book {
+//    private final StringProperty bookId;
+//    private final StringProperty bookTitle;
+//    private final StringProperty authorName;
+//    private final StringProperty publisher;
+//    private final IntegerProperty availableCopies;
+//    private final IntegerProperty borrowedCopies;
+//    private BooleanProperty chon;  // BooleanProperty for CheckBox
+//
+//    // Constructor
+//    public Book(String bookId, String bookTitle, String authorName, String publisher, int availableCopies, int borrowedCopies) {
+//        this.bookId = new SimpleStringProperty(bookId); // ISBN is a string
+//        this.bookTitle = new SimpleStringProperty(bookTitle);
+//        this.authorName = new SimpleStringProperty(authorName);
+//        this.publisher = new SimpleStringProperty(publisher);
+//        this.availableCopies = new SimpleIntegerProperty(availableCopies);
+//        this.borrowedCopies = new SimpleIntegerProperty(borrowedCopies);
+//        this.chon = new SimpleBooleanProperty(false);  // Default is false
+//    }
+//
+//    // Getters
+//    public String getBookId() {
+//        return bookId.get();
+//    }
+//
+//    public String getBookTitle() {
+//        return bookTitle.get();
+//    }
+//
+//    public String getAuthorName() {
+//        return authorName.get();
+//    }
+//
+//    public String getPublisher() {
+//        return publisher.get();
+//    }
+//
+//    public int getAvailableCopies() {
+//        return availableCopies.get();
+//    }
+//
+//    public int getBorrowedCopies() {
+//        return borrowedCopies.get();
+//    }
+//
+//    // Properties
+//    public StringProperty bookIdProperty() {
+//        return bookId;
+//    }
+//
+//    public StringProperty bookTitleProperty() {
+//        return bookTitle;
+//    }
+//
+//    public StringProperty authorNameProperty() {
+//        return authorName;
+//    }
+//
+//    public StringProperty publisherProperty() {
+//        return publisher;
+//    }
+//
+//    public IntegerProperty availableCopiesProperty() {
+//        return availableCopies;
+//    }
+//
+//    public IntegerProperty borrowedCopiesProperty() {
+//        return borrowedCopies;
+//    }
+//
+//    // Setters (Optional, if you need to change these properties)
+//    public void setBookId(String bookId) {
+//        this.bookId.set(bookId);
+//    }
+//
+//    public void setBookTitle(String bookTitle) {
+//        this.bookTitle.set(bookTitle);
+//    }
+//
+//    public void setAuthorName(String authorName) {
+//        this.authorName.set(authorName);
+//    }
+//
+//    public void setPublisher(String publisher) {
+//        this.publisher.set(publisher);
+//    }
+//
+//    public void setAvailableCopies(int availableCopies) {
+//        this.availableCopies.set(availableCopies);
+//    }
+//
+//    public void setBorrowedCopies(int borrowedCopies) {
+//        this.borrowedCopies.set(borrowedCopies);
+//    }
+//
+//    // BooleanProperty getter and setter
+//    public BooleanProperty chonProperty() {
+//        return chon;
+//    }
+//
+//    public boolean isChon() {
+//        return chon.get();
+//    }
+//
+//    public void setChon(boolean chon) {
+//        this.chon.set(chon);
+//    }
+//}

@@ -1,5 +1,5 @@
+// tim kiem doc gia
 package com.example.oop25;
-
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,8 +21,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-
-public class giaodientimkiemdocgia implements Initializable {
+public class ReaderSearch implements Initializable {
 
 
 
@@ -34,7 +33,6 @@ public class giaodientimkiemdocgia implements Initializable {
 
     @FXML
     private TableView<DocGia> bang_thong_tin_doc_gia;
-
 
     @FXML
     private TableColumn<DocGia, String> madocgia;
@@ -54,9 +52,20 @@ public class giaodientimkiemdocgia implements Initializable {
     @FXML
     private TableColumn<DocGia, String> ghi_chu;
 
+        @FXML
+    void click_in(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("danhsachkhithemdocgia.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
 
+        // Khởi tạo Stage mới
+        Stage stage = new Stage();
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
 
-
+        // Đóng cửa sổ hiện tại
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
 
     @FXML
     void nhap_search(KeyEvent event) throws SQLException {
@@ -66,80 +75,38 @@ public class giaodientimkiemdocgia implements Initializable {
             // Tạo ObservableList để chứa các kết quả tìm kiếm
             ObservableList<DocGia> docGiaList = FXCollections.observableArrayList();
 
+            String query = "";
             if (i == 0) {
-                // Tìm kiểm theo mã độc giả
-                String codeSQL = "select * from `danh sách độc giả` where madocgia = ?;";
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
-                     PreparedStatement searcher = connection.prepareStatement(codeSQL)) {
-                    searcher.setString(1, search.getText());
-                    ResultSet set = searcher.executeQuery();
-                    while (set.next()) {
-                        docGiaList.add(new DocGia(
-                                set.getString("madocgia"),
-                                set.getString("ten_docgia"),
-                                set.getString("thong_tin"),
-                                set.getString("ngay_giahan"),
-                                set.getString("ngay_hethan"),
-                                set.getString("ghi_chu")
-                        ));
-                    }
-                }
+                // Tìm kiếm theo mã độc giả
+                query = "SELECT * FROM `danh sách độc giả` WHERE madocgia = ?;";
             } else if (i == 1) {
                 // Tìm kiếm theo tên độc giả
-                String codeSQL = "select * from `danh sách độc giả` where ten_docgia = ?;";
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
-                     PreparedStatement searcher = connection.prepareStatement(codeSQL)) {
-                    searcher.setString(1, search.getText());
-                    ResultSet set = searcher.executeQuery();
-                    while (set.next()) {
-                        docGiaList.add(new DocGia(
-                                set.getString("madocgia"),
-                                set.getString("ten_docgia"),
-                                set.getString("thong_tin"),
-                                set.getString("ngay_giahan"),
-                                set.getString("ngay_hethan"),
-                                set.getString("ghi_chu")
-                        ));
-                    }
-                }
+                query = "SELECT * FROM `danh sách độc giả` WHERE ten_docgia = ?;";
             } else if (i == 2) {
                 // Tìm kiếm theo ngày gia hạn
-                String codeSQL = "select * from `danh sách độc giả` where ngay_giahan = ?;";
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
-                     PreparedStatement searcher = connection.prepareStatement(codeSQL)) {
-                    searcher.setString(1, search.getText());
-                    ResultSet set = searcher.executeQuery();
-                    while (set.next()) {
-                        docGiaList.add(new DocGia(
-                                set.getString("madocgia"),
-                                set.getString("ten_docgia"),
-                                set.getString("thong_tin"),
-                                set.getString("ngay_giahan"),
-                                set.getString("ngay_hethan"),
-                                set.getString("ghi_chu")
-                        ));
-                    }
-                }
+                query = "SELECT * FROM `danh sách độc giả` WHERE ngay_giahan = ?;";
             } else if (i == 3) {
                 // Tìm kiếm theo ngày hết hạn
-                String codeSQL = "select * from `danh sách độc giả` where ngay_hethan = ?;";
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
-                     PreparedStatement searcher = connection.prepareStatement(codeSQL)) {
-                    searcher.setString(1, search.getText());
-                    ResultSet set = searcher.executeQuery();
-                    while (set.next()) {
-                        docGiaList.add(new DocGia(
-                                set.getString("madocgia"),
-                                set.getString("ten_docgia"),
-                                set.getString("thong_tin"),
-                                set.getString("ngay_giahan"),
-                                set.getString("ngay_hethan"),
-                                set.getString("ghi_chu")
-                        ));
-                    }
-                }
+                query = "SELECT * FROM `danh sách độc giả` WHERE ngay_hethan = ?;";
             } else {
                 showAlert("Chưa chọn loại tìm kiếm", "Lỗi", "Lỗi");
+                return;
+            }
+
+            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
+                 PreparedStatement searcher = connection.prepareStatement(query)) {
+                searcher.setString(1, search.getText());
+                ResultSet set = searcher.executeQuery();
+                while (set.next()) {
+                    docGiaList.add(new DocGia(
+                            set.getString("madocgia"),
+                            set.getString("ten_docgia"),
+                            set.getString("thong_tin"),
+                            set.getString("ngay_giahan"),
+                            set.getString("ngay_hethan"),
+                            set.getString("ghi_chu")
+                    ));
+                }
             }
 
             // Cập nhật TableView với danh sách docGiaList
@@ -153,7 +120,6 @@ public class giaodientimkiemdocgia implements Initializable {
             }
         }
     }
-
 
     @FXML
     void click_sua(MouseEvent event) throws IOException, SQLException {
@@ -226,10 +192,8 @@ public class giaodientimkiemdocgia implements Initializable {
         });
     }
 
-
     @FXML
     void click_thoat(MouseEvent event) throws IOException {
-
         // Nếu tất cả hợp lệ, mở trang kế tiếp
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("trangchuquanlidocgia.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -249,17 +213,26 @@ public class giaodientimkiemdocgia implements Initializable {
                 "Tìm kiếm theo tên",
                 "Tìm kiếm theo ngày gia hạn",
                 "Tìm kiếm theo ngày hết hạn");
+
         // Cập nhật cột trong TableView
-         madocgia.setCellValueFactory(new PropertyValueFactory<>("madocgia"));
+        madocgia.setCellValueFactory(new PropertyValueFactory<>("madocgia"));
         ten_docgia.setCellValueFactory(new PropertyValueFactory<>("ten_docgia"));
         thong_tin.setCellValueFactory(new PropertyValueFactory<>("thong_tin"));
         ngay_giahan.setCellValueFactory(new PropertyValueFactory<>("ngay_giahan"));
         ngay_hethan.setCellValueFactory(new PropertyValueFactory<>("ngay_hethan"));
         ghi_chu.setCellValueFactory(new PropertyValueFactory<>("ghi_chu"));
 
-        ;
+        // Tải dữ liệu ban đầu vào TableView
+        try {
+            loadData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Lỗi", "Lỗi khi tải dữ liệu", "Có lỗi khi tải dữ liệu độc giả.");
+        }
+
         loai_search.setItems(phuongphap);
     }
+
     public static void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -269,49 +242,42 @@ public class giaodientimkiemdocgia implements Initializable {
     }
 
     private void updateDocGiaInDatabase(DocGia docGia) throws SQLException {
-        String updateSQL = "UPDATE `danh sách độc giả` SET " +
-                "ten_docgia = ?, " +
-                "thong_tin = ?, " +
-                "ngay_giahan = ?, " +
-                "ngay_hethan = ?, " +
-                "ghi_chu = ? " +
-                "WHERE madocgia = ?";
+        String query = "UPDATE `danh sách độc giả` SET ten_docgia = ?, thong_tin = ?, ngay_giahan = ?, ngay_hethan = ?, ghi_chu = ? WHERE madocgia = ?";
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
-             PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            statement.setString(1, docGia.getTen_docgia());
-            statement.setString(2, docGia.getThong_tin());
-            statement.setString(3, docGia.getNgay_giahan());
-            statement.setString(4, docGia.getNgay_hethan());
-            statement.setString(5, docGia.getGhi_chu());
-            statement.setString(6, docGia.getMadocgia());
+            preparedStatement.setString(1, docGia.getTen_docgia());
+            preparedStatement.setString(2, docGia.getThong_tin());
+            preparedStatement.setString(3, docGia.getNgay_giahan());
+            preparedStatement.setString(4, docGia.getNgay_hethan());
+            preparedStatement.setString(5, docGia.getGhi_chu());
+            preparedStatement.setString(6, docGia.getMadocgia());
 
-            // Thực thi câu lệnh cập nhật
-            int rowsUpdated = statement.executeUpdate();
-            if (rowsUpdated > 0) {
-                showAlert("Thông báo", "Cập nhật thành công", "Thông tin độc giả đã được cập nhật.");
-            } else {
-                showAlert("Lỗi", "Cập nhật thất bại", "Không có thay đổi nào được thực hiện.");
-            }
+            preparedStatement.executeUpdate();
         }
     }
 
-    @FXML
-    void click_in(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("danhsachkhithemdocgia.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+    private void loadData() throws SQLException {
+        ObservableList<DocGia> docGiaList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM `danh sách độc giả`";
 
-        // Khởi tạo Stage mới
-        Stage stage = new Stage();
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
 
-        // Đóng cửa sổ hiện tại
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+            while (resultSet.next()) {
+                docGiaList.add(new DocGia(
+                        resultSet.getString("madocgia"),
+                        resultSet.getString("ten_docgia"),
+                        resultSet.getString("thong_tin"),
+                        resultSet.getString("ngay_giahan"),
+                        resultSet.getString("ngay_hethan"),
+                        resultSet.getString("ghi_chu")
+                ));
+            }
+
+            bang_thong_tin_doc_gia.setItems(docGiaList);
+        }
     }
-
 }
-
-

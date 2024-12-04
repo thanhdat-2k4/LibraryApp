@@ -9,29 +9,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.BookBorrowingStats">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.BorrowerStatistics">
     <children>
-        <Label layoutX="281.0" layoutY="7.0" text="THỐNG KÊ SÁCH MƯỢN">
+        <Label layoutX="281.0" layoutY="7.0" text="THỐNG KÊ NGƯỜI MƯỢN">
             <font>
                 <Font size="34.0" />
             </font>
         </Label>
-        <Label layoutX="178.0" layoutY="75.0" text="Năm:" />
-        <Label layoutX="426.0" layoutY="75.0" text="Tháng:" />
-        <Label layoutX="676.0" layoutY="75.0" text="Ngày:" />
-        <MenuButton fx:id="menuNam" layoutX="224.0" layoutY="70.0" mnemonicParsing="false">
+        <Label layoutX="178.0" layoutY="84.0" text="Năm:" />
+        <Label layoutX="426.0" layoutY="84.0" text="Tháng:" />
+        <Label layoutX="676.0" layoutY="84.0" text="Ngày:" />
+        <MenuButton fx:id="btnSelectYear" layoutX="224.0" layoutY="79.0" mnemonicParsing="false">
             <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
             </items>
         </MenuButton>
-        <MenuButton fx:id="menuThang" layoutX="480.0" layoutY="70.0" mnemonicParsing="false">
+        <MenuButton fx:id="btnSelectMonth" layoutX="480.0" layoutY="79.0" mnemonicParsing="false">
             <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
             </items>
         </MenuButton>
-        <MenuButton fx:id="menuNgay" layoutX="724.0" layoutY="70.0" mnemonicParsing="false">
+        <MenuButton fx:id="btnSelectDate" layoutX="724.0" layoutY="79.0" mnemonicParsing="false">
             <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -39,16 +39,16 @@
         </MenuButton>
         <Button layoutX="779.0" layoutY="130.0" mnemonicParsing="false" onMouseClicked="#goBack" text="Quay lại" />
         <Button layoutX="865.0" layoutY="130.0" mnemonicParsing="false" onMouseClicked="#viewList" text="Xem danh sách" />
-        <TableView fx:id="tableView" layoutY="217.0" prefHeight="384.0" prefWidth="1000.0">
+        <TableView fx:id="borrowers" layoutY="238.0" prefHeight="363.0" prefWidth="1000.0">
             <columns>
                 <TableColumn fx:id="orderNumber" prefWidth="68.0" text="STT" />
-                <TableColumn fx:id="ISBN" prefWidth="173.0" text="ISBN" />
-                <TableColumn fx:id="bookTitle" prefWidth="421.0" text="Tên sách" />
-                <TableColumn fx:id="borrowedQuantity" prefWidth="160.0" text="Số lượng mượn" />
-                <TableColumn fx:id="totalBooks" prefWidth="177.0" text="Tổng số lượng" />
+                <TableColumn fx:id="readerID" prefWidth="186.0" text="Mã độc giả" />
+                <TableColumn fx:id="reader" prefWidth="194.0" text="Tên độc giả" />
+                <TableColumn fx:id="borrowBookTitle" prefWidth="353.0" text="Tên sách mượn" />
+                <TableColumn fx:id="borrowStatus" prefWidth="198.0" text="Tình trạng mượn" />
             </columns>
         </TableView>
-        <Label layoutX="293.0" layoutY="172.0" text="DANH SÁCH SÁCH MƯỢN">
+        <Label layoutX="293.0" layoutY="172.0" text="DANH SÁCH NGƯỜI MƯỢN">
             <font>
                 <Font size="30.0" />
             </font>

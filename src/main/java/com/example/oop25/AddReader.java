@@ -1,6 +1,6 @@
+// them doc gia
 package com.example.oop25;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 
-public class themdocgia {
+public class AddReader {
 
     @FXML
     private TextField CCCD;

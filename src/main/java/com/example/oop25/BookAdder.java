@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 import java.sql.*;
 
-public class Themsach {
+public class BookAdder {
 
     // Khai báo thông tin kết nối cơ sở dữ liệu
     private static final String DB_URL = "jdbc:mysql://localhost:3306/library";

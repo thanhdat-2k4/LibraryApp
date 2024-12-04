@@ -1,3 +1,4 @@
+// danh sach trả sách
 package com.example.oop25;
 
 import javafx.collections.FXCollections;
@@ -64,20 +65,20 @@ public class DachSachTraSach {
     void click_in(MouseEvent event) {
         // Câu truy vấn SQL để lấy các sách có tình trạng "đang mượn"
         String sql = """
-        SELECT 
-            t.ISBN, 
-            t.ten_sach, 
-            t.ten_tac_gia, 
-            t.NXB, 
-            t.so_luong_hien_con, 
+        SELECT
+            t.ISBN,
+            t.ten_sach,
+            t.ten_tac_gia,
+            t.NXB,
+            t.so_luong_hien_con,
             t.so_luong_muon
-        FROM 
+        FROM
             `thông tin sách` t
-        JOIN 
+        JOIN
             `lượt mượn` lm ON t.ISBN = lm.ISBN
-        WHERE 
+        WHERE
             lm.tinh_trang = 'đã trả'
-        GROUP BY 
+        GROUP BY
             t.ISBN, t.ten_sach, t.ten_tac_gia, t.NXB, t.so_luong_hien_con, t.so_luong_muon;
     """;
 

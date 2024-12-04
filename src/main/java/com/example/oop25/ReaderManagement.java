@@ -1,16 +1,16 @@
+// trang chủ quan li doc gia
 package com.example.oop25;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class trangchuquanlidocgia {
+public class ReaderManagement {
 
     @FXML
     void click_dong(MouseEvent event) throws IOException {

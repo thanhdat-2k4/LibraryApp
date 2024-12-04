@@ -1,3 +1,5 @@
+// giao dien thong ke
+
 package com.example.oop25;
 
 import javafx.fxml.FXML;
@@ -9,11 +11,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class QuanLiMuonTra {
+public class Statistics {
 
     @FXML
-    void onBorrowBookButtonClick(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DonMuonSach.fxml"));
+    void btnBorrowedBooksStats(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("thongkesachmuon.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -23,8 +25,8 @@ public class QuanLiMuonTra {
     }
 
     @FXML
-    void goBack (MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("trangchuquanlidocgia.fxml"));
+    void btnBorrowerStats(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ThongKeNguoiMuon.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -34,8 +36,8 @@ public class QuanLiMuonTra {
     }
 
     @FXML
-    void onReturnBookButtonClick(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("TraSach.fxml"));
+    void btnRemainingBooksStats(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("thongkesachconlai.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -45,8 +47,8 @@ public class QuanLiMuonTra {
     }
 
     @FXML
-    void loadBorrowReturnList(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("danhsachmuonsach.fxml"));
+    void goBack(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Trangchu.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);

@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.themdocgia">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.AddReader">
    <children>
       <TextField fx:id="matdocgia" layoutX="253.0" layoutY="140.0" prefHeight="25.0" prefWidth="223.0" promptText="Mã  độc giả" />
       <TextField fx:id="CCCD" layoutX="539.0" layoutY="240.0" prefHeight="25.0" prefWidth="223.0" promptText="CCCD :" />
