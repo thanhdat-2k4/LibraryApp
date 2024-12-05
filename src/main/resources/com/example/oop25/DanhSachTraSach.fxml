@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.ReturnBookList">
+   <children>
+      <Label layoutX="379.0" layoutY="55.0" text="Danh sách trả sách">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ToggleButton layoutX="203.0" layoutY="177.0" mnemonicParsing="false" onMouseClicked="#handleBorrowClick" text="Mượn sách" />
+      <ToggleButton layoutX="285.0" layoutY="177.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Trả sách" underline="true" />
+      <TextField fx:id="search" layoutX="522.0" layoutY="251.0" onKeyPressed="#handleSearch" prefHeight="25.0" prefWidth="243.0" promptText="Tìm kiếm" />
+      <TableView fx:id="returnBookTable" layoutX="113.0" layoutY="339.0" prefHeight="136.0" prefWidth="775.0">
+         <columns>
+            <TableColumn fx:id="bookId" prefWidth="84.66665649414062" text="ISBN" />
+            <TableColumn fx:id="bookTitle" prefWidth="150.66665649414062" text="Tên sách" />
+            <TableColumn fx:id="authorName" prefWidth="180.66668701171875" text="Tên tác giả" />
+            <TableColumn fx:id="publisher" minWidth="6.6666259765625" prefWidth="120.666748046875" text="NXB" />
+            <TableColumn fx:id="availableCopies" prefWidth="128.00006103515625" text="Số lượng hiện còn" />
+            <TableColumn fx:id="borrowedCopies" prefWidth="111.3333740234375" text="Số lượng mượn" />
+         </columns>
+      </TableView>
+      <Button layoutX="778.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#handleLoadDataClick" prefHeight="25.0" prefWidth="108.0" text="Danh sách đã trả" />
+      <Button layoutX="710.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#handleExitClick" text="Thoát" />
+      <ComboBox fx:id="searchType" layoutX="202.0" layoutY="251.0" prefHeight="25.0" prefWidth="143.0" promptText="Chọn loại tìm kiếm" />
+   </children>
+</Pane>
