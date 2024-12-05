@@ -18,20 +18,20 @@
          </font>
       </Label>
       <ToggleButton layoutX="201.0" layoutY="174.0" mnemonicParsing="false" text="Mượn sách" underline="true" />
-      <ToggleButton layoutX="283.0" layoutY="174.0" mnemonicParsing="false" onMouseClicked="#click_tra" prefHeight="25.0" prefWidth="75.0" text="Trả sách" />
-      <TextField fx:id="search" layoutX="520.0" layoutY="248.0" onKeyPressed="#nhap_search" prefHeight="25.0" prefWidth="243.0" promptText="Tìm kiếm" />
-      <TableView fx:id="danh_sach_muon" layoutX="113.0" layoutY="338.0" prefHeight="136.0" prefWidth="775.0">
+      <ToggleButton layoutX="283.0" layoutY="174.0" mnemonicParsing="false" onMouseClicked="#onReturnButtonClick" prefHeight="25.0" prefWidth="75.0" text="Trả sách" />
+      <TextField fx:id="searchTextField" layoutX="520.0" layoutY="248.0" onKeyPressed="#onSearchInput" prefHeight="25.0" prefWidth="243.0" promptText="Tìm kiếm" />
+      <TableView fx:id="bookLoanTableView" layoutX="113.0" layoutY="338.0" prefHeight="136.0" prefWidth="775.0">
         <columns>
-          <TableColumn fx:id="ISBN" prefWidth="81.33334350585938" text="ISBN" />
-            <TableColumn fx:id="ten_sach" prefWidth="135.33338928222656" text="Tên sách" />
-            <TableColumn fx:id="ten_tac_gia" prefWidth="182.66665649414062" text="Tên tác giả" />
-            <TableColumn fx:id="NXB" minWidth="6.6666259765625" prefWidth="133.33331298828125" text="NXB" />
-            <TableColumn fx:id="so_luong_hien_con" prefWidth="128.666748046875" text="Số lượng hiện còn" />
-            <TableColumn fx:id="so_luong_muon" prefWidth="116.6666259765625" text="Số lượng mượn" />
+          <TableColumn fx:id="isbnColumn" prefWidth="81.33334350585938" text="ISBN" />
+            <TableColumn fx:id="bookTitleColumn" prefWidth="135.33338928222656" text="Tên sách" />
+            <TableColumn fx:id="authorColumn" prefWidth="182.66665649414062" text="Tên tác giả" />
+            <TableColumn fx:id="publisherColumn" minWidth="6.6666259765625" prefWidth="133.33331298828125" text="NXB" />
+            <TableColumn fx:id="availableCopiesColumn" prefWidth="128.666748046875" text="Số lượng hiện còn" />
+            <TableColumn fx:id="borrowedCopiesColumn" prefWidth="116.6666259765625" text="Số lượng mượn" />
         </columns>
       </TableView>
-      <Button layoutX="765.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#click_in" prefHeight="25.0" prefWidth="123.0" text="Danh sách mượn" />
-      <Button layoutX="710.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#click_thoat" text="Thoát" />
-      <ComboBox fx:id="loai_search" layoutX="200.0" layoutY="248.0" prefHeight="25.0" prefWidth="143.0" promptText="Chọn loại tìm kiếm" />
+      <Button layoutX="765.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#onPrintButtonClick" prefHeight="25.0" prefWidth="123.0" text="Danh sách mượn" />
+      <Button layoutX="710.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#onExitButtonClick" text="Thoát" />
+      <ComboBox fx:id="loaiSearchComboBox" layoutX="200.0" layoutY="248.0" prefHeight="25.0" prefWidth="143.0" promptText="Chọn loại tìm kiếm" />
    </children>
 </Pane>

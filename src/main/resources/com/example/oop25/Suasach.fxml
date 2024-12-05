@@ -8,37 +8,37 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Suasach">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.EditBook">
     <children>
         <Label layoutX="224.0" layoutY="27.0" text="Sửa thông tin sách">
             <font>
                 <Font size="27.0" />
             </font>
         </Label>
-        <Label layoutX="29.0" layoutY="100.0" text="Mã sách ISBN :" />
+        <Label layoutX="43.0" layoutY="100.0" text="ISBN :" />
         <TextField fx:id="tfISBN" layoutX="120.0" layoutY="96.0" />
-        <TextField fx:id="tfNXB" layoutX="445.0" layoutY="96.0" />
-        <TextField fx:id="tfTenSach" layoutX="120.0" layoutY="137.0" />
-        <TextField fx:id="tfTenTacGia" layoutX="120.0" layoutY="179.0" />
-        <TextField fx:id="tfSoLuongHienCon" layoutX="445.0" layoutY="137.0" />
-        <TextField fx:id="tfSoLuongMuon" layoutX="445.0" layoutY="179.0" />
-        <Label layoutX="54.0" layoutY="141.0" text="Tên sách :" />
+        <TextField fx:id="tfPublisher" layoutX="445.0" layoutY="96.0" />
+        <TextField fx:id="tfBookTitle" layoutX="120.0" layoutY="137.0" />
+        <TextField fx:id="tfAuthor" layoutX="120.0" layoutY="179.0" />
+        <TextField fx:id="tfAvailableCopies" layoutX="445.0" layoutY="137.0" />
+        <TextField fx:id="tfBorrowedCopies" layoutX="445.0" layoutY="179.0" />
+        <Label layoutX="43.0" layoutY="141.0" text="Tên sách :" />
         <Label layoutX="43.0" layoutY="183.0" text="Tên tác giả :" />
         <Label layoutX="356.0" layoutY="100.0" text="Nhà xuất bản :" />
         <Label layoutX="335.0" layoutY="141.0" text="Số lượng hiện còn :" />
         <Label layoutX="328.0" layoutY="183.0" text="Số lượng đã mượn :" />
-        <Button layoutX="203.0" layoutY="224.0" mnemonicParsing="false" onMouseClicked="#click_xacnhansua" text="Xác nhận sửa" />
-        <Button layoutX="565.0" layoutY="430.0" mnemonicParsing="false" onMouseClicked="#click_quaylaiquanlysach" text="Quay lại" />
+        <Button layoutX="203.0" layoutY="224.0" mnemonicParsing="false" onMouseClicked="#onConfirmEditClick" text="Xác nhận sửa" />
+        <Button layoutX="565.0" layoutY="430.0" mnemonicParsing="false" onMouseClicked="#onBackToBookManagementClick" text="Quay lại" />
         <TableView fx:id="tableViewBooks" layoutX="12.0" layoutY="291.0" prefHeight="93.0" prefWidth="663.0">
             <columns>
                 <TableColumn fx:id="colISBN" text="Mã sách" />
-                <TableColumn fx:id="colTenSach" text="Tên sách" />
-                <TableColumn fx:id="colTenTacGia" prefWidth="105.59999084472656" text="Tên tác giả" />
-                <TableColumn fx:id="colNXB" prefWidth="128.800048828125" text="Nhà xuất bản" />
-                <TableColumn fx:id="colSoLuongHienCon" prefWidth="135.20001220703125" text="Số lượng hiện còn" />
-                <TableColumn fx:id="colSoLuongMuon" prefWidth="134.39996337890625" text="Số lượng đã mượn" />
+                <TableColumn fx:id="colBookTitle" text="Tên sách" />
+                <TableColumn fx:id="colAuthor" prefWidth="105.59999084472656" text="Tên tác giả" />
+                <TableColumn fx:id="colPublisher" prefWidth="128.800048828125" text="Nhà xuất bản" />
+                <TableColumn fx:id="colAvailableCopies" prefWidth="135.20001220703125" text="Số lượng hiện còn" />
+                <TableColumn fx:id="colBorrowedCopies" prefWidth="134.39996337890625" text="Số lượng đã mượn" />
             </columns>
         </TableView>
-        <Button layoutX="330.0" layoutY="224.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Tự động điền" />
+        <Button layoutX="330.0" layoutY="224.0" mnemonicParsing="false" onMouseClicked="#autoFillBookDetails" prefHeight="25.0" prefWidth="102.0" text="Tự động điền" />
     </children>
 </Pane>

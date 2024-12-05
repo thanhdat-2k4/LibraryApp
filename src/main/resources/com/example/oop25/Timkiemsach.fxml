@@ -8,37 +8,36 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.BookSearch">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.BookSearch">
     <children>
         <Label layoutX="258.0" layoutY="30.0" text="Tìm kiếm sách">
             <font>
                 <Font size="27.0" />
             </font>
         </Label>
-        <Label layoutX="31.0" layoutY="100.0" text="Mã sách :" />
-        <TextField fx:id="txtMaSach" layoutX="87.0" layoutY="96.0" />
-        <TextField fx:id="txtNXB" layoutX="482.0" layoutY="96.0" />
-        <TextField fx:id="txtTenSach" layoutX="87.0" layoutY="137.0" />
-        <TextField fx:id="txtSoLuongHienCon" layoutX="482.0" layoutY="129.0" />
-        <TextField fx:id="txtTenTacGia" layoutX="87.0" layoutY="179.0" />
-        <TextField fx:id="txtSoLuongMuon" layoutX="482.0" layoutY="171.0" />
+        <Label layoutX="31.0" layoutY="100.0" text="ISBN" />
+        <TextField fx:id="txtBookId" layoutX="87.0" layoutY="96.0" />
+        <TextField fx:id="txtPublisher" layoutX="482.0" layoutY="96.0" />
+        <TextField fx:id="txtBookTitle" layoutX="87.0" layoutY="137.0" />
+        <TextField fx:id="txtAvailableQuantity" layoutX="482.0" layoutY="129.0" />
+        <TextField fx:id="txtAuthorName" layoutX="87.0" layoutY="179.0" />
+        <TextField fx:id="txtBorrowedQuantity" layoutX="482.0" layoutY="171.0" />
         <Label layoutX="29.0" layoutY="141.0" text="Tên sách :" />
         <Label layoutX="23.0" layoutY="183.0" text="Tên tác giả :" />
         <Label layoutX="388.0" layoutY="100.0" text="Nhà xuất bản :" />
         <Label layoutX="367.0" layoutY="141.0" text="Số lượng hiện còn :" />
         <Label layoutX="380.0" layoutY="183.0" text="Số lượng mượn :" />
-        <Button layoutX="287.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#click_loc" prefHeight="25.0" prefWidth="80.0" text="Lọc" />
-        <Button layoutX="539.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#click_quaylaiquanlysach" text="Quay lại" />
+        <Button layoutX="287.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#onFilterClick" prefHeight="25.0" prefWidth="80.0" text="Lọc" />
+        <Button layoutX="539.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#onBackToBookManagement" text="Quay lại" />
         <TableView fx:id="tableViewBooks" layoutX="9.0" layoutY="253.0" prefHeight="100.0" prefWidth="667.0">
             <columns>
-                <TableColumn fx:id="colMaSach" prefWidth="79.99996566772461" text="Mã sách" />
-                <TableColumn fx:id="colTenSach" prefWidth="120.800048828125" text="Tên sách" />
-                <TableColumn fx:id="colTenTacGia" prefWidth="133.59999084472656" text="Tên tác giả" />
-                <TableColumn fx:id="colNXB" prefWidth="108.800048828125" text="Nhà xuất bản" />
-                <TableColumn fx:id="colSoLuongHienCon" prefWidth="128.79998779296875" text="Số lượng hiện còn" />
-                <TableColumn fx:id="colSoLuongMuon" prefWidth="94.20001220703125" text="Số lượng mượn" />
+                <TableColumn fx:id="colBookId" prefWidth="79.99996566772461" text="ISBN" />
+                <TableColumn fx:id="colBookTitle" prefWidth="120.800048828125" text="Tên sách" />
+                <TableColumn fx:id="colAuthorName" prefWidth="133.59999084472656" text="Tên tác giả" />
+                <TableColumn fx:id="colPublisher" prefWidth="108.800048828125" text="Nhà xuất bản" />
+                <TableColumn fx:id="colAvailableQuantity" prefWidth="128.79998779296875" text="Số lượng hiện còn" />
+                <TableColumn fx:id="colBorrowedQuantity" prefWidth="94.20001220703125" text="Số lượng mượn" />
             </columns>
         </TableView>
     </children>
 </Pane>
-

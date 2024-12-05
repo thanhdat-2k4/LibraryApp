@@ -16,102 +16,108 @@ import java.io.IOException;
 public class BookSearch {
 
     @FXML
-    private TextField txtMaSach;
+    private TextField txtBookId;
 
     @FXML
-    private TextField txtTenSach;
+    private TextField txtBookTitle;
 
     @FXML
-    private TextField txtTenTacGia;
+    private TextField txtAuthorName;
 
     @FXML
-    private TextField txtNXB;
+    private TextField txtPublisher;
 
     @FXML
-    private TextField txtSoLuongHienCon;
+    private TextField txtAvailableQuantity;
 
     @FXML
-    private TextField txtSoLuongMuon;
+    private TextField txtBorrowedQuantity;
 
     @FXML
-    private TableView<Sach> tableViewBooks;
+    private TableView<Book> tableViewBooks;
 
     @FXML
-    private TableColumn<Sach, String> colMaSach;
+    private TableColumn<Book, String> colBookId;
 
     @FXML
-    private TableColumn<Sach, String> colTenSach;
+    private TableColumn<Book, String> colBookTitle;
 
     @FXML
-    private TableColumn<Sach, String> colTenTacGia;
+    private TableColumn<Book, String> colAuthorName;
 
     @FXML
-    private TableColumn<Sach, String> colNXB;
+    private TableColumn<Book, String> colPublisher;
 
     @FXML
-    private TableColumn<Sach, Integer> colSoLuongHienCon;
+    private TableColumn<Book, Integer> colAvailableQuantity;
 
     @FXML
-    private TableColumn<Sach, Integer> colSoLuongMuon;
+    private TableColumn<Book, Integer> colBorrowedQuantity;
 
-    private ObservableList<Sach> bookList;
+    private ObservableList<Book> bookList;
 
     private final String DB_URL = "jdbc:mysql://localhost:3306/library";
     private final String DB_USER = "root";
     private final String DB_PASSWORD = "1234";
 
     @FXML
-    void click_loc(MouseEvent event) {
-        // Lấy thông tin từ các TextField
-        String maSach = txtMaSach.getText().trim();
-        String tenSach = txtTenSach.getText().trim();
-        String tenTacGia = txtTenTacGia.getText().trim();
-        String nxb = txtNXB.getText().trim();
-        String soLuongHienCon = txtSoLuongHienCon.getText().trim();
-        String soLuongMuon = txtSoLuongMuon.getText().trim();
+    void onFilterClick(MouseEvent event) {
+        // Get input from text fields
+        String bookId = txtBookId.getText().trim();
+        String bookTitle = txtBookTitle.getText().trim();
+        String authorName = txtAuthorName.getText().trim();
+        String publisher = txtPublisher.getText().trim();
+        String availableQuantity = txtAvailableQuantity.getText().trim();
+        String borrowedQuantity = txtBorrowedQuantity.getText().trim();
 
-        // Xây dựng câu truy vấn SQL động
-        String query = "SELECT * FROM `thông tin sách` WHERE 1=1";
-        if (!maSach.isEmpty()) query += " AND ISBN LIKE '%" + maSach + "%'";
-        if (!tenSach.isEmpty()) query += " AND ten_sach LIKE '%" + tenSach + "%'";
-        if (!tenTacGia.isEmpty()) query += " AND ten_tac_gia LIKE '%" + tenTacGia + "%'";
-        if (!nxb.isEmpty()) query += " AND NXB LIKE '%" + nxb + "%'";
-        if (!soLuongHienCon.isEmpty()) query += " AND so_luong_hien_con = " + soLuongHienCon;
-        if (!soLuongMuon.isEmpty()) query += " AND so_luong_muon = " + soLuongMuon;
+        // Build dynamic SQL query
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM `thông tin sách` WHERE 1=1");
 
-        // Tải dữ liệu từ cơ sở dữ liệu dựa trên điều kiện
+        if (!bookId.isEmpty()) queryBuilder.append(" AND ISBN LIKE '%").append(bookId).append("%'");
+        if (!bookTitle.isEmpty()) queryBuilder.append(" AND ten_sach LIKE '%").append(bookTitle).append("%'");
+        if (!authorName.isEmpty()) queryBuilder.append(" AND ten_tac_gia LIKE '%").append(authorName).append("%'");
+        if (!publisher.isEmpty()) queryBuilder.append(" AND NXB LIKE '%").append(publisher).append("%'");
+        if (!availableQuantity.isEmpty()) queryBuilder.append(" AND so_luong_hien_con = ").append(availableQuantity);
+        if (!borrowedQuantity.isEmpty()) queryBuilder.append(" AND so_luong_muon = ").append(borrowedQuantity);
+
+        String query = queryBuilder.toString();
+
+        // Load filtered books from the database
         loadFilteredBooks(query);
     }
 
     @FXML
-    void click_quaylaiquanlysach(MouseEvent event) {
+    void onBackToBookManagement(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Quanlysach.fxml"));
             Node source = (Node) event.getSource();
             Stage stage = (Stage) source.getScene().getWindow();
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
-            stage.setTitle("Quản lý sách");
+            stage.setTitle("Book Management");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể quay lại giao diện Quản lý sách!");
+            showAlert(Alert.AlertType.ERROR, "Error", "Unable to return to the Book Management interface!");
         }
     }
 
     @FXML
     public void initialize() {
-        // Cấu hình cột bảng
-        colMaSach.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-        colTenSach.setCellValueFactory(new PropertyValueFactory<>("tenSach"));
-        colTenTacGia.setCellValueFactory(new PropertyValueFactory<>("tenTacGia"));
-        colNXB.setCellValueFactory(new PropertyValueFactory<>("nxb"));
-        colSoLuongHienCon.setCellValueFactory(new PropertyValueFactory<>("soLuongHienCon"));
-        colSoLuongMuon.setCellValueFactory(new PropertyValueFactory<>("soLuongMuon"));
+        // Configure table columns
+        colBookId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+        colBookTitle.setCellValueFactory(new PropertyValueFactory<>("bookTitle"));
+        colAuthorName.setCellValueFactory(new PropertyValueFactory<>("authorName"));
+        colPublisher.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+        colAvailableQuantity.setCellValueFactory(new PropertyValueFactory<>("availableCopies"));
+        colBorrowedQuantity.setCellValueFactory(new PropertyValueFactory<>("borrowedCopies"));
 
-        // Khởi tạo danh sách
+        // Initialize book list
         bookList = FXCollections.observableArrayList();
         tableViewBooks.setItems(bookList);
+
+        // Load all books on initialization
+        loadFilteredBooks("SELECT * FROM `thông tin sách`");
     }
 
     private void loadFilteredBooks(String query) {
@@ -121,23 +127,44 @@ public class BookSearch {
              ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
-                bookList.add(new Sach(
+                bookList.add(new Book(
                         rs.getString("ISBN"),
                         rs.getString("ten_sach"),
                         rs.getString("ten_tac_gia"),
                         rs.getString("NXB"),
                         rs.getInt("so_luong_hien_con"),
                         rs.getInt("so_luong_muon")
-                ));
+                ) {
+                    @Override
+                    public int getAvailableQuantity() {
+                        return this.getAvailableCopies();
+                    }
+
+                    @Override
+                    public int getBorrowedQuantity() {
+                        return this.getBorrowedCopies();
+                    }
+
+                    @Override
+                    public void setAvailableQuantity(int availableQuantity) {
+                        this.setAvailableCopies(availableQuantity);
+                    }
+                });
             }
 
             tableViewBooks.setItems(bookList);
+
+            // Hiển thị thông báo nếu không có sách
+            if (bookList.isEmpty()) {
+                showAlert(Alert.AlertType.INFORMATION, "Kết quả tìm kiếm", "Không tìm thấy sách nào phù hợp.");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tải dữ liệu từ cơ sở dữ liệu!");
         }
     }
+
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

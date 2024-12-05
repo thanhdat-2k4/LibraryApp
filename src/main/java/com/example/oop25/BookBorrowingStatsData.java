@@ -1,14 +1,14 @@
-// sach muon ke thua tu sach
+// sachMuon ke thua tu sach
 package com.example.oop25;
 
 import javafx.beans.property.*;
 
-public class BookBorrowingStatsData extends Sach {  // Kế thừa từ Sach
+public class BookBorrowingStatsData extends Book {
     private final IntegerProperty orderNumber;  // Số thứ tự (Order Number)
     private final IntegerProperty totalBooks;  // Tổng số sách (Mượn + Còn lại)
 
     public BookBorrowingStatsData(int orderNumber, String isbn, String bookTitle, int borrowedQuantity, int availableBooks) {
-        super(isbn, bookTitle, "", "", availableBooks, borrowedQuantity);  // Gọi constructor của lớp Sach
+        super(isbn, bookTitle, "", "", availableBooks, borrowedQuantity);  // Gọi constructor của lớp Book
         this.orderNumber = new SimpleIntegerProperty(orderNumber);
         this.totalBooks = new SimpleIntegerProperty(borrowedQuantity + availableBooks);  // Tính tổng số lượng sách
     }
@@ -31,19 +31,25 @@ public class BookBorrowingStatsData extends Sach {  // Kế thừa từ Sach
         return totalBooks;
     }
 
-    // Override các phương thức từ lớp Sach nếu cần
+    // Sử dụng phương thức getter từ lớp Book để lấy giá trị
     @Override
-    public int getSoLuongHienCon() {
-        return super.getSoLuongHienCon();  // Lấy giá trị từ lớp Sach
+    public int getAvailableQuantity() {
+        return getAvailableCopies();  // Gọi phương thức getter của lớp Book
     }
 
     @Override
-    public int getSoLuongMuon() {
-        return super.getSoLuongMuon();  // Lấy giá trị từ lớp Sach
+    public int getBorrowedQuantity() {
+        return getBorrowedCopies();  // Gọi phương thức getter của lớp Book
     }
 
     // Cập nhật tổng số lượng sách khi thay đổi số sách mượn hoặc còn lại
     public void updateTotalBooks() {
-        this.totalBooks.set(getSoLuongMuon() + getSoLuongHienCon());  // Tính lại tổng số sách
+        this.totalBooks.set(getBorrowedQuantity() + getAvailableQuantity());  // Tính lại tổng số sách
+    }
+
+    @Override
+    public void setAvailableQuantity(int availableQuantity) {
+        // Nếu cần thiết, bạn có thể thêm logic để thay đổi availableQuantity.
+        // Nhưng nếu không, bạn có thể bỏ qua việc thay đổi ở đây vì đã có trong lớp cha.
     }
 }

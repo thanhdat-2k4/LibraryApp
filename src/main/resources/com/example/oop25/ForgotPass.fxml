@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.ForgotPass">
+    <children>
+        <Label layoutX="232.0" layoutY="52.0" text="Quên mật khẩu">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="108.0" layoutY="192.0" prefHeight="17.0" prefWidth="169.0" text="Nhập mã gửi về email của bạn:" />
+        <TextField fx:id="otpField" layoutX="282.0" layoutY="188.0" prefHeight="25.0" prefWidth="169.0" />
+        <Button layoutX="270.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#click_checkOTP" text="Kiểm tra OTP" />
+        <Button layoutX="505.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#click_returnLogin" text="Quay lại" />
+        <TextField fx:id="otpField1" layoutX="282.0" layoutY="152.0" prefHeight="25.0" prefWidth="169.0" />
+        <Label fx:id="emailcheck" layoutX="157.0" layoutY="156.0" prefHeight="17.0" prefWidth="119.0" text="Nhập email của bạn :" />
+        <Button layoutX="463.0" layoutY="152.0" mnemonicParsing="false" onMouseClicked="#click_checkemail" text="Kiểm tra email" />
+    </children>
+</Pane>

@@ -86,9 +86,9 @@ public class LibraryRemainingBooksStats {
             return new SimpleIntegerProperty(rowIndex).asObject();
         });
 
-        ISBN.setCellValueFactory(cellData -> cellData.getValue().isbnProperty());
-        bookTitle.setCellValueFactory(cellData -> cellData.getValue().tenSachProperty());
-        remainingQuantity.setCellValueFactory(cellData -> cellData.getValue().soLuongHienConProperty().asObject());
+        ISBN.setCellValueFactory(cellData -> cellData.getValue().bookIdProperty());
+        bookTitle.setCellValueFactory(cellData -> cellData.getValue().bookTitleProperty());
+        remainingQuantity.setCellValueFactory(cellData -> cellData.getValue().availableCopiesProperty().asObject());
         totalQuantity.setCellValueFactory(cellData -> cellData.getValue().totalQuantityProperty().asObject());
 
         dataList = FXCollections.observableArrayList();

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="671.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Xoasach">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="671.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.DeleteBookController">
     <children>
         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="671.0">
             <children>
@@ -17,20 +17,20 @@
                         <Font size="27.0" />
                     </font>
                 </Label>
-                <Label layoutX="31.0" layoutY="100.0" text="Mã sách :" />
+                <Label layoutX="31.0" layoutY="100.0" text="ISBN" />
                 <TextField fx:id="tfISBN" layoutX="87.0" layoutY="96.0" />
-                <TextField fx:id="tfTenSach" layoutX="462.0" layoutY="96.0" />
+                <TextField fx:id="tfBookName" layoutX="462.0" layoutY="96.0" />
                 <Label layoutX="394.0" layoutY="100.0" text="Tên sách :" />
-                <Button fx:id="btnXacNhanXoa" layoutX="292.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#click_xacnhanxoa" text="Xác nhận xóa" />
-                <Button layoutX="552.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#click_quaylaiquanlysach" text="Quay lại" />
+                <Button fx:id="btnXacNhanXoa" layoutX="292.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#onConfirmDeleteClick" text="Xác nhận xóa" />
+                <Button layoutX="552.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#onBackToBookManagementClick" text="Quay lại" />
                 <TableView fx:id="tableViewBooks" layoutX="23.0" layoutY="185.0" prefHeight="150.0" prefWidth="615.0">
                     <columns>
                         <TableColumn fx:id="colISBN" prefWidth="79.20001220703125" text="Mã sách" />
-                        <TableColumn fx:id="colTenSach" prefWidth="124.800048828125" text="Tên sách" />
-                        <TableColumn fx:id="colTenTacGia" prefWidth="84.79998779296875" text="Tên tác giả" />
-                        <TableColumn fx:id="colNXB" prefWidth="88.0" text="Nhà xuất bản" />
-                        <TableColumn fx:id="colSoLuongMuon" prefWidth="117.5999755859375" text="Số lượng đã mượn" />
-                        <TableColumn fx:id="colSoLuongHienCon" prefWidth="118.4000244140625" text="Số lượng hiện còn" />
+                        <TableColumn fx:id="colBookName" prefWidth="124.800048828125" text="Tên sách" />
+                        <TableColumn fx:id="colAuthorName" prefWidth="84.79998779296875" text="Tên tác giả" />
+                        <TableColumn fx:id="colPublisher" prefWidth="88.0" text="Nhà xuất bản" />
+                        <TableColumn fx:id="colBorrowedQuantity" prefWidth="117.5999755859375" text="Số lượng đã mượn" />
+                        <TableColumn fx:id="colAvailableQuantity" prefWidth="118.4000244140625" text="Số lượng hiện còn" />
                     </columns>
                 </TableView>
             </children>

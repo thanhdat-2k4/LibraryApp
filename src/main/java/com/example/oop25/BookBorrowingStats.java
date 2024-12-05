@@ -1,5 +1,4 @@
-////thong ke danh sach muon
-
+// thong ke muon sach
 package com.example.oop25;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -14,25 +13,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class BookBorrowingStats {
 
     @FXML
-    private TableColumn<Sach, String> ISBN;  // Sử dụng Sach thay vì BookBorrowingStatsData
+    private TableColumn<BookBorrowingStatsData, String> ISBN;  // Sử dụng BookBorrowingStatsData thay vì Sach
 
     @FXML
-    private TableColumn<Sach, String> bookTitle;
+    private TableColumn<BookBorrowingStatsData, String> bookTitle;
 
     @FXML
-    private TableColumn<Sach, Integer> borrowedQuantity;
+    private TableColumn<BookBorrowingStatsData, Integer> borrowedQuantity;
 
     @FXML
-    private TableColumn<Sach, Integer> totalBooks;
+    private TableColumn<BookBorrowingStatsData, Integer> totalBooks;
 
     @FXML
     private MenuButton menuNam;
@@ -44,12 +39,12 @@ public class BookBorrowingStats {
     private MenuButton menuThang;
 
     @FXML
-    private TableColumn<Sach, Integer> orderNumber;
+    private TableColumn<BookBorrowingStatsData, Integer> orderNumber;
 
     @FXML
-    private TableView<Sach> tableView;  // Sử dụng Sach thay vì BookBorrowingStatsData
+    private TableView<BookBorrowingStatsData> tableView;  // Sử dụng BookBorrowingStatsData thay vì Sach
 
-    private ObservableList<Sach> dataList;
+    private ObservableList<BookBorrowingStatsData> dataList;
     private Connection connection;
 
     private String selectedYear, selectedMonth, selectedDay;
@@ -63,16 +58,14 @@ public class BookBorrowingStats {
 
     @FXML
     void goBack(MouseEvent event) throws IOException {
-        // về trang chủ qua lí ng dùng.
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("thongke.fxml"));
-        Scene scene = new Scene(fxmlLoader.load() );
+        Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
 
         stage.setScene(scene);
         stage.show();
-        // xóa khung
 
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
     @FXML
@@ -85,20 +78,14 @@ public class BookBorrowingStats {
     }
 
     private void setupTableView() {
-        // Cột ISBN
-        ISBN.setCellValueFactory(cellData -> cellData.getValue().isbnProperty());
-        // Cột Tên sách
-        bookTitle.setCellValueFactory(cellData -> cellData.getValue().tenSachProperty());
-        // Cột Số lượng mượn
-        borrowedQuantity.setCellValueFactory(cellData -> cellData.getValue().soLuongMuonProperty().asObject());
-        // Cột Tổng số sách (sử dụng IntegerProperty cho phép binding vào TableView)
+        ISBN.setCellValueFactory(cellData -> cellData.getValue().bookIdProperty());
+        bookTitle.setCellValueFactory(cellData -> cellData.getValue().bookTitleProperty());
+        borrowedQuantity.setCellValueFactory(cellData -> cellData.getValue().borrowedCopiesProperty().asObject());
         totalBooks.setCellValueFactory(cellData ->
-                new SimpleIntegerProperty(cellData.getValue().getSoLuongHienCon() + cellData.getValue().getSoLuongMuon()).asObject());
-        // Cột Số thứ tự
+                new SimpleIntegerProperty(cellData.getValue().getAvailableQuantity() + cellData.getValue().getBorrowedQuantity()).asObject());
         orderNumber.setCellValueFactory(cellData ->
                 new SimpleIntegerProperty(dataList.indexOf(cellData.getValue()) + 1).asObject());
 
-        // Tạo ObservableList cho TableView
         dataList = FXCollections.observableArrayList();
         tableView.setItems(dataList);
     }
@@ -166,7 +153,6 @@ public class BookBorrowingStats {
                 """;
 
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-            // Gán tham số ngày tháng năm
             String selectedDate = String.format("%s-%02d-%02d", selectedYear, Integer.parseInt(selectedMonth), Integer.parseInt(selectedDay));
             pstmt.setDate(1, java.sql.Date.valueOf(selectedDate));
 
@@ -178,8 +164,10 @@ public class BookBorrowingStats {
                 int borrowedQuantity = rs.getInt("so_luong_muon");
                 int availableQuantity = rs.getInt("so_luong_hien_con");
 
-                Sach book = new Sach(isbn, bookTitle, "", "", availableQuantity, borrowedQuantity);
-                dataList.add(book);
+                // Tạo đối tượng BookBorrowingStatsData thay vì Sach
+                BookBorrowingStatsData bookStats = new BookBorrowingStatsData(
+                        dataList.size() + 1, isbn, bookTitle, borrowedQuantity, availableQuantity);
+                dataList.add(bookStats);
             }
         } catch (SQLException e) {
             e.printStackTrace();

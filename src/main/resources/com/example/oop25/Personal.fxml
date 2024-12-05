@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Personal">
+    <children>
+        <Label layoutX="249.0" layoutY="39.0" text="Cá nhân">
+            <font>
+                <Font size="28.0" />
+            </font>
+        </Label>
+        <Button layoutX="158.0" layoutY="135.0" mnemonicParsing="false" onMouseClicked="#openGuide" prefHeight="25.0" prefWidth="283.0" text="Hướng dẫn sử dụng app" />
+        <Button layoutX="158.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#openEditPersonalInfo" prefHeight="25.0" prefWidth="283.0" text="Đổi thông tin nhân viên" />
+        <Button layoutX="158.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#openChangePassword" prefHeight="25.0" prefWidth="283.0" text="Đổi mật khẩu" />
+        <Button layoutX="502.0" layoutY="343.0" mnemonicParsing="false" onMouseClicked="#goBackToHome" text="Thoát" />
+
+    </children>
+</Pane>

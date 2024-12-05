@@ -7,26 +7,28 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Danhsach">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.BookListController">
     <children>
-        <Label layoutX="193.0" layoutY="58.0" text="Danh sách sách thư viện">
+        <Label alignment="CENTER" layoutX="364.0" layoutY="76.0" prefHeight="51.0" prefWidth="281.0" text="Danh sách sách thư viện">
             <font>
-                <Font size="20.0" />
+                <Font size="24.0" />
             </font>
         </Label>
-        <TableView fx:id="tableViewBooks" layoutX="14.0" layoutY="114.0" prefHeight="217.0" prefWidth="764.0">
+        <TableView fx:id="bookTableView" layoutX="76.0" layoutY="169.0" prefHeight="274.0" prefWidth="878.0">
             <columns>
-                <TableColumn fx:id="colISBN" prefWidth="79.20001220703125" text="Mã sách" />
-                <TableColumn fx:id="colTenSach" prefWidth="124.800048828125" text="Tên sách" />
-                <TableColumn fx:id="colTenTacGia" prefWidth="84.79998779296875" text="Tên tác giả" />
-                <TableColumn fx:id="colNXB" prefWidth="88.0" text="Nhà xuất bản" />
-                <TableColumn fx:id="colSoLuongHienCon" prefWidth="129.59994506835938" text="Số lượng hiện còn" />
-                <TableColumn fx:id="colSoLuongMuon" prefWidth="107.99993896484375" text="Số lượng mượn" />
-                <TableColumn fx:id="colThongTin" prefWidth="71.2000732421875" text="Thông tin" />
-                <TableColumn fx:id="colChiTiet" prefWidth="75.20001220703125" text="QR Code" />
+                <TableColumn fx:id="colIsbn" prefWidth="93.33333587646484" text="ISBN" />
+                <TableColumn fx:id="colBookTitle" prefWidth="122.66664123535156" text="Tên sách" />
+                <TableColumn fx:id="colAuthor" prefWidth="146.0" text="Tên tác giả" />
+                <TableColumn fx:id="colPublisher" prefWidth="117.33328247070312" text="Nhà xuất bản" />
+                <TableColumn fx:id="colAvailableCopies" prefWidth="108.66671752929688" text="Số lượng hiện còn" />
+                <TableColumn fx:id="colBorrowedCopies" prefWidth="99.33331298828125" text="Số lượng mượn" />
+                <TableColumn fx:id="colShowBookInfo" prefWidth="119.33331298828125" text="Thông tin" />
+                <TableColumn fx:id="colShowQrCode" prefWidth="70.66668701171875" text="QR Code" />
             </columns>
         </TableView>
-        <Button layoutX="533.0" layoutY="429.0" mnemonicParsing="false" onMouseClicked="#click_quaylaiquanlysach" text="Quay lại " />
-        <Button layoutX="615.0" layoutY="429.0" mnemonicParsing="false" onMouseClicked="#click_in" prefHeight="25.0" prefWidth="56.0" text="In" />
+        <Button layoutX="823.0" layoutY="498.0" mnemonicParsing="false" onMouseClicked="#onBackToBookManagementClick" prefHeight="36.0" prefWidth="94.0" text="Quay lại ">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
     </children>
 </Pane>

@@ -60,7 +60,7 @@ public class Trangchu {
 
     @FXML
     void btnManageProfile(MouseEvent event) throws IOException {
-        changeScene(event, "CaNhan.fxml", "Cá nhân");
+        changeScene(event, "Personal.fxml", "Cá nhân");
     }
 
     @FXML
