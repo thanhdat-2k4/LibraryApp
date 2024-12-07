@@ -10,21 +10,21 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.AddReader">
    <children>
-      <TextField fx:id="matdocgia" layoutX="253.0" layoutY="140.0" prefHeight="25.0" prefWidth="223.0" promptText="Mã  độc giả" />
-      <TextField fx:id="CCCD" layoutX="539.0" layoutY="240.0" prefHeight="25.0" prefWidth="223.0" promptText="CCCD :" />
-      <TextField fx:id="ten_docgia" layoutX="539.0" layoutY="140.0" prefHeight="25.0" prefWidth="223.0" promptText="Tên độc giả :" />
-      <TextField fx:id="SDT" layoutX="253.0" layoutY="240.0" prefHeight="25.0" prefWidth="223.0" promptText="SĐT :" />
-      <TextField fx:id="dia_chi" layoutX="539.0" layoutY="190.0" prefHeight="25.0" prefWidth="223.0" promptText="Địa chỉ :" />
+      <TextField fx:id="readerId" layoutX="253.0" layoutY="140.0" prefHeight="25.0" prefWidth="223.0" promptText="Mã  độc giả" />
+      <TextField fx:id="idCard" layoutX="539.0" layoutY="240.0" prefHeight="25.0" prefWidth="223.0" promptText="CCCD :" />
+      <TextField fx:id="readerName" layoutX="539.0" layoutY="140.0" prefHeight="25.0" prefWidth="223.0" promptText="Tên độc giả :" />
+      <TextField fx:id="phoneNumber" layoutX="253.0" layoutY="240.0" prefHeight="25.0" prefWidth="223.0" promptText="SĐT :" />
+      <TextField fx:id="address" layoutX="539.0" layoutY="190.0" prefHeight="25.0" prefWidth="223.0" promptText="Địa chỉ :" />
       <Label layoutX="430.0" layoutY="39.0" text="Hãy điền thông tin đầy đủ">
          <font>
-            <Font size="14.0" />
+            <Font size="20.0" />
          </font>
       </Label>
       <Line endX="481.0" endY="-7.62939453125E-6" layoutX="449.0" layoutY="69.0" startX="-377.0404052734375" startY="-7.62939453125E-6" />
-      <Button layoutX="730.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#click_them" text="Thêm " />
-      <Button layoutX="665.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#click_huy" text="Hủy" />
-      <DatePicker fx:id="ngay_gia_han" layoutX="253.0" layoutY="289.0" prefHeight="25.0" prefWidth="223.0" promptText="Ngày gia hạn" />
-      <DatePicker fx:id="ngay_het_han" layoutX="539.0" layoutY="289.0" prefHeight="25.0" prefWidth="223.0" promptText="Ngày hết hạn" />
-      <DatePicker fx:id="ngay_sinh" layoutX="253.0" layoutY="190.0" prefHeight="25.0" prefWidth="223.0" promptText="Ngày sinh" />
+      <Button layoutX="730.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#addReaderAction" text="Thêm " />
+      <Button layoutX="665.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#cancelAction" text="Hủy" />
+      <DatePicker fx:id="LocalDate" layoutX="253.0" layoutY="289.0" prefHeight="25.0" prefWidth="223.0" promptText="Ngày gia hạn" />
+      <DatePicker fx:id="expirationDate" layoutX="539.0" layoutY="289.0" prefHeight="25.0" prefWidth="223.0" promptText="Ngày hết hạn" />
+      <DatePicker fx:id="birthDate" layoutX="253.0" layoutY="190.0" prefHeight="25.0" prefWidth="223.0" promptText="Ngày sinh" />
    </children>
 </Pane>

@@ -160,7 +160,7 @@ public class BorrowBook {
 
         if (!validateInputs(readerName, readerId, borrowDate, returnDate)) return;
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/yourDatabase", "username", "password")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234")) {
             if (!checkReader(conn, readerName, readerId)) return;
 
             ObservableList<Book> bookList = bookTable.getItems();

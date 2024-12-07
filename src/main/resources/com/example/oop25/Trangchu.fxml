@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Trangchu">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Home">
    <children>
       <Button layoutX="320.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#btnManageBooks" prefHeight="79.0" prefWidth="113.0" text="Quản lý sách" textAlignment="CENTER" wrapText="true" />
       <Button layoutX="488.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#ReaderManagement" prefHeight="79.0" prefWidth="113.0" text="Quản lý độc giả " textAlignment="CENTER" wrapText="true" />

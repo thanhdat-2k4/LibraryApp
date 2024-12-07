@@ -5,33 +5,33 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Quanlysach">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.BookManager">
     <children>
         <Label layoutX="452.0" layoutY="73.0" prefHeight="35.0" prefWidth="138.0" text="Quản lý sách">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Button fx:id="btnThemsach" alignment="CENTER" layoutX="276.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#click_Themsach" prefHeight="40.0" prefWidth="448.0" text="Thêm sách vào thư viện">
+        <Button alignment="CENTER" layoutX="276.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#addBook" prefHeight="40.0" prefWidth="448.0" text="Thêm sách vào thư viện">
          <font>
             <Font size="16.0" />
          </font></Button>
-        <Button fx:id="btnXoasach" alignment="CENTER" layoutX="276.0" layoutY="266.0" mnemonicParsing="false" onMouseClicked="#click_Xoasach" prefHeight="40.0" prefWidth="448.0" text="Xóa sách khỏi thư viện">
+        <Button alignment="CENTER" layoutX="276.0" layoutY="266.0" mnemonicParsing="false" onMouseClicked="#deleteBook" prefHeight="40.0" prefWidth="448.0" text="Xóa sách khỏi thư viện">
          <font>
             <Font size="16.0" />
          </font></Button>
-        <Button fx:id="btnSuasach" alignment="CENTER" layoutX="276.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#click_Suasach" prefHeight="40.0" prefWidth="448.0" text="Sửa thông tin sách">
+        <Button alignment="CENTER" layoutX="276.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#editBook" prefHeight="40.0" prefWidth="448.0" text="Sửa thông tin sách">
          <font>
             <Font size="16.0" />
          </font></Button>
-        <Button fx:id="btnDanhsach" alignment="CENTER" layoutX="276.0" layoutY="327.0" mnemonicParsing="false" onMouseClicked="#click_Danhsach" prefHeight="40.0" prefWidth="448.0" text="Danh sách sách thư viện">
+        <Button alignment="CENTER" layoutX="276.0" layoutY="327.0" mnemonicParsing="false" onMouseClicked="#viewBookList" prefHeight="40.0" prefWidth="448.0" text="Danh sách sách thư viện">
          <font>
             <Font size="16.0" />
          </font></Button>
-        <Button fx:id="btnTimkiemsach" alignment="CENTER" layoutX="276.0" layoutY="388.0" mnemonicParsing="false" onMouseClicked="#click_Timkiemsach" prefHeight="40.0" prefWidth="448.0" text="Tìm kiếm sách">
+        <Button alignment="CENTER" layoutX="276.0" layoutY="388.0" mnemonicParsing="false" onMouseClicked="#searchBook" prefHeight="40.0" prefWidth="448.0" text="Tìm kiếm sách">
          <font>
             <Font size="16.0" />
          </font></Button>
-        <Button fx:id="btnReturn" layoutX="814.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#click_returnTrangchu" prefHeight="40.0" prefWidth="73.0" text="Quay lại" />
+        <Button layoutX="814.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#returnToHomePage" prefHeight="40.0" prefWidth="73.0" text="Quay lại" />
     </children>
 </Pane>

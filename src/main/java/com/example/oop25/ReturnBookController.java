@@ -1,7 +1,9 @@
-//tra sach
-
+////tra sach
+//
+//
 //package com.example.oop25;
 //
+//import javafx.beans.property.*;
 //import javafx.collections.FXCollections;
 //import javafx.collections.ObservableList;
 //import javafx.fxml.FXML;
@@ -16,47 +18,42 @@
 //import java.io.IOException;
 //import java.sql.*;
 //
-//public class returnBook {
+//public class ReturnBookController {
 //
 //    @FXML
-//    private TableColumn<?, ?> ISBN;
+//    private TableColumn<Book, String> ISBN;
 //
 //    @FXML
-//    private TableColumn<?, ?> NXB;
+//    private TableColumn<Book, String> publisherColumn;
 //
 //    @FXML
-//    private TableView<Sach> bang_tra_sach;
+//    private TableView<Book> returnBookTable;
 //
 //    @FXML
-//    private TextField ma_phieu;
+//    private TextField receiptIdField;
 //
 //    @FXML
-//    private TextField madocgia;
+//    private TextField readerIdField;
+//
 //
 //    @FXML
-//    private DatePicker ngay_muon;
+//    private TableColumn<Book, Integer> availableCopiesColumn;
 //
 //    @FXML
-//    private DatePicker ngay_tra;
+//    private TableColumn<Book, Integer> borrowedCopiesColumn;
 //
 //    @FXML
-//    private TableColumn<?, ?> so_luong_hien_con;
+//    private TextField readerNameField;
 //
 //    @FXML
-//    private TableColumn<?, ?> so_luong_muon;
+//    private TableColumn<Book, String> bookTitleColumn;
 //
 //    @FXML
-//    private TextField ten_docgia;
+//    private TableColumn<Book, String> authorColumn;
 //
 //    @FXML
-//    private TableColumn<?, ?> ten_sach;
-//
-//    @FXML
-//    private TableColumn<?, ?> ten_tac_gia;
-//
-//    @FXML
-//    void click_thoat(MouseEvent event) throws IOException {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLiMuonTra.fxml"));
+//    void onExitClick(MouseEvent event) throws IOException {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("quanlimuontra.fxml"));
 //        Scene scene = new Scene(loader.load());
 //        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 //        stage.setScene(scene);
@@ -64,116 +61,130 @@
 //    }
 //
 //    @FXML
-//    void click_tra(MouseEvent event) {
-//        String maPhieu = ma_phieu.getText().trim();
+//    void searchBookDetails(MouseEvent event) {
+//        String receiptId = receiptIdField.getText().trim();
+//        String readerId = readerIdField.getText().trim();
+//        String readerName = readerNameField.getText().trim();
 //
-//        if (maPhieu.isEmpty()) {
-//            showError("Vui lòng nhập mã phiếu.");
+//        if (receiptId.isEmpty() && readerId.isEmpty() && readerName.isEmpty()) {
+//            showError("Vui lòng nhập ít nhất một trong các thông tin: Mã phiếu, Mã độc giả hoặc Tên độc giả.");
 //            return;
 //        }
 //
-//        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234")) {
-//            String sqlCheckPhieu = "SELECT ISBN FROM `lượt mượn` WHERE ma_phieu = ?";
-//            try (PreparedStatement stmtCheck = conn.prepareStatement(sqlCheckPhieu)) {
-//                stmtCheck.setString(1, maPhieu);
-//                ResultSet rs = stmtCheck.executeQuery();
+//        String sqlSearch = """
+//        SELECT lm.ma_phieu, lm.ISBN, lm.ngay_muon, lm.ngay_tra, lm.tinh_trang,
+//               ts.ten_sach, ts.ten_tac_gia, ts.NXB, ts.so_luong_hien_con, ts.so_luong_muon,
+//               dg.ten_docgia, dg.madocgia
+//        FROM `lượt mượn` lm
+//        JOIN `thông tin sách` ts ON lm.ISBN = ts.ISBN
+//        JOIN `danh sách độc giả` dg ON lm.madocgia = dg.madocgia
+//        WHERE
+//            (? IS NULL OR lm.ma_phieu LIKE ?)
+//            AND (? IS NULL OR dg.madocgia LIKE ?)
+//            AND (? IS NULL OR dg.ten_docgia LIKE ?);
+//        """;
 //
-//                if (rs.next()) {
-//                    String isbn = rs.getString("ISBN");
+//        ObservableList<Book> bookList = FXCollections.observableArrayList();
 //
-//                    String sqlSach = "SELECT * FROM `thông tin sách` WHERE ISBN = ?";
-//                    try (PreparedStatement stmtSach = conn.prepareStatement(sqlSach)) {
-//                        stmtSach.setString(1, isbn);
-//                        ResultSet rsSach = stmtSach.executeQuery();
+//        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
+//             PreparedStatement stmt = conn.prepareStatement(sqlSearch)) {
 //
-//                        if (rsSach.next()) {
-//                            displaySachInfo(rsSach);
-//                        } else {
-//                            showError("Không tìm thấy sách với mã ISBN: " + isbn);
-//                        }
+//            stmt.setString(1, receiptId.isEmpty() ? null : "%" + receiptId + "%");
+//            stmt.setString(2, receiptId.isEmpty() ? null : "%" + receiptId + "%");
+//            stmt.setString(3, readerId.isEmpty() ? null : "%" + readerId + "%");
+//            stmt.setString(4, readerId.isEmpty() ? null : "%" + readerId + "%");
+//            stmt.setString(5, readerName.isEmpty() ? null : "%" + readerName + "%");
+//            stmt.setString(6, readerName.isEmpty() ? null : "%" + readerName + "%");
+//
+//            ResultSet rs = stmt.executeQuery();
+//            while (rs.next()) {
+//                Book book = new Book(
+//                        rs.getString("ISBN"),
+//                        rs.getString("ten_sach"),
+//                        rs.getString("ten_tac_gia"),
+//                        rs.getString("NXB"),
+//                        rs.getInt("so_luong_hien_con"),
+//                        rs.getInt("so_luong_muon")
+//                ) {
+//                    @Override
+//                    public int getAvailableQuantity() {
+//                        return 0;
 //                    }
-//                } else {
-//                    showError("Mã phiếu không hợp lệ.");
-//                }
+//
+//                    @Override
+//                    public int getBorrowedQuantity() {
+//                        return 0;
+//                    }
+//
+//                    @Override
+//                    public void setAvailableQuantity(int availableQuantity) {
+//
+//                    }
+//                };
+//
+//                bookList.add(book);
 //            }
+//
+//            if (bookList.isEmpty()) {
+//                showInfo("Không tìm thấy dữ liệu phù hợp.");
+//            } else {
+//                returnBookTable.setItems(bookList);
+//            }
+//
 //        } catch (SQLException e) {
 //            showError("Lỗi cơ sở dữ liệu: " + e.getMessage());
 //        }
 //    }
 //
 //    @FXML
-//    private void displaySachInfo(ResultSet rsSach) throws SQLException {
-//        Sach sach = new Sach(
-//                rsSach.getString("ISBN"),
-//                rsSach.getString("ten_sach"),
-//                rsSach.getString("ten_tac_gia"),
-//                rsSach.getString("NXB"),
-//                rsSach.getInt("so_luong_hien_con"),
-//                rsSach.getInt("so_luong_muon")
-//        );
+//    void onReturnBookClick(MouseEvent event) {
+//        Book selectedBook = returnBookTable.getSelectionModel().getSelectedItem();
 //
-//        ObservableList<Sach> sachList = FXCollections.observableArrayList();
-//        sachList.add(sach);
-//
-//        ten_sach.setCellValueFactory(new PropertyValueFactory<>("tenSach"));
-//        ten_tac_gia.setCellValueFactory(new PropertyValueFactory<>("tenTacGia"));
-//        NXB.setCellValueFactory(new PropertyValueFactory<>("nxb"));
-//        ISBN.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-//        so_luong_hien_con.setCellValueFactory(new PropertyValueFactory<>("soLuongHienCon"));
-//        so_luong_muon.setCellValueFactory(new PropertyValueFactory<>("soLuongMuon"));
-//
-//        bang_tra_sach.setItems(sachList);
-//    }
-//
-//
-//    @FXML
-//    void click_trasach(MouseEvent event) {
-//        String maPhieu = ma_phieu.getText().trim();
-//
-//        if (maPhieu.isEmpty()) {
-//            showError("Vui lòng nhập mã phiếu.");
+//        if (selectedBook == null) {
+//            showError("Vui lòng chọn một sách để trả.");
 //            return;
 //        }
 //
+//        String isbn = selectedBook.getBookId();
+//        String receiptId = receiptIdField.getText().trim();
+//
 //        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234")) {
-//            // Kiểm tra mã phiếu và trạng thái hiện tại
-//            String sqlCheckPhieu = "SELECT ISBN FROM `lượt mượn` WHERE ma_phieu = ? AND tinh_trang = 'đang mượn'";
-//            try (PreparedStatement stmtCheck = conn.prepareStatement(sqlCheckPhieu)) {
-//                stmtCheck.setString(1, maPhieu);
+//            // Kiểm tra trạng thái mượn
+//            String sqlCheckReceipt = "SELECT ma_phieu FROM `lượt mượn` WHERE ISBN = ? AND tinh_trang = 'đang mượn'";
+//            try (PreparedStatement stmtCheck = conn.prepareStatement(sqlCheckReceipt)) {
+//                stmtCheck.setString(1, isbn);
 //                ResultSet rs = stmtCheck.executeQuery();
 //
 //                if (rs.next()) {
-//                    String isbn = rs.getString("ISBN");
-//
-//                    // Cập nhật trạng thái phiếu mượn
-//                    String sqlUpdateTinhTrang = "UPDATE `lượt mượn` SET tinh_trang = 'đã trả' WHERE ma_phieu = ?";
-//                    try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdateTinhTrang)) {
-//                        stmtUpdate.setString(1, maPhieu);
-//                        stmtUpdate.executeUpdate();
+//                    String sqlUpdateStatus = "UPDATE `lượt mượn` SET tinh_trang = 'đã trả' WHERE ISBN = ? AND ma_phieu = ?";
+//                    try (PreparedStatement stmtUpdateStatus = conn.prepareStatement(sqlUpdateStatus)) {
+//                        stmtUpdateStatus.setString(1, isbn);
+//                        stmtUpdateStatus.setString(2, rs.getString("ma_phieu"));
+//                        stmtUpdateStatus.executeUpdate();
 //
 //                        // Cập nhật thông tin sách
-//                        String sqlUpdateSach = """
-//                    UPDATE `thông tin sách`
-//                    SET so_luong_hien_con = so_luong_hien_con + 1,
-//                        so_luong_muon = so_luong_muon - 1
-//                    WHERE ISBN = ?;
-//                    """;
-//                        try (PreparedStatement stmtUpdateSach = conn.prepareStatement(sqlUpdateSach)) {
-//                            stmtUpdateSach.setString(1, isbn);
-//                            stmtUpdateSach.executeUpdate();
+//                        String sqlUpdateBook = """
+//                        UPDATE `thông tin sách`
+//                        SET so_luong_hien_con = so_luong_hien_con + 1,
+//                            so_luong_muon = so_luong_muon - 1
+//                        WHERE ISBN = ?;
+//                        """;
+//                        try (PreparedStatement stmtUpdateBook = conn.prepareStatement(sqlUpdateBook)) {
+//                            stmtUpdateBook.setString(1, isbn);
+//                            stmtUpdateBook.executeUpdate();
 //                        }
 //
-//                        showInfo("Trả sách thành công! Trạng thái đã được cập nhật thành 'đã trả'.");
+//                        showInfo("Trả sách thành công!");
+//                        searchBookDetails(event); // Tải lại bảng sau khi trả sách
 //                    }
 //                } else {
-//                    showError("Không tìm thấy phiếu mượn với trạng thái 'đang mượn'. Vui lòng kiểm tra lại.");
+//                    showError("Sách không còn trạng thái 'đang mượn'.");
 //                }
 //            }
 //        } catch (SQLException e) {
 //            showError("Lỗi cơ sở dữ liệu: " + e.getMessage());
 //        }
 //    }
-//
 //
 //    private void showError(String message) {
 //        Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -188,9 +199,21 @@
 //        alert.setContentText(message);
 //        alert.showAndWait();
 //    }
+//
+//    @FXML
+//    private void initialize() {
+//        // Thiết lập các cột trong bảng
+//        bookTitleColumn.setCellValueFactory(new PropertyValueFactory<>("bookTitle"));
+//        authorColumn.setCellValueFactory(new PropertyValueFactory<>("authorName"));
+//        publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+//        ISBN.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+//        availableCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("availableCopies"));
+//        borrowedCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("borrowedCopies"));
+//    }
 //}
 package com.example.oop25;
 
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -208,10 +231,10 @@ import java.sql.*;
 public class ReturnBookController {
 
     @FXML
-    private TableColumn<?, ?> ISBN;
+    private TableColumn<Book, String> ISBN;
 
     @FXML
-    private TableColumn<?, ?> publisherColumn;
+    private TableColumn<Book, String> publisherColumn;
 
     @FXML
     private TableView<Book> returnBookTable;
@@ -223,29 +246,23 @@ public class ReturnBookController {
     private TextField readerIdField;
 
     @FXML
-    private DatePicker borrowDateField;
+    private TableColumn<Book, Integer> availableCopiesColumn;
 
     @FXML
-    private DatePicker returnDateField;
-
-    @FXML
-    private TableColumn<?, ?> availableCopiesColumn;
-
-    @FXML
-    private TableColumn<?, ?> borrowedCopiesColumn;
+    private TableColumn<Book, Integer> borrowedCopiesColumn;
 
     @FXML
     private TextField readerNameField;
 
     @FXML
-    private TableColumn<?, ?> bookTitleColumn;
+    private TableColumn<Book, String> bookTitleColumn;
 
     @FXML
-    private TableColumn<?, ?> authorColumn;
+    private TableColumn<Book, String> authorColumn;
 
     @FXML
     void onExitClick(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ManageBookLoan.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("quanlimuontra.fxml"));
         Scene scene = new Scene(loader.load());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -253,123 +270,126 @@ public class ReturnBookController {
     }
 
     @FXML
-    void onReturnClick(MouseEvent event) {
+    void searchBookDetails(MouseEvent event) {
         String receiptId = receiptIdField.getText().trim();
+        String readerId = readerIdField.getText().trim();
+        String readerName = readerNameField.getText().trim();
 
-        if (receiptId.isEmpty()) {
-            showError("Vui lòng nhập mã phiếu.");
+        if (receiptId.isEmpty() && readerId.isEmpty() && readerName.isEmpty()) {
+            showError("Vui lòng nhập ít nhất một trong các thông tin: Mã phiếu, Mã độc giả hoặc Tên độc giả.");
             return;
         }
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234")) {
-            String sqlCheckReceipt = "SELECT ISBN FROM `lượt mượn` WHERE ma_phieu = ?";
-            try (PreparedStatement stmtCheck = conn.prepareStatement(sqlCheckReceipt)) {
-                stmtCheck.setString(1, receiptId);
-                ResultSet rs = stmtCheck.executeQuery();
+        // Truy vấn SQL chỉ lấy sách có trạng thái "đang mượn"
+        String sqlSearch = """
+        SELECT lm.ma_phieu, lm.ISBN, lm.ngay_muon, lm.ngay_tra, lm.tinh_trang, 
+               ts.ten_sach, ts.ten_tac_gia, ts.NXB, ts.so_luong_hien_con, ts.so_luong_muon,
+               dg.ten_docgia, dg.madocgia
+        FROM `lượt mượn` lm
+        JOIN `thông tin sách` ts ON lm.ISBN = ts.ISBN
+        JOIN `danh sách độc giả` dg ON lm.madocgia = dg.madocgia
+        WHERE lm.tinh_trang = 'đang mượn'
+            AND (? IS NULL OR lm.ma_phieu LIKE ?)
+            AND (? IS NULL OR dg.madocgia LIKE ?)
+            AND (? IS NULL OR dg.ten_docgia LIKE ?);
+        """;
 
-                if (rs.next()) {
-                    String isbn = rs.getString("ISBN");
+        ObservableList<Book> bookList = FXCollections.observableArrayList();
 
-                    String sqlBook = "SELECT * FROM `thông tin sách` WHERE ISBN = ?";
-                    try (PreparedStatement stmtBook = conn.prepareStatement(sqlBook)) {
-                        stmtBook.setString(1, isbn);
-                        ResultSet rsBook = stmtBook.executeQuery();
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
+             PreparedStatement stmt = conn.prepareStatement(sqlSearch)) {
 
-                        if (rsBook.next()) {
-                            displayBookInfo(rsBook);
-                        } else {
-                            showError("Không tìm thấy sách với mã ISBN: " + isbn);
-                        }
+            stmt.setString(1, receiptId.isEmpty() ? null : "%" + receiptId + "%");
+            stmt.setString(2, receiptId.isEmpty() ? null : "%" + receiptId + "%");
+            stmt.setString(3, readerId.isEmpty() ? null : "%" + readerId + "%");
+            stmt.setString(4, readerId.isEmpty() ? null : "%" + readerId + "%");
+            stmt.setString(5, readerName.isEmpty() ? null : "%" + readerName + "%");
+            stmt.setString(6, readerName.isEmpty() ? null : "%" + readerName + "%");
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Book book = new Book(
+                        rs.getString("ISBN"),
+                        rs.getString("ten_sach"),
+                        rs.getString("ten_tac_gia"),
+                        rs.getString("NXB"),
+                        rs.getInt("so_luong_hien_con"),
+                        rs.getInt("so_luong_muon")
+                ) {
+                    @Override
+                    public int getAvailableQuantity() {
+                        return 0;
                     }
-                } else {
-                    showError("Mã phiếu không hợp lệ.");
-                }
+
+                    @Override
+                    public int getBorrowedQuantity() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void setAvailableQuantity(int availableQuantity) {
+
+                    }
+                };
+
+                bookList.add(book);
             }
+
+            if (bookList.isEmpty()) {
+                showInfo("Không tìm thấy sách đang mượn.");
+            } else {
+                returnBookTable.setItems(bookList);
+            }
+
         } catch (SQLException e) {
             showError("Lỗi cơ sở dữ liệu: " + e.getMessage());
         }
     }
 
     @FXML
-    private void displayBookInfo(ResultSet rsBook) throws SQLException {
-        Book book = new Book(
-                rsBook.getString("ISBN"),
-                rsBook.getString("ten_sach"),
-                rsBook.getString("ten_tac_gia"),
-                rsBook.getString("NXB"),
-                rsBook.getInt("so_luong_hien_con"),
-                rsBook.getInt("so_luong_muon")
-        ) {
-            @Override
-            public int getAvailableQuantity() {
-                return 0;
-            }
-
-            @Override
-            public int getBorrowedQuantity() {
-                return 0;
-            }
-
-            @Override
-            public void setAvailableQuantity(int availableQuantity) {
-
-            }
-        };
-
-        ObservableList<Book> bookList = FXCollections.observableArrayList();
-        bookList.add(book);
-
-        bookTitleColumn.setCellValueFactory(new PropertyValueFactory<>("bookTitle"));
-        authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-        publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
-        ISBN.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-        availableCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("availableCopies"));
-        borrowedCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("borrowedCopies"));
-
-        returnBookTable.setItems(bookList);
-    }
-
-    @FXML
     void onReturnBookClick(MouseEvent event) {
-        String receiptId = receiptIdField.getText().trim();
+        Book selectedBook = returnBookTable.getSelectionModel().getSelectedItem();
 
-        if (receiptId.isEmpty()) {
-            showError("Vui lòng nhập mã phiếu.");
+        if (selectedBook == null) {
+            showError("Vui lòng chọn một sách để trả.");
             return;
         }
 
+        String isbn = selectedBook.getBookId();
+        String receiptId = receiptIdField.getText().trim();
+
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234")) {
-            // Kiểm tra mã phiếu và trạng thái hiện tại
-            String sqlCheckReceipt = "SELECT ISBN FROM `lượt mượn` WHERE ma_phieu = ? AND tinh_trang = 'đang mượn'";
+            // Kiểm tra trạng thái mượn (chỉ lấy những sách có trạng thái "đang mượn")
+            String sqlCheckReceipt = "SELECT ma_phieu, tinh_trang FROM `lượt mượn` WHERE ISBN = ? AND tinh_trang = 'đang mượn'";
             try (PreparedStatement stmtCheck = conn.prepareStatement(sqlCheckReceipt)) {
-                stmtCheck.setString(1, receiptId);
+                stmtCheck.setString(1, isbn);
                 ResultSet rs = stmtCheck.executeQuery();
 
                 if (rs.next()) {
-                    String isbn = rs.getString("ISBN");
-
-                    // Cập nhật trạng thái phiếu mượn
-                    String sqlUpdateStatus = "UPDATE `lượt mượn` SET tinh_trang = 'đã trả' WHERE ma_phieu = ?";
-                    try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdateStatus)) {
-                        stmtUpdate.setString(1, receiptId);
-                        stmtUpdate.executeUpdate();
+                    // Nếu sách đang mượn, cập nhật trạng thái thành "đã trả"
+                    String sqlUpdateStatus = "UPDATE `lượt mượn` SET tinh_trang = 'đã trả' WHERE ISBN = ? AND ma_phieu = ?";
+                    try (PreparedStatement stmtUpdateStatus = conn.prepareStatement(sqlUpdateStatus)) {
+                        stmtUpdateStatus.setString(1, isbn);
+                        stmtUpdateStatus.setString(2, rs.getString("ma_phieu"));
+                        stmtUpdateStatus.executeUpdate();
 
                         // Cập nhật thông tin sách
                         String sqlUpdateBook = """
-                    UPDATE `thông tin sách`
-                    SET so_luong_hien_con = so_luong_hien_con + 1,
-                        so_luong_muon = so_luong_muon - 1
-                    WHERE ISBN = ?;
-                    """;
+                        UPDATE `thông tin sách`
+                        SET so_luong_hien_con = so_luong_hien_con + 1,
+                            so_luong_muon = so_luong_muon - 1
+                        WHERE ISBN = ?;
+                        """;
                         try (PreparedStatement stmtUpdateBook = conn.prepareStatement(sqlUpdateBook)) {
                             stmtUpdateBook.setString(1, isbn);
                             stmtUpdateBook.executeUpdate();
                         }
 
-                        showInfo("Trả sách thành công! Trạng thái đã được cập nhật thành 'đã trả'.");
+                        showInfo("Trả sách thành công!");
+                        searchBookDetails(event); // Tải lại bảng sau khi trả sách
                     }
                 } else {
-                    showError("Không tìm thấy phiếu mượn với trạng thái 'đang mượn'. Vui lòng kiểm tra lại.");
+                    showError("Sách không còn trạng thái 'đang mượn'.");
                 }
             }
         } catch (SQLException e) {
@@ -389,5 +409,16 @@ public class ReturnBookController {
         alert.setTitle("Thông báo");
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void initialize() {
+        // Thiết lập các cột trong bảng
+        bookTitleColumn.setCellValueFactory(new PropertyValueFactory<>("bookTitle"));
+        authorColumn.setCellValueFactory(new PropertyValueFactory<>("authorName"));
+        publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+        ISBN.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+        availableCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("availableCopies"));
+        borrowedCopiesColumn.setCellValueFactory(new PropertyValueFactory<>("borrowedCopies"));
     }
 }

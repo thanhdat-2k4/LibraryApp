@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.danhsachkhithemdocgia">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.ReaderListAfterAdding">
    <children>
       <Label layoutX="419.0" layoutY="41.0" text="DANH SÁCH ĐỘC GIẢ">
          <font>
@@ -16,17 +16,17 @@
          </font>
       </Label>
       <Line endX="511.33331298828125" endY="-7.62939453125E-6" layoutX="400.0" layoutY="81.0" startX="-327.3333435058594" startY="-7.62939453125E-6" />
-      <TableView fx:id="danh_sach_doc_gia" layoutX="158.0" layoutY="164.0" prefHeight="223.0" prefWidth="697.0">
+      <TableView fx:id="readerTableView" layoutX="158.0" layoutY="164.0" prefHeight="223.0" prefWidth="697.0">
         <columns>
-          <TableColumn fx:id="STT" prefWidth="42.666656494140625" text="STT" />
-          <TableColumn fx:id="madocgia" prefWidth="90.6666259765625" text="Mã độc giả" />
-            <TableColumn fx:id="ten_docgia" prefWidth="206.00003051757812" text="Tên độc giả" />
-            <TableColumn fx:id="thong_tin" prefWidth="91.33331298828125" text="Thông tin" />
-            <TableColumn fx:id="ngay_giahan" prefWidth="100.66668701171875" text="Ngày gia hạn" />
-            <TableColumn fx:id="ngay_hethan" prefWidth="92.0" text="Ngày hết hạn" />
-            <TableColumn fx:id="ghi_chu" prefWidth="73.33331298828125" text="Ghi chú" />
+          <TableColumn fx:id="columnIndex" prefWidth="42.666656494140625" text="STT" />
+          <TableColumn fx:id="columnReaderId" prefWidth="90.6666259765625" text="Mã độc giả" />
+            <TableColumn fx:id="columnReaderName" prefWidth="206.00003051757812" text="Tên độc giả" />
+            <TableColumn fx:id="columnContactInfo" prefWidth="91.33331298828125" text="Thông tin" />
+            <TableColumn fx:id="columnRenewalDate" prefWidth="100.66668701171875" text="Ngày gia hạn" />
+            <TableColumn fx:id="columnExpirationDate" prefWidth="92.0" text="Ngày hết hạn" />
+            <TableColumn fx:id="columnNote" prefWidth="73.33331298828125" text="Ghi chú" />
         </columns>
       </TableView>
-      <Button layoutX="727.0" layoutY="443.0" mnemonicParsing="false" onMouseClicked="#click_quaylai" text="Quay lại" />
+      <Button layoutX="727.0" layoutY="443.0" mnemonicParsing="false" onMouseClicked="#clickBack" text="Quay lại" />
    </children>
 </Pane>

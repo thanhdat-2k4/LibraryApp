@@ -151,29 +151,49 @@ public class BookAdder {
         return false;
     }
 
-    @FXML
-    void autoFillBookDetails(MouseEvent event) {
-//        TextInputDialog dialog = new TextInputDialog();
-//        dialog.setTitle("Tự động điền");
-//        dialog.setHeaderText("Nhập Mã Sách (ISBN) để tự động điền thông tin");
-//        dialog.setContentText("Mã sách (ISBN):");
+//    @FXML
+//    void autoFillBookDetails(MouseEvent event) {
 //
-//        String bookId = dialog.showAndWait().orElse(null);
-//        if (bookId != null && !bookId.isEmpty()) {
-//            String bookInfo = Tudongdien.Tudongdienthongtin(bookId); // Giả sử có API Tự động điền thông tin sách
+//        TextInputDialog dialog = new TextInputDialog();
+//        dialog.setTitle("Tự động điền thông tin");
+//        dialog.setHeaderText("Nhập ISBN của sách");
+//        dialog.setContentText("ISBN:");
+//
+//        // Nhập ISBN từ hộp thoại
+//        String isbn = dialog.showAndWait().orElse(null);
+//        if (isbn != null && !isbn.isEmpty()) {
+//            isbn = isbn.replaceAll("[^\\d]", "");
+//
+//            // Lấy thông tin sách từ API
+//            String bookInfo = Tudongdien.Tudongdienthongtin(isbn);
 //            if (bookInfo != null) {
 //                String[] details = bookInfo.split(";");
-//                tfBookId.setText(bookId);
-//                tfBookTitle.setText(details[0]);
-//                tfAuthorName.setText(details[1]);
-//                tfPublisher.setText(details[2]);
+//                String title = details[0];
+//                String author = details[1];
+//                String publisher = details[2];
 //
-//                showAlert(Alert.AlertType.INFORMATION, "Tự động điền", "Thông tin sách đã được điền tự động.");
+//                // Điền thông tin vào các trường
+//                tfBookId.setText(isbn);
+//                tfBookTitle.setText(title);
+//                tfAuthorName.setText(author);
+//                tfPublisher.setText(publisher);
+//
+//                showAlert(Alert.AlertType.INFORMATION, "Thông tin sách",
+//                        "Thông tin đã được tự động điền:\n" +
+//                                "ISBN: " + isbn + "\n" +
+//                                "Tên sách: " + title + "\n" +
+//                                "Tác giả: " + author + "\n" +
+//                                "NXB: " + publisher);
 //            } else {
-//                showAlert(Alert.AlertType.WARNING, "Không tìm thấy", "Không tìm thấy thông tin sách cho Mã Sách: " + bookId);
+//                showAlert(Alert.AlertType.WARNING, "Không tìm thấy", "Không tìm thấy thông tin cho ISBN: " + isbn);
 //            }
 //        }
+//
+//
+//    }
 
+    @FXML
+    void autoFillBookDetails(MouseEvent event) {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Tự động điền thông tin");
         dialog.setHeaderText("Nhập ISBN của sách");
@@ -182,6 +202,9 @@ public class BookAdder {
         // Nhập ISBN từ hộp thoại
         String isbn = dialog.showAndWait().orElse(null);
         if (isbn != null && !isbn.isEmpty()) {
+            // Loại bỏ tất cả các ký tự không phải số trong ISBN (chỉ giữ lại số)
+            isbn = isbn.replaceAll("[^\\d]", "");
+
             // Lấy thông tin sách từ API
             String bookInfo = Tudongdien.Tudongdienthongtin(isbn);
             if (bookInfo != null) {
@@ -206,9 +229,8 @@ public class BookAdder {
                 showAlert(Alert.AlertType.WARNING, "Không tìm thấy", "Không tìm thấy thông tin cho ISBN: " + isbn);
             }
         }
-
-
     }
+
 
     @FXML
     void confirmAddBook(MouseEvent event) {
@@ -225,6 +247,12 @@ public class BookAdder {
             }
 
             int availableCopies = Integer.parseInt(availableCopiesStr);
+
+            // Kiểm tra nếu số lượng sách nhỏ hơn 0
+            if (availableCopies < 0) {
+                showAlert(Alert.AlertType.WARNING, "Lỗi", "Số lượng sách phải lớn hơn hoặc bằng 0.");
+                return;
+            }
 
             if (doesBookExist(bookId, bookTitle)) {
                 showAlert(Alert.AlertType.WARNING, "Trùng lặp", "Sách đã tồn tại.");

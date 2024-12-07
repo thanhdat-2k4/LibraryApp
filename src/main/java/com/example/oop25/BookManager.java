@@ -1,3 +1,4 @@
+// quan ly sach
 package com.example.oop25;
 
 import javafx.fxml.FXML;
@@ -10,35 +11,35 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Quanlysach {
+public class BookManager  {
 
     @FXML
-    void click_Suasach(MouseEvent event) {
+    void editBook(MouseEvent event) {
         changeScene(event, "Suasach.fxml");
     }
 
     @FXML
-    void click_Danhsach(MouseEvent event) {
+    void viewBookList(MouseEvent event) {
         changeScene(event, "Danhsach.fxml");
     }
 
     @FXML
-    void click_Themsach(MouseEvent event) {
+    void addBook(MouseEvent event) {
         changeScene(event, "Themsach.fxml");
     }
 
     @FXML
-    void click_Timkiemsach(MouseEvent event) {
+    void searchBook(MouseEvent event) {
         changeScene(event, "Timkiemsach.fxml");
     }
 
     @FXML
-    void click_Xoasach(MouseEvent event) {
+    void deleteBook(MouseEvent event) {
         changeScene(event, "Xoasach.fxml");
     }
 
     @FXML
-    void click_returnTrangchu(MouseEvent event) {
+    void returnToHomePage(MouseEvent event) {
         changeScene(event, "Trangchu.fxml");
     }
 

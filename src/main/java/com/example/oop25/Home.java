@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Trangchu {
+public class Home {
 
     @FXML
     void btnManageBooks(MouseEvent event) throws IOException {

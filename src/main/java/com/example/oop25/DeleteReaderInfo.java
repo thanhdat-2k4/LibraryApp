@@ -1,25 +1,4 @@
-package com.example.oop25;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.URL;
-import java.sql.*;
-import java.util.ResourceBundle;
-
-//
+////xoa doc gia
 //package com.example.oop25;
 //
 //import javafx.collections.FXCollections;
@@ -75,8 +54,6 @@ import java.util.ResourceBundle;
 //
 //    private Connection connection;
 //
-//
-//
 //    @Override
 //    public void initialize(URL url, ResourceBundle resourceBundle) {
 //        connectDatabase();
@@ -96,6 +73,9 @@ import java.util.ResourceBundle;
 //        ghi_chu.setCellValueFactory(new PropertyValueFactory<>("ghi_chu"));
 //
 //        searchType.setItems(phuongphap);
+//
+//        // Load data from the database
+//        loadReaderData();
 //    }
 //
 //    private void connectDatabase() {
@@ -104,9 +84,35 @@ import java.util.ResourceBundle;
 //            String user = "root";
 //            String password = "1234";
 //            connection = DriverManager.getConnection(url, user, password);
+//            System.out.println("Database connected successfully!");
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
+//    }
+//
+//    // Method to load data from the database into the TableView
+//    private void loadReaderData() {
+//        ObservableList<DocGia> docGiaList = FXCollections.observableArrayList();
+//        String sqlQuery = "SELECT * FROM `danh sách độc giả`";
+//
+//        try (Statement statement = connection.createStatement()) {
+//            ResultSet resultSet = statement.executeQuery(sqlQuery);
+//            while (resultSet.next()) {
+//                docGiaList.add(new DocGia(
+//                        resultSet.getString("madocgia"),
+//                        resultSet.getString("ten_docgia"),
+//                        resultSet.getString("thong_tin"),
+//                        resultSet.getString("ngay_giahan"),
+//                        resultSet.getString("ngay_hethan"),
+//                        resultSet.getString("ghi_chu")
+//                ));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Cập nhật TableView với dữ liệu
+//        ReaderDashboard.setItems(docGiaList);
 //    }
 //
 //    @FXML
@@ -192,88 +198,105 @@ import java.util.ResourceBundle;
 //    }
 //
 //    @FXML
-//    void click_exit(MouseEvent event) throws IOException {
-//        //đi đến thêm  độc giả
+//    void click_exit(MouseEvent event) throws  IOException {
 //        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("trangchuquanlidocgia.fxml"));
 //        Scene scene = new Scene(fxmlLoader.load());
 //        Stage stage = new Stage();
 //        stage.setScene(scene);
 //        stage.show();
-//        // xóa khung
 //        ((Node)(event.getSource())).getScene().getWindow().hide();
 //    }
 //
 //    @FXML
 //    void click_in(MouseEvent event) throws IOException {
-//        //đi đến thêm  độc giả
 //        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("danhsachkhithemdocgia.fxml"));
 //        Scene scene = new Scene(fxmlLoader.load());
 //        Stage stage = new Stage();
 //        stage.setScene(scene);
 //        stage.show();
-//        // xóa khung
 //        ((Node)(event.getSource())).getScene().getWindow().hide();
 //    }
 //}
-public class deleteReaderInfo implements Initializable {
+package com.example.oop25;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
+
+public class DeleteReaderInfo implements Initializable {
 
     @FXML
-    private Button print;
+    private Button printButton;
 
     @FXML
-    private TextField search;
+    private TextField searchField;
 
     @FXML
-    private ComboBox<String> searchType;
+    private ComboBox<String> searchTypeComboBox;
 
     @FXML
-    private TableView<DocGia> ReaderDashboard;
+    private TableView<Reader> readerDashboardTableView;
 
     @FXML
-    private TableColumn<DocGia, String> madocgia;
+    private TableColumn<Reader, String> readerIdColumn;
 
     @FXML
-    private TableColumn<DocGia, String> ten_docgia;
+    private TableColumn<Reader, String> readerNameColumn;
 
     @FXML
-    private TableColumn<DocGia, String> thong_tin;
+    private TableColumn<Reader, String> contactInfoColumn;
 
     @FXML
-    private TableColumn<DocGia, String> ngay_giahan;
+    private TableColumn<Reader, String> renewalDateColumn;
 
     @FXML
-    private TableColumn<DocGia, String> ngay_hethan;
+    private TableColumn<Reader, String> expirationDateColumn;
 
     @FXML
-    private TableColumn<DocGia, String> ghi_chu;
+    private TableColumn<Reader, String> noteColumn;
 
     private Connection connection;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        connectDatabase();
+        connectToDatabase();
 
-        ObservableList<String> phuongphap = FXCollections.observableArrayList(
+        ObservableList<String> searchMethods = FXCollections.observableArrayList(
                 "Tìm kiếm theo mã thẻ",
                 "Tìm kiếm theo tên",
                 "Tìm kiếm theo ngày gia hạn",
                 "Tìm kiếm theo ngày hết hạn");
 
         // Gắn dữ liệu vào TableView
-        madocgia.setCellValueFactory(new PropertyValueFactory<>("madocgia"));
-        ten_docgia.setCellValueFactory(new PropertyValueFactory<>("ten_docgia"));
-        thong_tin.setCellValueFactory(new PropertyValueFactory<>("thong_tin"));
-        ngay_giahan.setCellValueFactory(new PropertyValueFactory<>("ngay_giahan"));
-        ngay_hethan.setCellValueFactory(new PropertyValueFactory<>("ngay_hethan"));
-        ghi_chu.setCellValueFactory(new PropertyValueFactory<>("ghi_chu"));
+        readerIdColumn.setCellValueFactory(new PropertyValueFactory<>("readerId"));
+        readerNameColumn.setCellValueFactory(new PropertyValueFactory<>("readerName"));
+        contactInfoColumn.setCellValueFactory(new PropertyValueFactory<>("contactInfo"));
+        renewalDateColumn.setCellValueFactory(new PropertyValueFactory<>("renewalDate"));
+        expirationDateColumn.setCellValueFactory(new PropertyValueFactory<>("expirationDate"));
+        noteColumn.setCellValueFactory(new PropertyValueFactory<>("note"));
 
-        searchType.setItems(phuongphap);
+        searchTypeComboBox.setItems(searchMethods);
 
         // Load data from the database
         loadReaderData();
     }
 
-    private void connectDatabase() {
+    private void connectToDatabase() {
         try {
             String url = "jdbc:mysql://localhost:3306/library";
             String user = "root";
@@ -287,13 +310,13 @@ public class deleteReaderInfo implements Initializable {
 
     // Method to load data from the database into the TableView
     private void loadReaderData() {
-        ObservableList<DocGia> docGiaList = FXCollections.observableArrayList();
+        ObservableList<Reader> readerList = FXCollections.observableArrayList();
         String sqlQuery = "SELECT * FROM `danh sách độc giả`";
 
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
-                docGiaList.add(new DocGia(
+                readerList.add(new Reader(
                         resultSet.getString("madocgia"),
                         resultSet.getString("ten_docgia"),
                         resultSet.getString("thong_tin"),
@@ -307,14 +330,14 @@ public class deleteReaderInfo implements Initializable {
         }
 
         // Cập nhật TableView với dữ liệu
-        ReaderDashboard.setItems(docGiaList);
+        readerDashboardTableView.setItems(readerList);
     }
 
     @FXML
-    void Enter_search(KeyEvent event) throws SQLException {
+    void handleSearchEnter(KeyEvent event) throws SQLException {
         if (event.getCode() == KeyCode.ENTER) {
-            int searchIndex = searchType.getSelectionModel().getSelectedIndex();
-            ObservableList<DocGia> docGiaList = FXCollections.observableArrayList();
+            int searchIndex = searchTypeComboBox.getSelectionModel().getSelectedIndex();
+            ObservableList<Reader> readerList = FXCollections.observableArrayList();
 
             String sqlQuery = null;
 
@@ -339,11 +362,11 @@ public class deleteReaderInfo implements Initializable {
 
             if (sqlQuery != null) {
                 try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-                    statement.setString(1, search.getText());
+                    statement.setString(1, searchField.getText());
                     ResultSet resultSet = statement.executeQuery();
 
                     while (resultSet.next()) {
-                        docGiaList.add(new DocGia(
+                        readerList.add(new Reader(
                                 resultSet.getString("madocgia"),
                                 resultSet.getString("ten_docgia"),
                                 resultSet.getString("thong_tin"),
@@ -356,10 +379,10 @@ public class deleteReaderInfo implements Initializable {
             }
 
             // Cập nhật TableView
-            ReaderDashboard.setItems(docGiaList);
+            readerDashboardTableView.setItems(readerList);
 
             // Hiển thị thông báo
-            if (!docGiaList.isEmpty()) {
+            if (!readerList.isEmpty()) {
                 showAlert("Thông báo", "Tìm kiếm thành công", "Đã tìm thấy kết quả.");
             } else {
                 showAlert("Thông báo", "Không tìm thấy kết quả", "Không có thông tin phù hợp.");
@@ -376,14 +399,14 @@ public class deleteReaderInfo implements Initializable {
     }
 
     @FXML
-    void click_delete(MouseEvent event) {
-        DocGia selectedReader = ReaderDashboard.getSelectionModel().getSelectedItem();
+    void handleDeleteClick(MouseEvent event) {
+        Reader selectedReader = readerDashboardTableView.getSelectionModel().getSelectedItem();
         if (selectedReader != null) {
             String deleteQuery = "DELETE FROM `danh sách độc giả` WHERE madocgia = ?";
             try (PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
-                statement.setString(1, selectedReader.getMadocgia());
+                statement.setString(1, selectedReader.getReaderId());
                 statement.executeUpdate();
-                ReaderDashboard.getItems().remove(selectedReader);
+                readerDashboardTableView.getItems().remove(selectedReader);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -393,7 +416,7 @@ public class deleteReaderInfo implements Initializable {
     }
 
     @FXML
-    void click_exit(MouseEvent event) throws  IOException {
+    void handleExitClick(MouseEvent event) throws  IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("trangchuquanlidocgia.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -403,7 +426,7 @@ public class deleteReaderInfo implements Initializable {
     }
 
     @FXML
-    void click_in(MouseEvent event) throws IOException {
+    void handlePrintClick(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("danhsachkhithemdocgia.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -411,6 +434,4 @@ public class deleteReaderInfo implements Initializable {
         stage.show();
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
-
-
 }
