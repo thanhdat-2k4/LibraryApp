@@ -5,17 +5,26 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Personal">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Personal">
     <children>
-        <Label layoutX="249.0" layoutY="39.0" text="Cá nhân">
+        <Label layoutX="458.0" layoutY="108.0" text="Cá nhân" textFill="#11ab68">
             <font>
                 <Font size="28.0" />
             </font>
         </Label>
-        <Button layoutX="158.0" layoutY="135.0" mnemonicParsing="false" onMouseClicked="#openGuide" prefHeight="25.0" prefWidth="283.0" text="Hướng dẫn sử dụng app" />
-        <Button layoutX="158.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#openEditPersonalInfo" prefHeight="25.0" prefWidth="283.0" text="Đổi thông tin nhân viên" />
-        <Button layoutX="158.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#openChangePassword" prefHeight="25.0" prefWidth="283.0" text="Đổi mật khẩu" />
-        <Button layoutX="502.0" layoutY="343.0" mnemonicParsing="false" onMouseClicked="#goBackToHome" text="Thoát" />
+        <Button layoutX="367.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#openGuide" prefHeight="34.0" prefWidth="283.0" text="Hướng dẫn sử dụng app" textFill="#49b1d7">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+        <Button layoutX="367.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#openEditPersonalInfo" prefHeight="34.0" prefWidth="283.0" text="Đổi thông tin nhân viên" textFill="#6937f2">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+        <Button layoutX="367.0" layoutY="362.0" mnemonicParsing="false" onMouseClicked="#openChangePassword" prefHeight="34.0" prefWidth="283.0" text="Đổi mật khẩu" textFill="#aa1616">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+        <Button layoutX="730.0" layoutY="462.0" mnemonicParsing="false" onMouseClicked="#goBackToHome" prefHeight="34.0" prefWidth="65.0" text="Thoát" />
 
     </children>
 </Pane>

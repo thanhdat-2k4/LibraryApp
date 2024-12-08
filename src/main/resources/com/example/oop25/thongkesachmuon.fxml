@@ -21,20 +21,17 @@
         <Label layoutX="676.0" layoutY="75.0" text="Ngày:" />
         <MenuButton fx:id="menuNam" layoutX="224.0" layoutY="70.0" mnemonicParsing="false">
             <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+
             </items>
         </MenuButton>
         <MenuButton fx:id="menuThang" layoutX="480.0" layoutY="70.0" mnemonicParsing="false">
             <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+
             </items>
         </MenuButton>
         <MenuButton fx:id="menuNgay" layoutX="724.0" layoutY="70.0" mnemonicParsing="false">
             <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+
             </items>
         </MenuButton>
         <Button layoutX="779.0" layoutY="130.0" mnemonicParsing="false" onMouseClicked="#goBack" text="Quay lại" />

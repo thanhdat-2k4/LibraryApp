@@ -201,10 +201,10 @@ public class ReaderSearch implements Initializable {
 
         columnReaderId.setCellValueFactory(new PropertyValueFactory<>("readerId"));
         columnReaderName.setCellValueFactory(new PropertyValueFactory<>("readerName"));
-        columnContactInfo.setCellValueFactory(new PropertyValueFactory<>("contactInfo"));
+        columnContactInfo.setCellValueFactory(new PropertyValueFactory<>("information"));
         columnRenewalDate.setCellValueFactory(new PropertyValueFactory<>("renewalDate"));
         columnExpirationDate.setCellValueFactory(new PropertyValueFactory<>("expirationDate"));
-        columnNote.setCellValueFactory(new PropertyValueFactory<>("note"));
+        columnNote.setCellValueFactory(new PropertyValueFactory<>("notes"));
 
         try {
             loadData();

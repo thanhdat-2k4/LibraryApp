@@ -7,18 +7,30 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Login">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Login">
     <children>
-        <Label layoutX="131.0" layoutY="87.0" text="Đăng nhập ứng dụng quản lý thư viện">
+        <Label layoutX="332.0" layoutY="120.0" text="Đăng nhập ứng dụng quản lý thư viện" textFill="#2f9fc4">
             <font>
-                <Font size="20.0" />
+                <Font size="28.0" />
             </font>
         </Label>
-        <PasswordField fx:id="password" layoutX="236.0" layoutY="188.0" prefHeight="25.0" prefWidth="203.0" />
-        <Label layoutX="164.0" layoutY="192.0" text="Mật khẩu :" />
-        <Button layoutX="236.0" layoutY="232.0" mnemonicParsing="false" onMouseClicked="#click_login" text="Đăng nhập" />
-        <Button layoutX="338.0" layoutY="232.0" mnemonicParsing="false" onMouseClicked="#click_forgotpass" text="Quên mật khẩu" />
-        <Label layoutX="174.0" layoutY="160.0" prefHeight="17.0" prefWidth="46.0" text="Email :" />
-        <TextField fx:id="email" layoutX="236.0" layoutY="156.0" prefHeight="25.0" prefWidth="203.0" />
+        <PasswordField fx:id="password" layoutX="444.0" layoutY="275.0" prefHeight="34.0" prefWidth="245.0" />
+        <Label layoutX="341.0" layoutY="280.0" text="Mật khẩu :" textFill="#2a7dc0">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+        <Button layoutX="444.0" layoutY="333.0" mnemonicParsing="false" onMouseClicked="#click_login" text="Đăng nhập" textFill="#2a86d7">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+        <Button layoutX="555.0" layoutY="333.0" mnemonicParsing="false" onMouseClicked="#click_forgotpass" text="Quên mật khẩu" textFill="#229cc5">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+        <Label layoutX="369.0" layoutY="232.0" prefHeight="17.0" prefWidth="46.0" text="Email :" textFill="#2085b1">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+        <TextField fx:id="email" layoutX="444.0" layoutY="227.0" prefHeight="34.0" prefWidth="245.0" />
     </children>
 </Pane>

@@ -17,7 +17,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <ToggleButton layoutX="201.0" layoutY="174.0" mnemonicParsing="false" text="Mượn sách" underline="true" />
+      <ToggleButton layoutX="201.0" layoutY="174.0" mnemonicParsing="false" text="Mượn sách" textFill="#1676cc" underline="true" />
       <ToggleButton layoutX="283.0" layoutY="174.0" mnemonicParsing="false" onMouseClicked="#onReturnButtonClick" prefHeight="25.0" prefWidth="75.0" text="Trả sách" />
       <TextField fx:id="searchTextField" layoutX="520.0" layoutY="248.0" onKeyPressed="#onSearchInput" prefHeight="25.0" prefWidth="243.0" promptText="Tìm kiếm" />
       <TableView fx:id="bookLoanTableView" layoutX="113.0" layoutY="338.0" prefHeight="136.0" prefWidth="775.0">

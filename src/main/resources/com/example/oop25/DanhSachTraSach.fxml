@@ -14,11 +14,11 @@
    <children>
       <Label layoutX="379.0" layoutY="55.0" text="Danh sách trả sách">
          <font>
-            <Font size="20.0" />
+            <Font size="27.0" />
          </font>
       </Label>
       <ToggleButton layoutX="203.0" layoutY="177.0" mnemonicParsing="false" onMouseClicked="#handleBorrowClick" text="Mượn sách" />
-      <ToggleButton layoutX="285.0" layoutY="177.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Trả sách" underline="true" />
+      <ToggleButton layoutX="285.0" layoutY="177.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Trả sách" textFill="#2389d7" underline="true" />
       <TextField fx:id="search" layoutX="522.0" layoutY="251.0" onKeyPressed="#handleSearch" prefHeight="25.0" prefWidth="243.0" promptText="Tìm kiếm" />
       <TableView fx:id="returnBookTable" layoutX="113.0" layoutY="339.0" prefHeight="136.0" prefWidth="775.0">
          <columns>

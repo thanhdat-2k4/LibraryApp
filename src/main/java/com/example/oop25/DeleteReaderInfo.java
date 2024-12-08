@@ -65,10 +65,10 @@ public class DeleteReaderInfo implements Initializable {
         // Gắn dữ liệu vào TableView
         readerIdColumn.setCellValueFactory(new PropertyValueFactory<>("readerId"));
         readerNameColumn.setCellValueFactory(new PropertyValueFactory<>("readerName"));
-        contactInfoColumn.setCellValueFactory(new PropertyValueFactory<>("contactInfo"));
+        contactInfoColumn.setCellValueFactory(new PropertyValueFactory<>("information"));
         renewalDateColumn.setCellValueFactory(new PropertyValueFactory<>("renewalDate"));
         expirationDateColumn.setCellValueFactory(new PropertyValueFactory<>("expirationDate"));
-        noteColumn.setCellValueFactory(new PropertyValueFactory<>("note"));
+        noteColumn.setCellValueFactory(new PropertyValueFactory<>("notes"));
 
         searchTypeComboBox.setItems(searchMethods);
 

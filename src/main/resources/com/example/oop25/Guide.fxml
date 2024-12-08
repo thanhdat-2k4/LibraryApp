@@ -6,16 +6,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Guide">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Guide">
     <children>
-        <Label layoutX="170.0" layoutY="35.0" text="Hướng dẫn sử dụng app">
+        <Label layoutX="397.0" layoutY="106.0" text="Hướng dẫn sử dụng app">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Button layoutX="497.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#goBackPersonal" text="Thoát" />
-        <TextArea layoutX="136.0" layoutY="100.0" onMouseClicked="#goBackPersonal" prefHeight="200.0" prefWidth="326.0" text="Tên app: Ứng dụng quản lý thư viện&#10;&#10;Lập trình bới : Nhóm 25 OOP&#10;&#10;Giảng viên hướng dẫn : Nguyễn Vũ Bình Dương&#10;&#10;Danh sách thành viên nhóm : &#10;- Nguyễn Thành Đạt&#10;- Nguyễn Phú Trọng&#10;- Lê Trương Nguyễn Hoàng" />
+        <Button layoutX="725.0" layoutY="438.0" mnemonicParsing="false" onMouseClicked="#goBackPersonal" prefHeight="35.0" prefWidth="71.0" text="Thoát" />
+        <TextArea layoutX="364.0" layoutY="203.0" onMouseClicked="#goBackPersonal" prefHeight="200.0" prefWidth="326.0" text="Tên app: Ứng dụng quản lý thư viện&#10;&#10;Lập trình bới : Nhóm 25 OOP&#10;&#10;Giảng viên hướng dẫn : Nguyễn Vũ Bình Dương&#10;&#10;Danh sách thành viên nhóm : &#10;- Nguyễn Thành Đạt&#10;- Nguyễn Phú Trọng&#10;- Lê Trương Nguyễn Hoàng" />
     </children>
 </Pane>
-

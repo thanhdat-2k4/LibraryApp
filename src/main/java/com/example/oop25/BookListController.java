@@ -1,7 +1,10 @@
-// Danh Sach - của quan li sach
+//// Danh Sach - của quan li sach
 
 package com.example.oop25;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,19 +13,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import javafx.embed.swing.SwingFXUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -54,13 +54,16 @@ public class BookListController {
     private TableColumn<Book, Void> colShowQrCode;
 
     @FXML
+    private TableColumn<Book, Void> colShowBookInfo;
+
+    @FXML
     private TableView<Book> bookTableView;
 
     private final ObservableList<Book> bookList = FXCollections.observableArrayList();
 
-    private final String DB_URL = "jdbc:mysql://localhost:3306/library";
-    private final String DB_USER = "root";
-    private final String DB_PASSWORD = "1234";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/library";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "1234";
 
     @FXML
     public void initialize() {
@@ -76,13 +79,16 @@ public class BookListController {
         colAvailableCopies.setCellValueFactory(new PropertyValueFactory<>("availableCopies"));
         colBorrowedCopies.setCellValueFactory(new PropertyValueFactory<>("borrowedCopies"));
 
+        // Cột "Mã QR"
         colShowQrCode.setCellFactory(param -> new TableCell<>() {
             private final Button qrButton = new Button("Mã QR");
 
             {
                 qrButton.setOnAction(event -> {
                     Book book = getTableView().getItems().get(getIndex());
-                    showQrCode(book);
+                    if (book != null) {
+                        showQrCode(book);
+                    }
                 });
             }
 
@@ -93,6 +99,30 @@ public class BookListController {
                     setGraphic(null);
                 } else {
                     setGraphic(qrButton);
+                }
+            }
+        });
+
+        // Cột "Chi tiết"
+        colShowBookInfo.setCellFactory(param -> new TableCell<>() {
+            private final Button detailsButton = new Button("Chi tiết");
+
+            {
+                detailsButton.setOnAction(event -> {
+                    Book book = getTableView().getItems().get(getIndex());
+                    if (book != null) {
+                        showBookDetails(book);
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(detailsButton);
                 }
             }
         });
@@ -113,22 +143,7 @@ public class BookListController {
                 int availableCopies = resultSet.getInt("so_luong_hien_con");
                 int borrowedCopies = resultSet.getInt("so_luong_muon");
 
-                bookList.add(new Book(bookId, bookTitle, authorName, publisher, availableCopies, borrowedCopies) {
-                    @Override
-                    public int getAvailableQuantity() {
-                        return 0;
-                    }
-
-                    @Override
-                    public int getBorrowedQuantity() {
-                        return 0;
-                    }
-
-                    @Override
-                    public void setAvailableQuantity(int availableQuantity) {
-
-                    }
-                });
+                bookList.add(new ConcreteBook(bookId, bookTitle, authorName, publisher, availableCopies, borrowedCopies));
             }
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Lỗi kết nối cơ sở dữ liệu", "Không thể tải dữ liệu từ cơ sở dữ liệu. Vui lòng kiểm tra kết nối!");
@@ -140,25 +155,25 @@ public class BookListController {
         qrAlert.setTitle("Mã QR");
         qrAlert.setHeaderText("Mã QR cho sách: " + book.getBookTitle());
 
-        // Sử dụng ZXing để tạo mã QR đẹp
         Image qrImage = generateQrCodeWithZxing(book.getBookId());
-        ImageView imageView = new ImageView(qrImage);
-        qrAlert.setGraphic(imageView);
+        if (qrImage != null) {
+            ImageView imageView = new ImageView(qrImage);
+            qrAlert.setGraphic(imageView);
+        } else {
+            qrAlert.setContentText("Không thể tạo mã QR.");
+        }
 
         qrAlert.showAndWait();
     }
 
     private Image generateQrCodeWithZxing(String data) {
         try {
-            // Cấu hình cho mã QR
             Hashtable<EncodeHintType, Object> hints = new Hashtable<>();
-            hints.put(EncodeHintType.MARGIN, 1); // Set margin to 1
+            hints.put(EncodeHintType.MARGIN, 1);
 
-            // Tạo QR Code
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             BitMatrix bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, 200, 200, hints);
 
-            // Chuyển đổi BitMatrix thành BufferedImage
             BufferedImage bufferedImage = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
             for (int x = 0; x < 200; x++) {
                 for (int y = 0; y < 200; y++) {
@@ -171,6 +186,21 @@ public class BookListController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private void showBookDetails(Book book) {
+        Alert detailsAlert = new Alert(Alert.AlertType.INFORMATION);
+        detailsAlert.setTitle("Thông tin chi tiết sách");
+        detailsAlert.setHeaderText("Chi tiết sách: " + book.getBookTitle());
+        detailsAlert.setContentText(
+                "Mã ISBN: " + book.getBookId() + "\n" +
+                        "Tên sách: " + book.getBookTitle() + "\n" +
+                        "Tác giả: " + book.getAuthorName() + "\n" +
+                        "Nhà xuất bản: " + book.getPublisher() + "\n" +
+                        "Số lượng còn lại: " + book.getAvailableCopies() + "\n" +
+                        "Số lượng đã mượn: " + book.getBorrowedCopies()
+        );
+        detailsAlert.showAndWait();
     }
 
     @FXML

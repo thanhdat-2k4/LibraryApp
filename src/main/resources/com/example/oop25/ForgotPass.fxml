@@ -6,19 +6,25 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.ForgotPass">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.ForgotPass">
     <children>
-        <Label layoutX="232.0" layoutY="52.0" text="Quên mật khẩu">
+        <Label layoutX="426.0" layoutY="106.0" text="Quên mật khẩu" textFill="#e63c3c">
             <font>
-                <Font size="20.0" />
+                <Font size="27.0" />
             </font>
         </Label>
-        <Label layoutX="108.0" layoutY="192.0" prefHeight="17.0" prefWidth="169.0" text="Nhập mã gửi về email của bạn:" />
-        <TextField fx:id="otpField" layoutX="282.0" layoutY="188.0" prefHeight="25.0" prefWidth="169.0" />
-        <Button layoutX="270.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#click_checkOTP" text="Kiểm tra OTP" />
-        <Button layoutX="505.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#click_returnLogin" text="Quay lại" />
-        <TextField fx:id="otpField1" layoutX="282.0" layoutY="152.0" prefHeight="25.0" prefWidth="169.0" />
-        <Label fx:id="emailcheck" layoutX="157.0" layoutY="156.0" prefHeight="17.0" prefWidth="119.0" text="Nhập email của bạn :" />
-        <Button layoutX="463.0" layoutY="152.0" mnemonicParsing="false" onMouseClicked="#click_checkemail" text="Kiểm tra email" />
+        <Label layoutX="218.0" layoutY="293.0" prefHeight="25.0" prefWidth="239.0" text="Nhập mã gửi về email của bạn:">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+        <TextField fx:id="otpField" layoutX="465.0" layoutY="293.0" prefHeight="25.0" prefWidth="184.0" />
+        <Button layoutX="465.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#click_checkOTP" text="Kiểm tra OTP" />
+        <Button layoutX="696.0" layoutY="413.0" mnemonicParsing="false" onMouseClicked="#click_returnLogin" prefHeight="33.0" prefWidth="85.0" text="Quay lại" />
+        <TextField fx:id="otpField1" layoutX="465.0" layoutY="249.0" prefHeight="25.0" prefWidth="184.0" />
+        <Label fx:id="emailcheck" layoutX="288.0" layoutY="249.0" prefHeight="25.0" prefWidth="169.0" text="Nhập email của bạn :">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+        <Button layoutX="696.0" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#click_checkemail" text="Kiểm tra email" />
     </children>
 </Pane>

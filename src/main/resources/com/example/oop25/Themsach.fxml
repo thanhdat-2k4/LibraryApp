@@ -8,36 +8,51 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="668.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.BookAdder">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.BookAdder">
     <children>
-        <Label layoutX="275.0" layoutY="24.0" text="Thêm sách">
+        <Label layoutX="436.0" layoutY="64.0" text="Thêm sách">
             <font>
                 <Font size="27.0" />
             </font>
         </Label>
-        <Label layoutX="53.0" layoutY="79.0" text=" ISBN :" />
-        <TextField fx:id="tfBookId" layoutX="122.0" layoutY="75.0" />
-        <TextField fx:id="tfPublisher" layoutX="494.0" layoutY="75.0" />
-        <TextField fx:id="tfBookTitle" layoutX="122.0" layoutY="116.0" />
-        <TextField fx:id="tfAvailableCopies" layoutX="494.0" layoutY="116.0" />
-        <TextField fx:id="tfAuthorName" layoutX="122.0" layoutY="158.0" />
-        <Label layoutX="53.0" layoutY="120.0" text="Tên sách :" />
-        <Label layoutX="53.0" layoutY="162.0" text="Tên tác giả :" />
-        <Label layoutX="408.0" layoutY="79.0" text="Nhà xuất bản :" />
-        <Label layoutX="434.0" layoutY="120.0" text="Số lượng :" />
-        <Button fx:id="btnXacNhan" layoutX="223.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#confirmAddBook" text="Xác nhận thêm" />
-        <Button fx:id="btnQuayLai" layoutX="539.0" layoutY="377.0" mnemonicParsing="false" onMouseClicked="#goBackToBookManager" text="Quay lại" />
-        <TableView fx:id="tableViewBooks" layoutX="14.0" layoutY="247.0" prefHeight="119.0" prefWidth="650.0">
+        <Label layoutX="156.0" layoutY="159.0" text=" ISBN :">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+        <TextField fx:id="tfBookId" layoutX="283.0" layoutY="155.0" prefHeight="25.0" prefWidth="198.0" />
+        <TextField fx:id="tfPublisher" layoutX="684.0" layoutY="155.0" prefHeight="25.0" prefWidth="198.0" />
+        <TextField fx:id="tfBookTitle" layoutX="283.0" layoutY="196.0" prefHeight="25.0" prefWidth="198.0" />
+        <TextField fx:id="tfAvailableCopies" layoutX="684.0" layoutY="196.0" prefHeight="25.0" prefWidth="198.0" />
+        <TextField fx:id="tfAuthorName" layoutX="283.0" layoutY="238.0" prefHeight="25.0" prefWidth="198.0" />
+        <Label layoutX="158.0" layoutY="200.0" text="Tên sách :">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+        <Label layoutX="159.0" layoutY="238.0" text="Tên tác giả :">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+        <Label layoutX="569.0" layoutY="155.0" text="Nhà xuất bản :">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+        <Label layoutX="595.0" layoutY="200.0" text="Số lượng :">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+        <Button fx:id="btnXacNhan" layoutX="384.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#confirmAddBook" text="Xác nhận thêm" />
+        <Button fx:id="btnQuayLai" layoutX="825.0" layoutY="508.0" mnemonicParsing="false" onMouseClicked="#goBackToBookManager" prefHeight="39.0" prefWidth="77.0" text="Quay lại" />
+        <TableView fx:id="tableViewBooks" layoutX="79.0" layoutY="327.0" prefHeight="161.0" prefWidth="829.0">
             <columns>
-                <TableColumn fx:id="colBookId" prefWidth="79.2" text="ISBN" />
-                <TableColumn fx:id="colBookTitle" prefWidth="103.2" text="Tên sách" />
-                <TableColumn fx:id="colAuthorName" prefWidth="86.4" text="Tên tác giả" />
-                <TableColumn fx:id="colPublisher" prefWidth="88.8" text="Nhà xuất bản" />
-                <TableColumn fx:id="colAvailableCopies" prefWidth="136.800048828125" text="Số lượng hiện còn" />
-                <TableColumn fx:id="colBorrowedCopies" prefWidth="155.199951171875" text="Số lượng đã mượn" />
+                <TableColumn fx:id="colBookId" prefWidth="91.99999237060547" text="ISBN" />
+                <TableColumn fx:id="colBookTitle" prefWidth="164.6667022705078" text="Tên sách" />
+                <TableColumn fx:id="colAuthorName" prefWidth="180.66659545898438" text="Tên tác giả" />
+                <TableColumn fx:id="colPublisher" prefWidth="153.33331298828125" text="Nhà xuất bản" />
+                <TableColumn fx:id="colAvailableCopies" prefWidth="124.0" text="Số lượng hiện còn" />
+                <TableColumn fx:id="colBorrowedCopies" prefWidth="117.33331298828125" text="Số lượng đã mượn" />
             </columns>
         </TableView>
-        <Button layoutX="350.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#autoFillBookDetails" text="Tự động điền" />
+        <Button layoutX="511.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#autoFillBookDetails" text="Tự động điền" />
 
     </children>
 </Pane>
