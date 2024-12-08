@@ -14,6 +14,7 @@ module com.example.oop25 {
     requires com.google.zxing.javase;
     requires javafx.swing;
     requires java.mail;
+    requires org.testng;
 
 
     opens com.example.oop25 to javafx.fxml;
