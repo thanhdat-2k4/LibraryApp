@@ -1,4 +1,4 @@
-//// xoa sach
+////// xoa sach
 
 package com.example.oop25;
 
@@ -18,7 +18,6 @@ import java.sql.*;
 
 public class DeleteBookController {
 
-    // Thông tin kết nối cơ sở dữ liệu
     private static final String DB_URL = "jdbc:mysql://localhost:3306/library";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "1234";
@@ -42,15 +41,10 @@ public class DeleteBookController {
     private TableColumn<Book, String> colAuthorName;
 
     @FXML
-    private TextField tfISBN;
-
-    @FXML
-    private TextField tfBookName;
-
-    @FXML
     private TableView<Book> tableViewBooks;
 
-    // Hiển thị thông báo
+    private Book selectedBook; // Lưu trữ sách được chọn
+
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -58,7 +52,6 @@ public class DeleteBookController {
         alert.showAndWait();
     }
 
-    // Kiểm tra sách có tồn tại hay không
     private boolean doesBookExist(String bookId, String bookTitle) {
         String sql = "SELECT COUNT(*) FROM `thông tin sách` WHERE ISBN = ? AND ten_sach = ?";
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
@@ -76,7 +69,6 @@ public class DeleteBookController {
         }
     }
 
-    // Kiểm tra sách có đang được mượn hay không
     private boolean isBookBorrowed(String bookId) {
         String sql = "SELECT so_luong_muon FROM `thông tin sách` WHERE ISBN = ?";
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
@@ -93,7 +85,6 @@ public class DeleteBookController {
         }
     }
 
-    // Xóa sách khỏi cơ sở dữ liệu
     private void deleteBook(String isbn) {
         String sql = "DELETE FROM `thông tin sách` WHERE ISBN = ?";
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
@@ -112,25 +103,15 @@ public class DeleteBookController {
         }
     }
 
-    // Xử lý sự kiện nút "Xác nhận xóa"
     @FXML
     void onConfirmDeleteClick(MouseEvent event) {
-        String isbn = tfISBN.getText().trim();
-        String bookName = tfBookName.getText().trim();
-
-        // Kiểm tra các trường có bị bỏ trống không
-        if (isbn.isEmpty() || bookName.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Lỗi", "Vui lòng điền đầy đủ thông tin!");
+        if (selectedBook == null) {
+            showAlert(Alert.AlertType.WARNING, "Lỗi", "Vui lòng chọn một sách để xóa!");
             return;
         }
 
-        // Kiểm tra sách có tồn tại không
-        if (!doesBookExist(isbn, bookName)) {
-            showAlert(Alert.AlertType.WARNING, "Lỗi", "Sách không tồn tại trong hệ thống!");
-            return;
-        }
+        String isbn = selectedBook.getBookId();
 
-        // Kiểm tra sách có đang được mượn không
         if (isBookBorrowed(isbn)) {
             Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmAlert.setTitle("Xác nhận");
@@ -150,7 +131,6 @@ public class DeleteBookController {
         }
     }
 
-    // Tải danh sách sách từ cơ sở dữ liệu
     private void loadBooksFromDatabase() {
         ObservableList<Book> bookList = FXCollections.observableArrayList();
         String query = "SELECT * FROM `thông tin sách`";
@@ -170,17 +150,17 @@ public class DeleteBookController {
                 ) {
                     @Override
                     public int getAvailableQuantity() {
-                        return 0;
+                        return getAvailableCopies();
                     }
 
                     @Override
                     public int getBorrowedQuantity() {
-                        return 0;
+                        return getBorrowedCopies();
                     }
 
                     @Override
                     public void setAvailableQuantity(int availableQuantity) {
-
+                        setAvailableCopies(availableQuantity);
                     }
                 });
             }
@@ -193,7 +173,6 @@ public class DeleteBookController {
         }
     }
 
-    // Trở về màn hình quản lý sách
     @FXML
     void onBackToBookManagementClick(MouseEvent event) {
         try {
@@ -211,7 +190,6 @@ public class DeleteBookController {
         }
     }
 
-    // Khởi tạo bảng và tải dữ liệu
     @FXML
     public void initialize() {
         colISBN.setCellValueFactory(new PropertyValueFactory<>("bookId"));
@@ -221,6 +199,11 @@ public class DeleteBookController {
         colAvailableQuantity.setCellValueFactory(new PropertyValueFactory<>("availableCopies"));
         colBorrowedQuantity.setCellValueFactory(new PropertyValueFactory<>("borrowedCopies"));
 
+        tableViewBooks.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            selectedBook = newValue;
+        });
+
         loadBooksFromDatabase();
     }
 }
+

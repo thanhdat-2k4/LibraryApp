@@ -1,4 +1,4 @@
-//// tim kiem doc gia
+////// tim kiem doc gia
 
 package com.example.oop25;
 
@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
 public class ReaderSearch implements Initializable {
@@ -69,31 +71,33 @@ public class ReaderSearch implements Initializable {
     void handleSearchInput(KeyEvent event) throws SQLException {
         if (event.getCode() == KeyCode.ENTER) {
             int selectedSearchType = searchTypeComboBox.getSelectionModel().getSelectedIndex();
-
             ObservableList<Reader> readerList = FXCollections.observableArrayList();
+            String query;
 
-            String query = "";
-            if (selectedSearchType == 0) {
-                // Tìm kiếm theo mã độc giả
-                query = "SELECT * FROM `danh sách độc giả` WHERE madocgia = ?;";
-            } else if (selectedSearchType == 1) {
-                // Tìm kiếm theo tên độc giả
-                query = "SELECT * FROM `danh sách độc giả` WHERE ten_docgia = ?;";
-            } else if (selectedSearchType == 2) {
-                // Tìm kiếm theo ngày gia hạn
-                query = "SELECT * FROM `danh sách độc giả` WHERE ngay_giahan = ?;";
-            } else if (selectedSearchType == 3) {
-                // Tìm kiếm theo ngày hết hạn
-                query = "SELECT * FROM `danh sách độc giả` WHERE ngay_hethan = ?;";
-            } else {
-                showAlert("Chưa chọn loại tìm kiếm", "Lỗi", "Lỗi");
-                return;
+            // Xác định câu truy vấn dựa trên loại tìm kiếm
+            switch (selectedSearchType) {
+                case 0 -> query = "SELECT * FROM `danh sách độc giả` WHERE madocgia = ?;";
+                case 1 -> query = "SELECT * FROM `danh sách độc giả` WHERE ten_docgia LIKE ?;";
+                case 2 -> query = "SELECT * FROM `danh sách độc giả` WHERE ngay_giahan = ?;";
+                case 3 -> query = "SELECT * FROM `danh sách độc giả` WHERE ngay_hethan = ?;";
+                default -> {
+                    showAlert("Lỗi", "Chưa chọn loại tìm kiếm", "Vui lòng chọn loại tìm kiếm trước khi nhập.");
+                    return;
+                }
             }
 
             try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
                  PreparedStatement searchStatement = connection.prepareStatement(query)) {
-                searchStatement.setString(1, searchField.getText());
+
+                // Nếu tìm kiếm theo tên thì sử dụng %LIKE%
+                if (selectedSearchType == 1) {
+                    searchStatement.setString(1, "%" + searchField.getText() + "%");
+                } else {
+                    searchStatement.setString(1, searchField.getText());
+                }
+
                 ResultSet resultSet = searchStatement.executeQuery();
+
                 while (resultSet.next()) {
                     readerList.add(new Reader(
                             resultSet.getString("madocgia"),
@@ -104,15 +108,20 @@ public class ReaderSearch implements Initializable {
                             resultSet.getString("ghi_chu")
                     ));
                 }
+            } catch (SQLException e) {
+                showAlert("Lỗi", "Lỗi truy vấn", "Không thể kết nối cơ sở dữ liệu.");
+                e.printStackTrace();
+                return;
             }
 
             // Cập nhật TableView với kết quả tìm kiếm
             readerTableView.setItems(readerList);
 
+            // Thông báo kết quả
             if (!readerList.isEmpty()) {
-                showAlert("Thông báo", "Tìm kiếm thành công", "Đã tìm thấy kết quả.");
+                showAlert("Thành công", "Tìm kiếm hoàn tất", "Đã tìm thấy " + readerList.size() + " kết quả.");
             } else {
-                showAlert("Thông báo", "Không có kết quả", "Không tìm thấy kết quả phù hợp.");
+                showAlert("Thông báo", "Không tìm thấy kết quả", "Vui lòng kiểm tra thông tin tìm kiếm.");
             }
         }
     }
@@ -147,9 +156,9 @@ public class ReaderSearch implements Initializable {
         grid.add(readerNameField, 1, 0);
         grid.add(new Label("Thông tin:"), 0, 1);
         grid.add(contactInfoField, 1, 1);
-        grid.add(new Label("Ngày gia hạn:"), 0, 2);
+        grid.add(new Label("Ngày gia hạn (yyyy-MM-dd):"), 0, 2);
         grid.add(renewalDateField, 1, 2);
-        grid.add(new Label("Ngày hết hạn:"), 0, 3);
+        grid.add(new Label("Ngày hết hạn (yyyy-MM-dd):"), 0, 3);
         grid.add(expirationDateField, 1, 3);
         grid.add(new Label("Ghi chú:"), 0, 4);
         grid.add(noteField, 1, 4);
@@ -169,14 +178,51 @@ public class ReaderSearch implements Initializable {
         });
 
         dialog.showAndWait().ifPresent(updatedReader -> {
-            readerTableView.refresh();
             try {
+                // Kiểm tra ngày hợp lệ
+                if (!isDateValid(updatedReader.getRenewalDate(), updatedReader.getExpirationDate())) {
+                    showAlert("Lỗi", "Ngày không hợp lệ", "Ngày gia hạn phải nhỏ hơn ngày hết hạn và đúng định dạng yyyy-MM-dd.");
+                    return; // Dừng lại nếu ngày không hợp lệ
+                }
+
+                // Cập nhật cơ sở dữ liệu
                 updateReaderInDatabase(updatedReader);
+
+                // Làm mới TableView
+                readerTableView.refresh();
+                showAlert("Thành công", "Cập nhật thành công", "Thông tin độc giả đã được cập nhật.");
             } catch (SQLException e) {
                 e.printStackTrace();
                 showAlert("Lỗi", "Cập nhật thất bại", "Có lỗi xảy ra khi cập nhật cơ sở dữ liệu.");
             }
         });
+    }
+
+    private boolean isDateValid(String renewalDate, String expirationDate) {
+        try {
+            LocalDate renewal = LocalDate.parse(renewalDate);
+            LocalDate expiration = LocalDate.parse(expirationDate);
+            return renewal.isBefore(expiration); // Ngày gia hạn phải nhỏ hơn ngày hết hạn
+        } catch (DateTimeParseException e) {
+            return false; // Định dạng ngày không hợp lệ
+        }
+    }
+
+    private void updateReaderInDatabase(Reader reader) throws SQLException {
+        String query = "UPDATE `danh sách độc giả` SET ten_docgia = ?, thong_tin = ?, ngay_giahan = ?, ngay_hethan = ?, ghi_chu = ? WHERE madocgia = ?";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, reader.getReaderName());
+            statement.setString(2, reader.getInformation());
+            statement.setString(3, reader.getRenewalDate());
+            statement.setString(4, reader.getExpirationDate());
+            statement.setString(5, reader.getNotes());
+            statement.setString(6, reader.getReaderId());
+
+            statement.executeUpdate();
+        }
     }
 
     @FXML
@@ -197,7 +243,8 @@ public class ReaderSearch implements Initializable {
                 "Tìm kiếm theo mã thẻ",
                 "Tìm kiếm theo tên",
                 "Tìm kiếm theo ngày gia hạn",
-                "Tìm kiếm theo ngày hết hạn");
+                "Tìm kiếm theo ngày hết hạn"
+        );
 
         columnReaderId.setCellValueFactory(new PropertyValueFactory<>("readerId"));
         columnReaderName.setCellValueFactory(new PropertyValueFactory<>("readerName"));
@@ -206,38 +253,13 @@ public class ReaderSearch implements Initializable {
         columnExpirationDate.setCellValueFactory(new PropertyValueFactory<>("expirationDate"));
         columnNote.setCellValueFactory(new PropertyValueFactory<>("notes"));
 
+        searchTypeComboBox.setItems(searchMethods);
+
         try {
             loadData();
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert("Lỗi", "Lỗi khi tải dữ liệu", "Có lỗi khi tải dữ liệu độc giả.");
-        }
-
-        searchTypeComboBox.setItems(searchMethods);
-    }
-
-    public static void showAlert(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
-    private void updateReaderInDatabase(Reader reader) throws SQLException {
-        String query = "UPDATE `danh sách độc giả` SET ten_docgia = ?, thong_tin = ?, ngay_giahan = ?, ngay_hethan = ?, ghi_chu = ? WHERE madocgia = ?";
-
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, reader.getReaderName());
-            preparedStatement.setString(2, reader.getInformation());
-            preparedStatement.setString(3, reader.getRenewalDate());
-            preparedStatement.setString(4, reader.getExpirationDate());
-            preparedStatement.setString(5, reader.getNotes());
-            preparedStatement.setString(6, reader.getReaderId());
-
-            preparedStatement.executeUpdate();
+            showAlert("Lỗi", "Không thể tải dữ liệu", "Đã xảy ra lỗi khi tải danh sách độc giả.");
         }
     }
 
@@ -262,5 +284,13 @@ public class ReaderSearch implements Initializable {
 
             readerTableView.setItems(readerList);
         }
+    }
+
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
