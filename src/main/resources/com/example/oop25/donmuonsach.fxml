@@ -14,7 +14,7 @@
    <children>
       <Label layoutX="430.0" layoutY="51.0" text="Phiếu mượn sách">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
       </Label>
       <Label layoutX="179.0" layoutY="137.0" text="Mã độc giả" />
@@ -24,7 +24,7 @@
       <TextField fx:id="readerIdField" layoutX="254.0" layoutY="133.0" />
       <TextField fx:id="readerNameField" layoutX="254.0" layoutY="197.0" />
       <Button layoutX="723.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#onSaveBorrowing" text="Lưu thông tin" />
-      <Button layoutX="592.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#onBackToMainPage" text="Quay lại" />
+      <Button layoutX="625.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#onBackToMainPage" text="Quay lại" />
       <Button layoutX="107.0" layoutY="407.0" mnemonicParsing="false" onMouseClicked="#onAddNewBorrow" text="+ Thêm dòng mới" />
       <TableView fx:id="bookTable" layoutX="90.0" layoutY="261.0" prefHeight="117.0" prefWidth="798.0">
          <columns>

@@ -1,5 +1,4 @@
-
-
+//tu dong dien
 package com.example.oop25;
 
 import org.json.JSONArray;
@@ -10,48 +9,57 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Lớp hỗ trợ tự động điền thông tin sách từ Google Books API.
+ */
+public class BookInfoFetcher {
 
-public class Tudongdien {
-
-    public static String Tudongdienthongtin(String isbn) {
+    /**
+     * Lấy thông tin sách từ Google Books API dựa trên ISBN.
+     * @param isbn Mã ISBN của sách
+     * @return Chuỗi thông tin sách theo định dạng: "Tên sách; Tác giả; Nhà xuất bản"
+     */
+    public static String fetchBookInfo(String isbn) {
         try {
             // Loại bỏ các ký tự không phải số từ ISBN (chỉ giữ lại số)
             isbn = isbn.replaceAll("[^\\d]", "");
 
-            // Xây dựng URL API
+            // Tạo URL API
             String apiUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
             URL url = new URL(apiUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
+
+            // Mở kết nối HTTP
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET"); // Thiết lập phương thức GET
+            connection.connect();
 
             // Kiểm tra mã phản hồi HTTP
-            int responseCode = conn.getResponseCode();
+            int responseCode = connection.getResponseCode();
             if (responseCode != 200) {
-                // Nếu không nhận được phản hồi thành công từ API
+                // Nếu phản hồi không thành công, in mã lỗi
                 System.out.println("HTTP Error Code: " + responseCode);
                 return null;
             }
 
             // Đọc dữ liệu trả về từ API
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder response = new StringBuilder();
             String line;
-            while ((line = in.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 response.append(line);
             }
-            in.close();
+            reader.close();
 
-            // Chuyển đổi chuỗi JSON thành đối tượng JSONObject
+            // Chuyển chuỗi JSON thành đối tượng JSONObject
             JSONObject jsonResponse = new JSONObject(response.toString());
             JSONArray items = jsonResponse.optJSONArray("items");
 
-            // Nếu tìm thấy ít nhất một sách, lấy thông tin
+            // Nếu tìm thấy sách, lấy thông tin chi tiết
             if (items != null && items.length() > 0) {
                 JSONObject volumeInfo = items.getJSONObject(0).optJSONObject("volumeInfo");
 
                 if (volumeInfo == null) {
-                    return null;  // Nếu không có thông tin sách
+                    return null; // Nếu không có thông tin sách
                 }
 
                 // Lấy thông tin từ JSON
@@ -64,13 +72,15 @@ public class Tudongdien {
                 // Trả về thông tin sách theo định dạng: Tên sách; Tác giả; Nhà xuất bản
                 return title + ";" + author + ";" + publisher;
             } else {
-                // Nếu không tìm thấy sách, trả về null
+                // Nếu không tìm thấy sách
                 return null;
             }
         } catch (Exception e) {
-            // In ra lỗi nếu có ngoại lệ
+            // Xử lý ngoại lệ nếu có lỗi
             e.printStackTrace();
         }
-        return null; // Trả về null nếu có lỗi hoặc không tìm thấy thông tin
+
+        // Trả về null nếu có lỗi hoặc không tìm thấy thông tin
+        return null;
     }
 }

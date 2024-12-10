@@ -165,7 +165,7 @@ public class BookAdder {
             isbn = isbn.replaceAll("[^\\d]", "");
 
             // Lấy thông tin sách từ API
-            String bookInfo = Tudongdien.Tudongdienthongtin(isbn);
+            String bookInfo = BookInfoFetcher.fetchBookInfo(isbn);
             if (bookInfo != null) {
                 String[] details = bookInfo.split(";");
                 String title = details[0];
