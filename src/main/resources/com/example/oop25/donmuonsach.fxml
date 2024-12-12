@@ -28,17 +28,17 @@
       <Button layoutX="107.0" layoutY="407.0" mnemonicParsing="false" onMouseClicked="#onAddNewBorrow" text="+ Thêm dòng mới" />
       <TableView fx:id="bookTable" layoutX="90.0" layoutY="261.0" prefHeight="117.0" prefWidth="798.0">
          <columns>
-            <TableColumn fx:id="selectColumn" prefWidth="62.66669464111328" text="chọn">
+            <TableColumn fx:id="selectColumn" prefWidth="53.333351135253906" text="chọn">
                <graphic>
                   <CheckBox mnemonicParsing="false" />
                </graphic>
             </TableColumn>
-            <TableColumn fx:id="isbnColumn" prefWidth="95.33331298828125" text="ISBN" />
-            <TableColumn fx:id="titleColumn" prefWidth="134.00001525878906" text="Tên sách" />
-            <TableColumn fx:id="authorColumn" prefWidth="139.99996948242188" text="Tên tác giả" />
-            <TableColumn fx:id="publisherColumn" minWidth="6.6666259765625" prefWidth="122.66668701171875" text="NXB" />
-            <TableColumn fx:id="availableQuantityColumn" minWidth="0.0" prefWidth="116.0" text="Số lượng hiện còn" />
-            <TableColumn fx:id="borrowedQuantityColumn" prefWidth="124.00006103515625" text="Số lượng mượn" />
+            <TableColumn fx:id="isbnColumn" prefWidth="123.99998474121094" text="ISBN" />
+            <TableColumn fx:id="titleColumn" prefWidth="136.6666259765625" text="Tên sách" />
+            <TableColumn fx:id="authorColumn" prefWidth="172.00003051757812" text="Tên tác giả" />
+            <TableColumn fx:id="publisherColumn" minWidth="6.6666259765625" prefWidth="106.0" text="NXB" />
+            <TableColumn fx:id="availableQuantityColumn" minWidth="0.0" prefWidth="108.00006103515625" text="Số lượng hiện còn" />
+            <TableColumn fx:id="borrowedQuantityColumn" prefWidth="99.3333740234375" text="Số lượng mượn" />
          </columns>
       </TableView>
       <DatePicker fx:id="returnDatePicker" layoutX="674.0" layoutY="196.0" />

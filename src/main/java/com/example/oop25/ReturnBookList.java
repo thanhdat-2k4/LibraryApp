@@ -139,6 +139,110 @@ public class ReturnBookList {
         }
     }
 
+//    @FXML
+//    void handleSearch(KeyEvent event) {
+//        if (event.getCode() == KeyCode.ENTER) {
+//            String keyword = search.getText().trim();
+//            String selectedType = searchType.getValue();
+//
+//            if (keyword.isEmpty() || selectedType == null) {
+//                showAlert("Lỗi", "Thông tin tìm kiếm thiếu", "Vui lòng chọn phương thức tìm kiếm và nhập từ khóa.");
+//                return;
+//            }
+//
+//            String sql;
+//            if (selectedType.equals("Tìm kiếm theo mã phiếu")) {
+//                sql = """
+//                SELECT
+//                    b.ISBN AS bookId,
+//                    b.ten_sach AS bookTitle,
+//                    b.ten_tac_gia AS authorName,
+//                    b.NXB AS publisher,
+//                    COUNT(*) AS borrowedCopies,
+//                    (b.so_luong_hien_con - COUNT(*)) AS availableCopies
+//                FROM
+//                    `thông tin sách` b
+//                JOIN
+//                    `lượt mượn` lm ON b.ISBN = lm.ISBN
+//                WHERE
+//                    lm.ma_phieu = ? AND lm.tinh_trang = 'đã trả'
+//                GROUP BY
+//                    b.ISBN;
+//                """;
+//            } else if (selectedType.equals("Tìm kiếm theo tên độc giả")) {
+//                sql = """
+//                SELECT
+//                    b.ISBN AS bookId,
+//                    b.ten_sach AS bookTitle,
+//                    b.ten_tac_gia AS authorName,
+//                    b.NXB AS publisher,
+//                    COUNT(*) AS borrowedCopies,
+//                    (b.so_luong_hien_con - COUNT(*)) AS availableCopies
+//                FROM
+//                    `thông tin sách` b
+//                JOIN
+//                    `lượt mượn` lm ON b.ISBN = lm.ISBN
+//                JOIN
+//                    `danh sách độc giả` dg ON dg.madocgia = lm.madocgia
+//                WHERE
+//                    dg.ten_docgia = ? AND lm.tinh_trang = 'đã trả'
+//                GROUP BY
+//                    b.ISBN;
+//                """;
+//            } else {
+//                showAlert("Lỗi", "Lựa chọn không hợp lệ", "Vui lòng chọn phương thức tìm kiếm hợp lệ.");
+//                return;
+//            }
+//
+//            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
+//                 PreparedStatement statement = connection.prepareStatement(sql)) {
+//
+//                statement.setString(1, keyword);
+//                ResultSet resultSet = statement.executeQuery();
+//
+//                ObservableList<Book> results = FXCollections.observableArrayList();
+//
+//                while (resultSet.next()) {
+//                    String id = resultSet.getString("bookId");
+//                    String title = resultSet.getString("bookTitle");
+//                    String author = resultSet.getString("authorName");
+//                    String pub = resultSet.getString("publisher");
+//                    int available = resultSet.getInt("availableCopies");
+//                    int borrowed = resultSet.getInt("borrowedCopies");
+//
+//                    results.add(new Book(id, title, author, pub, available, borrowed) {
+//                        @Override
+//                        public int getAvailableQuantity() {
+//                            return 0;
+//                        }
+//
+//                        @Override
+//                        public int getBorrowedQuantity() {
+//                            return 0;
+//                        }
+//
+//                        @Override
+//                        public void setAvailableQuantity(int availableQuantity) {
+//
+//                        }
+//                    });
+//                }
+//
+//                if (!results.isEmpty()) {
+//                    returnBookTable.setItems(results);
+//                    showAlert("Thông báo", "Tìm kiếm thành công", "Đã tìm thấy sách phù hợp.");
+//                } else {
+//                    returnBookTable.setItems(FXCollections.observableArrayList());
+//                    showAlert("Thông báo", "Không có kết quả", "Không có sách phù hợp với tiêu chí tìm kiếm.");
+//                }
+//
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//                showAlert("Lỗi", "Lỗi truy vấn cơ sở dữ liệu", e.getMessage());
+//            }
+//        }
+//    }
+
     @FXML
     void handleSearch(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
@@ -150,45 +254,63 @@ public class ReturnBookList {
                 return;
             }
 
-            String sql;
+            String sql = "";
             if (selectedType.equals("Tìm kiếm theo mã phiếu")) {
                 sql = """
-                SELECT
-                    b.ISBN AS bookId,
-                    b.ten_sach AS bookTitle,
-                    b.ten_tac_gia AS authorName,
-                    b.NXB AS publisher,
-                    COUNT(*) AS borrowedCopies,
-                    (b.so_luong_hien_con - COUNT(*)) AS availableCopies
-                FROM
-                    `thông tin sách` b
-                JOIN
-                    `lượt mượn` lm ON b.ISBN = lm.ISBN
-                WHERE
-                    lm.ma_phieu = ? AND lm.tinh_trang = 'đã trả'
-                GROUP BY
-                    b.ISBN;
-                """;
+            SELECT
+                b.ISBN AS bookId,
+                b.ten_sach AS bookTitle,
+                b.ten_tac_gia AS authorName,
+                b.NXB AS publisher,
+                COUNT(*) AS borrowedCopies,
+                (b.so_luong_hien_con - COUNT(*)) AS availableCopies
+            FROM
+                `thông tin sách` b
+            JOIN
+                `lượt mượn` lm ON b.ISBN = lm.ISBN
+            WHERE
+                lm.ma_phieu = ? AND lm.tinh_trang = 'đã trả'
+            GROUP BY
+                b.ISBN;
+            """;
             } else if (selectedType.equals("Tìm kiếm theo tên độc giả")) {
                 sql = """
-                SELECT
-                    b.ISBN AS bookId,
-                    b.ten_sach AS bookTitle,
-                    b.ten_tac_gia AS authorName,
-                    b.NXB AS publisher,
-                    COUNT(*) AS borrowedCopies,
-                    (b.so_luong_hien_con - COUNT(*)) AS availableCopies
-                FROM
-                    `thông tin sách` b
-                JOIN
-                    `lượt mượn` lm ON b.ISBN = lm.ISBN
-                JOIN
-                    `danh sách độc giả` dg ON dg.madocgia = lm.madocgia
-                WHERE
-                    dg.ten_docgia = ? AND lm.tinh_trang = 'đã trả'
-                GROUP BY
-                    b.ISBN;
-                """;
+            SELECT
+                b.ISBN AS bookId,
+                b.ten_sach AS bookTitle,
+                b.ten_tac_gia AS authorName,
+                b.NXB AS publisher,
+                COUNT(*) AS borrowedCopies,
+                (b.so_luong_hien_con - COUNT(*)) AS availableCopies
+            FROM
+                `thông tin sách` b
+            JOIN
+                `lượt mượn` lm ON b.ISBN = lm.ISBN
+            JOIN
+                `danh sách độc giả` dg ON dg.madocgia = lm.madocgia
+            WHERE
+                dg.ten_docgia = ? AND lm.tinh_trang = 'đã trả'
+            GROUP BY
+                b.ISBN;
+            """;
+            } else if (selectedType.equals("Tìm kiếm theo mã độc giả")) {
+                sql = """
+            SELECT
+                b.ISBN AS bookId,
+                b.ten_sach AS bookTitle,
+                b.ten_tac_gia AS authorName,
+                b.NXB AS publisher,
+                COUNT(*) AS borrowedCopies,
+                (b.so_luong_hien_con - COUNT(*)) AS availableCopies
+            FROM
+                `thông tin sách` b
+            JOIN
+                `lượt mượn` lm ON b.ISBN = lm.ISBN
+            WHERE
+                lm.madocgia = ? AND lm.tinh_trang = 'đã trả'
+            GROUP BY
+                b.ISBN;
+            """;
             } else {
                 showAlert("Lỗi", "Lựa chọn không hợp lệ", "Vui lòng chọn phương thức tìm kiếm hợp lệ.");
                 return;
@@ -197,7 +319,7 @@ public class ReturnBookList {
             try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
                  PreparedStatement statement = connection.prepareStatement(sql)) {
 
-                statement.setString(1, keyword);
+                statement.setString(1, keyword);  // Đặt giá trị tìm kiếm cho câu lệnh SQL
                 ResultSet resultSet = statement.executeQuery();
 
                 ObservableList<Book> results = FXCollections.observableArrayList();
@@ -252,8 +374,26 @@ public class ReturnBookList {
         availableCopies.setCellValueFactory(new PropertyValueFactory<>("availableCopies"));
         borrowedCopies.setCellValueFactory(new PropertyValueFactory<>("borrowedCopies"));
 
-        searchType.setItems(FXCollections.observableArrayList("Tìm kiếm theo mã phiếu", "Tìm kiếm theo tên độc giả"));
+        // Thêm lựa chọn mới vào ComboBox
+        searchType.setItems(FXCollections.observableArrayList(
+                "Tìm kiếm theo mã phiếu",
+                "Tìm kiếm theo tên độc giả",
+                "Tìm kiếm theo mã độc giả"  // Thêm lựa chọn này
+        ));
     }
+
+
+//    @FXML
+//    public void initialize() {
+//        bookId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+//        bookTitle.setCellValueFactory(new PropertyValueFactory<>("bookTitle"));
+//        authorName.setCellValueFactory(new PropertyValueFactory<>("authorName"));
+//        publisher.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+//        availableCopies.setCellValueFactory(new PropertyValueFactory<>("availableCopies"));
+//        borrowedCopies.setCellValueFactory(new PropertyValueFactory<>("borrowedCopies"));
+//
+//        searchType.setItems(FXCollections.observableArrayList("Tìm kiếm theo mã phiếu", "Tìm kiếm theo tên độc giả"));
+//    }
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

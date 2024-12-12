@@ -22,16 +22,16 @@
       <TextField fx:id="search" layoutX="522.0" layoutY="251.0" onKeyPressed="#handleSearch" prefHeight="25.0" prefWidth="243.0" promptText="Tìm kiếm" />
       <TableView fx:id="returnBookTable" layoutX="113.0" layoutY="339.0" prefHeight="136.0" prefWidth="775.0">
          <columns>
-            <TableColumn fx:id="bookId" prefWidth="84.66665649414062" text="ISBN" />
-            <TableColumn fx:id="bookTitle" prefWidth="150.66665649414062" text="Tên sách" />
-            <TableColumn fx:id="authorName" prefWidth="180.66668701171875" text="Tên tác giả" />
-            <TableColumn fx:id="publisher" minWidth="6.6666259765625" prefWidth="120.666748046875" text="NXB" />
-            <TableColumn fx:id="availableCopies" prefWidth="128.00006103515625" text="Số lượng hiện còn" />
-            <TableColumn fx:id="borrowedCopies" prefWidth="111.3333740234375" text="Số lượng mượn" />
+            <TableColumn fx:id="bookId" prefWidth="122.66665649414062" text="ISBN" />
+            <TableColumn fx:id="bookTitle" prefWidth="160.6666259765625" text="Tên sách" />
+            <TableColumn fx:id="authorName" prefWidth="163.3333740234375" text="Tên tác giả" />
+            <TableColumn fx:id="publisher" minWidth="6.6666259765625" prefWidth="118.6666259765625" text="NXB" />
+            <TableColumn fx:id="availableCopies" prefWidth="115.3333740234375" text="Số lượng hiện còn" />
+            <TableColumn fx:id="borrowedCopies" prefWidth="100.0" text="Số lượng mượn" />
          </columns>
       </TableView>
       <Button layoutX="778.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#handleLoadDataClick" prefHeight="25.0" prefWidth="108.0" text="Danh sách đã trả" />
       <Button layoutX="710.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#handleExitClick" text="Thoát" />
-      <ComboBox fx:id="searchType" layoutX="202.0" layoutY="251.0" prefHeight="25.0" prefWidth="143.0" promptText="Chọn loại tìm kiếm" />
+      <ComboBox fx:id="searchType" layoutX="202.0" layoutY="251.0" prefHeight="25.0" prefWidth="210.0" promptText="Chọn loại tìm kiếm" />
    </children>
 </Pane>

@@ -236,7 +236,7 @@ public class BorrowBook {
             stmtInsert.setString(3, readerId);
             stmtInsert.setDate(4, Date.valueOf(borrowDate));
             stmtInsert.setDate(5, Date.valueOf(returnDate));
-            stmtInsert.setString(6, "mượn");
+            stmtInsert.setString(6, "đang mượn");
 
             // Execute INSERT query
             stmtInsert.executeUpdate();

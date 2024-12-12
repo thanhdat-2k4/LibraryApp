@@ -6,24 +6,24 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="400.0" prefWidth="600.0"
-      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.oop25.ChangePass">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.ChangePass">
     <children>
-        <Label layoutX="225.0" layoutY="48.0" text="Đổi mật khẩu">
+        <Label layoutX="416.0" layoutY="85.0" text="Đổi mật khẩu">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Button layoutX="260.0" layoutY="248.0" mnemonicParsing="false" text="Xác nhận"
-                onMouseClicked="#changePassword" />
-        <Label layoutX="140.0" layoutY="135.0" text="Nhập mật khẩu mới: " />
-        <Label layoutX="154.0" layoutY="171.0" text="Nhắc lại mật khẩu: " />
-        <Button layoutX="488.0" layoutY="344.0" mnemonicParsing="false" text="Thoát"
-                onMouseClicked="#exitChangePassword" />
-        <PasswordField fx:id="newPasswordField" layoutX="263.0" layoutY="131.0" />
-        <PasswordField fx:id="confirmPasswordField" layoutX="263.0" layoutY="167.0" />
+        <Button layoutX="476.0" layoutY="314.0" mnemonicParsing="false" onMouseClicked="#changePassword" prefHeight="36.0" prefWidth="76.0" text="Xác nhận" />
+        <Label layoutX="269.0" layoutY="196.0" prefHeight="27.0" prefWidth="176.0" text="Nhập mật khẩu mới: ">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+        <Label layoutX="269.0" layoutY="259.0" prefHeight="27.0" prefWidth="176.0" text="Nhắc lại mật khẩu: ">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+        <Button layoutX="745.0" layoutY="428.0" mnemonicParsing="false" onMouseClicked="#exitChangePassword" prefHeight="25.0" prefWidth="59.0" text="Thoát" />
+        <PasswordField fx:id="newPasswordField" layoutX="475.0" layoutY="197.0" prefHeight="25.0" prefWidth="195.0" />
+        <PasswordField fx:id="confirmPasswordField" layoutX="476.0" layoutY="260.0" prefHeight="25.0" prefWidth="195.0" />
     </children>
 </Pane>
-

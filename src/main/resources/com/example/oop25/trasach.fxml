@@ -19,11 +19,11 @@
       <Button layoutX="732.0" layoutY="527.0" mnemonicParsing="false" onMouseClicked="#onExitClick" prefHeight="25.0" prefWidth="69.0" text="Thoát" />
       <TableView fx:id="returnBookTable" layoutX="61.0" layoutY="289.0" prefHeight="207.0" prefWidth="878.0">
          <columns>
-            <TableColumn fx:id="ISBN" prefWidth="81.33334350585938" text="ISBN" />
-            <TableColumn fx:id="bookTitleColumn" prefWidth="197.3333282470703" text="Tên sách" />
-            <TableColumn fx:id="authorColumn" prefWidth="199.33334350585938" text="Tên tác giả" />
-            <TableColumn fx:id="publisherColumn" minWidth="6.6666259765625" prefWidth="144.00006103515625" text="NXB" />
-            <TableColumn fx:id="availableCopiesColumn" prefWidth="139.99993896484375" text="Số lượng hiện còn" />
+            <TableColumn fx:id="ISBN" prefWidth="143.99999618530273" text="ISBN" />
+            <TableColumn fx:id="bookTitleColumn" prefWidth="194.00001525878906" text="Tên sách" />
+            <TableColumn fx:id="authorColumn" prefWidth="159.99996948242188" text="Tên tác giả" />
+            <TableColumn fx:id="publisherColumn" minWidth="6.6666259765625" prefWidth="160.66668701171875" text="NXB" />
+            <TableColumn fx:id="availableCopiesColumn" prefWidth="107.33331298828125" text="Số lượng hiện còn" />
             <TableColumn fx:id="borrowedCopiesColumn" prefWidth="113.33331298828125" text="Số lượng mượn" />
          </columns>
       </TableView>

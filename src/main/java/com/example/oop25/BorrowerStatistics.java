@@ -136,6 +136,7 @@ public class BorrowerStatistics {
                     `thông tin sách` b ON l.ISBN = b.ISBN
                 WHERE 
                     l.ngay_muon <= ? AND (l.ngay_tra IS NULL OR l.ngay_tra > ?)
+                     AND l.tinh_trang = 'đang mượn'
                 """;
 
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
