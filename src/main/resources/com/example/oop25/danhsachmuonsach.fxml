@@ -11,27 +11,27 @@
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.BookLoanList">
-   <children>
-      <Label layoutX="374.0" layoutY="47.0" text="Danh sách mượn sách">
-         <font>
-            <Font size="27.0" />
-         </font>
-      </Label>
-      <ToggleButton layoutX="206.0" layoutY="176.0" mnemonicParsing="false" text="Mượn sách" textFill="#1676cc" underline="true" />
-      <ToggleButton layoutX="288.0" layoutY="176.0" mnemonicParsing="false" onMouseClicked="#onReturnButtonClick" prefHeight="25.0" prefWidth="75.0" text="Trả sách" />
-      <TextField fx:id="searchTextField" layoutX="525.0" layoutY="250.0" onKeyPressed="#onSearchInput" prefHeight="25.0" prefWidth="243.0" promptText="Tìm kiếm" />
-      <TableView fx:id="bookLoanTableView" layoutX="113.0" layoutY="338.0" prefHeight="136.0" prefWidth="775.0">
-        <columns>
-          <TableColumn fx:id="isbnColumn" prefWidth="129.99999237060547" text="ISBN" />
-            <TableColumn fx:id="bookTitleColumn" prefWidth="162.0000762939453" text="Tên sách" />
-            <TableColumn fx:id="authorColumn" prefWidth="157.33322143554688" text="Tên tác giả" />
-            <TableColumn fx:id="publisherColumn" minWidth="6.6666259765625" prefWidth="120.66668701171875" text="NXB" />
-            <TableColumn fx:id="availableCopiesColumn" prefWidth="106.666748046875" text="Số lượng hiện còn" />
-            <TableColumn fx:id="borrowedCopiesColumn" prefWidth="105.33331298828125" text="Số lượng mượn" />
-        </columns>
-      </TableView>
-      <Button layoutX="765.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#onPrintButtonClick" prefHeight="25.0" prefWidth="123.0" text="Danh sách mượn" />
-      <Button layoutX="710.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#onExitButtonClick" text="Thoát" />
-      <ComboBox fx:id="loaiSearchComboBox" layoutX="205.0" layoutY="250.0" prefHeight="25.0" prefWidth="210.0" promptText="Chọn loại tìm kiếm" />
-   </children>
+    <children>
+        <Label layoutX="374.0" layoutY="47.0" text="Danh sách mượn sách">
+            <font>
+                <Font size="27.0" />
+            </font>
+        </Label>
+        <ToggleButton layoutX="206.0" layoutY="176.0" mnemonicParsing="false" text="Mượn sách" textFill="#1676cc" underline="true" />
+        <ToggleButton layoutX="288.0" layoutY="176.0" mnemonicParsing="false" onMouseClicked="#onReturnButtonClick" prefHeight="25.0" prefWidth="75.0" text="Trả sách" />
+        <TextField fx:id="searchTextField" layoutX="525.0" layoutY="250.0" onKeyPressed="#onSearchInput" prefHeight="25.0" prefWidth="243.0" promptText="Tìm kiếm" />
+        <TableView fx:id="bookLoanTableView" layoutX="113.0" layoutY="338.0" prefHeight="136.0" prefWidth="775.0">
+            <columns>
+                <TableColumn fx:id="isbnColumn" prefWidth="129.99999237060547" text="ISBN" />
+                <TableColumn fx:id="bookTitleColumn" prefWidth="162.0000762939453" text="Tên sách" />
+                <TableColumn fx:id="authorColumn" prefWidth="157.33322143554688" text="Tên tác giả" />
+                <TableColumn fx:id="publisherColumn" minWidth="6.6666259765625" prefWidth="120.66668701171875" text="NXB" />
+                <TableColumn fx:id="availableCopiesColumn" prefWidth="106.666748046875" text="Số lượng hiện còn" />
+                <TableColumn fx:id="borrowedCopiesColumn" prefWidth="105.33331298828125" text="Số lượng mượn" />
+            </columns>
+        </TableView>
+        <Button layoutX="765.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#onPrintButtonClick" prefHeight="25.0" prefWidth="123.0" text="Danh sách mượn" />
+        <Button layoutX="710.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#onExitButtonClick" text="Thoát" />
+        <ComboBox fx:id="loaiSearchComboBox" layoutX="205.0" layoutY="250.0" prefHeight="25.0" prefWidth="210.0" promptText="Chọn loại tìm kiếm" />
+    </children>
 </Pane>

@@ -6,17 +6,17 @@
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.Home">
-   <children>
-      <Button layoutX="320.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#btnManageBooks" prefHeight="79.0" prefWidth="113.0" text="Quản lý sách" textAlignment="CENTER" wrapText="true" />
-      <Button layoutX="488.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#ReaderManagement" prefHeight="79.0" prefWidth="113.0" text="Quản lý độc giả " textAlignment="CENTER" wrapText="true" />
-      <Button layoutX="653.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#handleBorrowBookClick" prefHeight="79.0" prefWidth="113.0" text="Quản lý mượn/trả sách" textAlignment="CENTER" wrapText="true" />
-      <Button layoutX="375.0" layoutY="340.0" mnemonicParsing="false" onMouseClicked="#btnStatistics" prefHeight="79.0" prefWidth="113.0" text="Thống kê" textAlignment="CENTER" wrapText="true" />
-      <Button layoutX="601.0" layoutY="340.0" mnemonicParsing="false" onMouseClicked="#btnManageProfile" prefHeight="79.0" prefWidth="113.0" text="Cá nhân" textAlignment="CENTER" wrapText="true" />
-      <Button layoutX="754.0" layoutY="456.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="35.0" prefWidth="74.0" text="Thoát" textAlignment="CENTER" wrapText="true" />
-      <Label layoutX="383.0" layoutY="89.0" text="Ứng dụng quản lý thư viện">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-   </children>
+    <children>
+        <Button layoutX="320.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#btnManageBooks" prefHeight="79.0" prefWidth="113.0" text="Quản lý sách" textAlignment="CENTER" wrapText="true" />
+        <Button layoutX="488.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#ReaderManagement" prefHeight="79.0" prefWidth="113.0" text="Quản lý độc giả " textAlignment="CENTER" wrapText="true" />
+        <Button layoutX="653.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#handleBorrowBookClick" prefHeight="79.0" prefWidth="113.0" text="Quản lý mượn/trả sách" textAlignment="CENTER" wrapText="true" />
+        <Button layoutX="375.0" layoutY="340.0" mnemonicParsing="false" onMouseClicked="#btnStatistics" prefHeight="79.0" prefWidth="113.0" text="Thống kê" textAlignment="CENTER" wrapText="true" />
+        <Button layoutX="601.0" layoutY="340.0" mnemonicParsing="false" onMouseClicked="#btnManageProfile" prefHeight="79.0" prefWidth="113.0" text="Cá nhân" textAlignment="CENTER" wrapText="true" />
+        <Button layoutX="754.0" layoutY="456.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="35.0" prefWidth="74.0" text="Thoát" textAlignment="CENTER" wrapText="true" />
+        <Label layoutX="383.0" layoutY="89.0" text="Ứng dụng quản lý thư viện">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+    </children>
 </Pane>

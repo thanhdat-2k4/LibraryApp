@@ -11,27 +11,27 @@
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.ReaderSearch">
-   <children>
-      <Label layoutX="365.0" layoutY="45.0" text="DANH SÁCH ĐỘC GIẢ">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Line endX="479.66668701171875" endY="-7.62939453125E-6" layoutX="341.0" layoutY="75.0" startX="-213.66665649414062" startY="-7.62939453125E-6" />
-      <TextField fx:id="searchField" layoutX="543.0" layoutY="187.0" onKeyPressed="#handleSearchInput" prefHeight="25.0" prefWidth="196.0" promptText="Tìm kiếm" />
-      <TableView fx:id="readerTableView" layoutX="99.0" layoutY="284.0" prefHeight="139.0" prefWidth="802.0">
-         <columns>
-            <TableColumn fx:id="columnReaderId" prefWidth="109.33334350585938" text="Mã độc giả" />
-            <TableColumn fx:id="columnReaderName" prefWidth="228.0" text="Tên độc giả" />
-            <TableColumn fx:id="columnContactInfo" prefWidth="107.33334350585938" text="Thông tin" />
-            <TableColumn fx:id="columnRenewalDate" prefWidth="164.00006103515625" text="Ngày gia hạn" />
-            <TableColumn fx:id="columnExpirationDate" prefWidth="98.0" text="Ngày hết hạn" />
-            <TableColumn fx:id="columnNote" prefWidth="92.6666259765625" text="Ghi chú" />
-         </columns>
-      </TableView>
-      <Button layoutX="701.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#handleEditClick" prefHeight="25.0" prefWidth="46.0" text="Sửa" />
-      <Button layoutX="861.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#handleExitClick" text="Thoát" />
-      <ComboBox fx:id="searchTypeComboBox" layoutX="210.0" layoutY="187.0" prefHeight="25.0" prefWidth="180.0" promptText="Chọn loại tìm kiếm" />
-      <Button layoutX="775.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#handleBackClick" prefHeight="25.0" prefWidth="46.0" text="in" />
-   </children>
+    <children>
+        <Label layoutX="365.0" layoutY="45.0" text="DANH SÁCH ĐỘC GIẢ">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Line endX="479.66668701171875" endY="-7.62939453125E-6" layoutX="341.0" layoutY="75.0" startX="-213.66665649414062" startY="-7.62939453125E-6" />
+        <TextField fx:id="searchField" layoutX="543.0" layoutY="187.0" onKeyPressed="#handleSearchInput" prefHeight="25.0" prefWidth="196.0" promptText="Tìm kiếm" />
+        <TableView fx:id="readerTableView" layoutX="99.0" layoutY="284.0" prefHeight="139.0" prefWidth="802.0">
+            <columns>
+                <TableColumn fx:id="columnReaderId" prefWidth="109.33334350585938" text="Mã độc giả" />
+                <TableColumn fx:id="columnReaderName" prefWidth="228.0" text="Tên độc giả" />
+                <TableColumn fx:id="columnContactInfo" prefWidth="107.33334350585938" text="Thông tin" />
+                <TableColumn fx:id="columnRenewalDate" prefWidth="164.00006103515625" text="Ngày gia hạn" />
+                <TableColumn fx:id="columnExpirationDate" prefWidth="98.0" text="Ngày hết hạn" />
+                <TableColumn fx:id="columnNote" prefWidth="92.6666259765625" text="Ghi chú" />
+            </columns>
+        </TableView>
+        <Button layoutX="701.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#handleEditClick" prefHeight="25.0" prefWidth="46.0" text="Sửa" />
+        <Button layoutX="861.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#handleExitClick" text="Thoát" />
+        <ComboBox fx:id="searchTypeComboBox" layoutX="210.0" layoutY="187.0" prefHeight="25.0" prefWidth="180.0" promptText="Chọn loại tìm kiếm" />
+        <Button layoutX="775.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#handleBackClick" prefHeight="25.0" prefWidth="46.0" text="in" />
+    </children>
 </Pane>

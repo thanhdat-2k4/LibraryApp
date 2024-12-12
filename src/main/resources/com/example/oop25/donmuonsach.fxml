@@ -11,37 +11,37 @@
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop25.BorrowBook">
-   <children>
-      <Label layoutX="430.0" layoutY="51.0" text="Phiếu mượn sách">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="179.0" layoutY="137.0" text="Mã độc giả" />
-      <Label layoutX="177.0" layoutY="201.0" text="Tên độc giả" />
-      <Label layoutX="592.0" layoutY="137.0" text="Ngày mượn" />
-      <Label layoutX="592.0" layoutY="200.0" text="Ngày hẹn trả" />
-      <TextField fx:id="readerIdField" layoutX="254.0" layoutY="133.0" />
-      <TextField fx:id="readerNameField" layoutX="254.0" layoutY="197.0" />
-      <Button layoutX="723.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#onSaveBorrowing" text="Lưu thông tin" />
-      <Button layoutX="625.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#onBackToMainPage" text="Quay lại" />
-      <Button layoutX="107.0" layoutY="407.0" mnemonicParsing="false" onMouseClicked="#onAddNewBorrow" text="+ Thêm dòng mới" />
-      <TableView fx:id="bookTable" layoutX="90.0" layoutY="261.0" prefHeight="117.0" prefWidth="798.0">
-         <columns>
-            <TableColumn fx:id="selectColumn" prefWidth="53.333351135253906" text="chọn">
-               <graphic>
-                  <CheckBox mnemonicParsing="false" />
-               </graphic>
-            </TableColumn>
-            <TableColumn fx:id="isbnColumn" prefWidth="123.99998474121094" text="ISBN" />
-            <TableColumn fx:id="titleColumn" prefWidth="136.6666259765625" text="Tên sách" />
-            <TableColumn fx:id="authorColumn" prefWidth="172.00003051757812" text="Tên tác giả" />
-            <TableColumn fx:id="publisherColumn" minWidth="6.6666259765625" prefWidth="106.0" text="NXB" />
-            <TableColumn fx:id="availableQuantityColumn" minWidth="0.0" prefWidth="108.00006103515625" text="Số lượng hiện còn" />
-            <TableColumn fx:id="borrowedQuantityColumn" prefWidth="99.3333740234375" text="Số lượng mượn" />
-         </columns>
-      </TableView>
-      <DatePicker fx:id="returnDatePicker" layoutX="674.0" layoutY="196.0" />
-      <DatePicker fx:id="borrowDatePicker" layoutX="674.0" layoutY="133.0" />
-   </children>
+    <children>
+        <Label layoutX="430.0" layoutY="51.0" text="Phiếu mượn sách">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Label layoutX="179.0" layoutY="137.0" text="Mã độc giả" />
+        <Label layoutX="177.0" layoutY="201.0" text="Tên độc giả" />
+        <Label layoutX="592.0" layoutY="137.0" text="Ngày mượn" />
+        <Label layoutX="592.0" layoutY="200.0" text="Ngày hẹn trả" />
+        <TextField fx:id="readerIdField" layoutX="254.0" layoutY="133.0" />
+        <TextField fx:id="readerNameField" layoutX="254.0" layoutY="197.0" />
+        <Button layoutX="723.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#onSaveBorrowing" text="Lưu thông tin" />
+        <Button layoutX="625.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#onBackToMainPage" text="Quay lại" />
+        <Button layoutX="107.0" layoutY="407.0" mnemonicParsing="false" onMouseClicked="#onAddNewBorrow" text="+ Thêm dòng mới" />
+        <TableView fx:id="bookTable" layoutX="90.0" layoutY="261.0" prefHeight="117.0" prefWidth="798.0">
+            <columns>
+                <TableColumn fx:id="selectColumn" prefWidth="53.333351135253906" text="chọn">
+                    <graphic>
+                        <CheckBox mnemonicParsing="false" />
+                    </graphic>
+                </TableColumn>
+                <TableColumn fx:id="isbnColumn" prefWidth="123.99998474121094" text="ISBN" />
+                <TableColumn fx:id="titleColumn" prefWidth="136.6666259765625" text="Tên sách" />
+                <TableColumn fx:id="authorColumn" prefWidth="172.00003051757812" text="Tên tác giả" />
+                <TableColumn fx:id="publisherColumn" minWidth="6.6666259765625" prefWidth="106.0" text="NXB" />
+                <TableColumn fx:id="availableQuantityColumn" minWidth="0.0" prefWidth="108.00006103515625" text="Số lượng hiện còn" />
+                <TableColumn fx:id="borrowedQuantityColumn" prefWidth="99.3333740234375" text="Số lượng mượn" />
+            </columns>
+        </TableView>
+        <DatePicker fx:id="returnDatePicker" layoutX="674.0" layoutY="196.0" />
+        <DatePicker fx:id="borrowDatePicker" layoutX="674.0" layoutY="133.0" />
+    </children>
 </Pane>
