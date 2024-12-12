@@ -1,50 +1,23 @@
-// nguoi muon
+//// nguoi muon
+
 package com.example.oop25;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 
-public class Borrower {
+public class Borrower extends Reader {
+    private final StringProperty borrowedBookTitle; // Tiêu đề sách mượn
+    private final StringProperty borrowStatus;     // Trạng thái mượn sách
 
-    private final StringProperty readerID;
-    private final StringProperty readerName;
-    private final StringProperty borrowedBookTitle;
-    private final StringProperty borrowStatus;
-
-    public Borrower(String readerID, String readerName, String borrowedBookTitle, String borrowStatus) {
-        this.readerID = new SimpleStringProperty(readerID);
-        this.readerName = new SimpleStringProperty(readerName);
+    // Constructor
+    public Borrower(String readerId, String readerName, String borrowedBookTitle, String borrowStatus) {
+        super(readerId, readerName, null, null, null, null); // Gọi constructor của lớp Reader với các giá trị không sử dụng
         this.borrowedBookTitle = new SimpleStringProperty(borrowedBookTitle);
         this.borrowStatus = new SimpleStringProperty(borrowStatus);
     }
 
-    // Getter and Setter for readerID
-    public String getReaderID() {
-        return readerID.get();
-    }
-
-    public void setReaderID(String readerID) {
-        this.readerID.set(readerID);
-    }
-
-    public StringProperty readerIDProperty() {
-        return readerID;
-    }
-
-    // Getter and Setter for readerName
-    public String getReaderName() {
-        return readerName.get();
-    }
-
-    public void setReaderName(String readerName) {
-        this.readerName.set(readerName);
-    }
-
-    public StringProperty readerNameProperty() {
-        return readerName;
-    }
-
-    // Getter and Setter for borrowedBookTitle
+    // Getter và Setter cho borrowedBookTitle
     public String getBorrowedBookTitle() {
         return borrowedBookTitle.get();
     }
@@ -57,7 +30,7 @@ public class Borrower {
         return borrowedBookTitle;
     }
 
-    // Getter and Setter for borrowStatus
+    // Getter và Setter cho borrowStatus
     public String getBorrowStatus() {
         return borrowStatus.get();
     }
@@ -69,4 +42,5 @@ public class Borrower {
     public StringProperty borrowStatusProperty() {
         return borrowStatus;
     }
+
 }

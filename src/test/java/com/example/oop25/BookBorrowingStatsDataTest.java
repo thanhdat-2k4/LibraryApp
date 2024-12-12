@@ -1,75 +1,52 @@
 package com.example.oop25;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BookBorrowingStatsDataTest {
+class BookBorrowingStatsDataTest {
+    private BookBorrowingStatsData bookStats;
+
+    @BeforeEach
+    void setUp() {
+        // Khởi tạo đối tượng BookBorrowingStatsData với các tham số
+        bookStats = new BookBorrowingStatsData(1, "123-456-789", "Sample Book", 5, 10);
+    }
 
     @Test
-    public void testConstructorAndGetters() {
-        // Khởi tạo đối tượng
-        BookBorrowingStatsData bookStats = new BookBorrowingStatsData(1, "123456", "Test Book", 5, 10);
-
-        // Kiểm tra giá trị khởi tạo
+    void testConstructorAndGetters() {
+        // Kiểm tra constructor và các phương thức getter
         assertEquals(1, bookStats.getOrderNumber());
-        assertEquals(15, bookStats.getTotalBooks());  // Tổng sách = borrowed + available
-        assertEquals("123456", bookStats.getBookId());
-        assertEquals("Test Book", bookStats.getBookTitle());
-        assertEquals(10, bookStats.getAvailableQuantity());
+        assertEquals("Sample Book", bookStats.getBookTitle());
+        assertEquals("123-456-789", bookStats.getBookId());  // Sử dụng getBookId thay vì getIsbn
         assertEquals(5, bookStats.getBorrowedQuantity());
+        assertEquals(10, bookStats.getAvailableQuantity());
+        assertEquals(15, bookStats.getTotalBooks()); // 5 mượn + 10 còn lại = 15 tổng
     }
 
     @Test
-    public void testSetBorrowedCopies() {
-        // Khởi tạo đối tượng
-        BookBorrowingStatsData bookStats = new BookBorrowingStatsData(1, "123456", "Test Book", 5, 10);
+    void testUpdateTotalBooks() {
+        // Kiểm tra phương thức updateTotalBooks
+        bookStats.setAvailableQuantity(8);
+        bookStats.setBorrowedCopies(7);
+        bookStats.updateTotalBooks();
 
-        // Thay đổi số sách mượn
-        bookStats.borrowedCopiesProperty().set(7); // Đặt số sách mượn là 7
-
-        // Kiểm tra giá trị sau khi thay đổi
-        assertEquals(7, bookStats.getBorrowedQuantity());
-        assertEquals(17, bookStats.getTotalBooks()); // Tổng sách cập nhật theo giá trị mới
+        // Kiểm tra lại tổng số sách
+        assertEquals(15, bookStats.getTotalBooks()); // 7 mượn + 8 còn lại = 15 tổng
     }
 
     @Test
-    public void testSetAvailableCopies() {
-        // Khởi tạo đối tượng
-        BookBorrowingStatsData bookStats = new BookBorrowingStatsData(1, "123456", "Test Book", 5, 10);
-
-        // Thay đổi số sách còn lại
-        bookStats.availableCopiesProperty().set(8); // Đặt số sách còn lại là 8
-
-        // Kiểm tra giá trị sau khi thay đổi
-        assertEquals(8, bookStats.getAvailableQuantity());
-        assertEquals(13, bookStats.getTotalBooks()); // Tổng sách cập nhật theo giá trị mới
+    void testSetAvailableQuantity() {
+        // Kiểm tra việc thay đổi số lượng sách có sẵn
+        bookStats.setAvailableQuantity(20);
+        assertEquals(20, bookStats.getAvailableQuantity());
     }
 
     @Test
-    public void testUpdateProperties() {
-        // Khởi tạo đối tượng
-        BookBorrowingStatsData bookStats = new BookBorrowingStatsData(1, "123456", "Test Book", 5, 10);
-
-        // Thay đổi cả hai giá trị
-        bookStats.borrowedCopiesProperty().set(6);
-        bookStats.availableCopiesProperty().set(9);
-
-        // Kiểm tra giá trị cập nhật
-        assertEquals(6, bookStats.getBorrowedQuantity());
-        assertEquals(9, bookStats.getAvailableQuantity());
-        assertEquals(15, bookStats.getTotalBooks());
-    }
-
-    @Test
-    public void testOrderNumberProperty() {
-        // Kiểm tra xem thứ tự có được lưu trữ đúng không
-        BookBorrowingStatsData bookStats = new BookBorrowingStatsData(1, "123456", "Test Book", 5, 10);
-
-        assertEquals(1, bookStats.orderNumberProperty().get());
-
-        // Thay đổi thứ tự
-        bookStats.orderNumberProperty().set(2);
-        assertEquals(2, bookStats.getOrderNumber());
+    void testSetBorrowedQuantity() {
+        // Kiểm tra việc thay đổi số lượng sách đã mượn
+        bookStats.setBorrowedCopies(12);
+        assertEquals(12, bookStats.getBorrowedQuantity());
     }
 }

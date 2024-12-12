@@ -168,7 +168,13 @@ public class BorrowerStatistics {
             return new SimpleStringProperty(String.valueOf(rowIndex));
         });
 
-        readerID.setCellValueFactory(cellData -> cellData.getValue().readerIDProperty());
+       // readerID.setCellValueFactory(cellData -> cellData.getValue().readerIDProperty());
+
+        readerID.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(cellData.getValue().getReaderId());
+        });
+
+
         reader.setCellValueFactory(cellData -> cellData.getValue().readerNameProperty());
         borrowBookTitle.setCellValueFactory(cellData -> cellData.getValue().borrowedBookTitleProperty());
         borrowStatus.setCellValueFactory(cellData -> cellData.getValue().borrowStatusProperty());
