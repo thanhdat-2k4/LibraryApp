@@ -95,6 +95,7 @@ public class LibraryRemainingBooksStats {
         tableView.setItems(dataList);
     }
 
+
     private void setupDatabaseConnection() {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1234");
@@ -179,6 +180,7 @@ public class LibraryRemainingBooksStats {
             e.printStackTrace();
         }
     }
+
 
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
